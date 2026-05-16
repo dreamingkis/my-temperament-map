@@ -11,6 +11,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { BasicResultPreview, DeepResultPreview } from "@/components/ResultPreviews";
 
 export const Route = createFileRoute("/")({
   head: () => ({
