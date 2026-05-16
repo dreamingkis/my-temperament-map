@@ -159,7 +159,7 @@ function Landing() {
               className="absolute inset-x-0 top-0 h-1.5"
               style={{ backgroundColor: "var(--chart-2)" }}
             />
-            <div className="mb-6 flex items-start justify-between">
+            <div className="mb-4 sm:mb-6 flex items-start justify-between">
               <div
                 className="rounded-2xl p-3"
                 style={{
