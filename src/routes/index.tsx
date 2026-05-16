@@ -258,6 +258,11 @@ function Index() {
                       stroke="hsl(var(--primary))"
                       fill="hsl(var(--primary))"
                       fillOpacity={0.25}
+                      label={{
+                        fill: "hsl(var(--foreground))",
+                        fontSize: 12,
+                        offset: 10,
+                      }}
                     />
                   </RadarChart>
                 </ResponsiveContainer>
