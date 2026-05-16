@@ -1,7 +1,15 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { ArrowRight, Brain, Compass, ShieldCheck, Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import {
+  ArrowRight,
+  Brain,
+  ClipboardList,
+  Clock,
+  Compass,
+  Layers,
+  ShieldCheck,
+  Sparkles,
+} from "lucide-react";
 import { Card } from "@/components/ui/card";
 
 
