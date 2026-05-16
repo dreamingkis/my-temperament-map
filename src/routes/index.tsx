@@ -35,12 +35,6 @@ function Landing() {
       navigate({ to: "/test", hash: hash.slice(1) as never });
     }
   }, [navigate]);
-
-  const traits = (Object.keys(TRAIT_INFO) as Trait[]).map((t) => ({
-    key: t,
-    ...TRAIT_INFO[t],
-  }));
-
   return (
     <main className="min-h-screen bg-background text-foreground">
       {/* Hero */}
