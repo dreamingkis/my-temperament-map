@@ -48,6 +48,23 @@ function levelLabel(score: number) {
   return "높음";
 }
 
+function renderAxisTick(props: any) {
+  const { payload, x, y, textAnchor } = props;
+  const entry = TRAITS.find((t) => TRAIT_INFO[t].name === payload.value);
+  const color = entry ? TRAIT_INFO[entry].color : "var(--foreground)";
+  return (
+    <text x={x} y={y} textAnchor={textAnchor} fill={color} fontSize={14} fontWeight={600}>
+      {payload.value}
+    </text>
+  );
+}
+
+function renderRadarDot(props: any) {
+  const { cx, cy, index: i } = props;
+  const color = TRAIT_INFO[TRAITS[i]].color;
+  return <circle cx={cx} cy={cy} r={6} fill={color} stroke="var(--background)" strokeWidth={2} />;
+}
+
 function NeoTest() {
   const [stage, setStage] = useState<Stage>("intro");
   const [answers, setAnswers] = useState<Record<number, number>>({});
