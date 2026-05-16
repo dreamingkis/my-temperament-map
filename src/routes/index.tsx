@@ -333,6 +333,55 @@ function Index() {
               })}
             </div>
 
+            <Card className="mt-8 p-6 sm:p-7">
+              <h2 className="text-lg font-semibold sm:text-xl">점수를 어떻게 이해하면 좋을까요</h2>
+              <div className="mt-4 space-y-4 text-sm leading-relaxed text-muted-foreground sm:text-[15px]">
+                <p>
+                  Big Five는 성격을 다섯 개의 <span className="font-medium text-foreground">연속적인 차원</span>으로 보는 모델입니다.
+                  점수는 한 사람을 특정 유형으로 분류하는 라벨이 아니라, 각 성향이 나에게 얼마나 자주·강하게 나타나는지를 보여주는 상대적인 위치입니다.
+                  높다고 좋고 낮다고 나쁜 점수는 없으며, 각 위치마다 잘 어울리는 환경과 강점이 다릅니다.
+                </p>
+                <p>
+                  성격 특질은 비교적 안정적이지만 고정된 것은 아닙니다. 연구에 따르면 성인기 동안에도 환경, 역할, 인생 경험에 따라
+                  <span className="font-medium text-foreground"> 점진적으로 변화</span>합니다(Roberts &amp; Mroczek, 2008).
+                  오늘의 점수는 ‘지금의 나’를 비추는 스냅샷에 가깝습니다.
+                </p>
+                <p>
+                  또한 성격은 상황에 따라 다르게 표현됩니다(person-situation interaction).
+                  같은 외향성 점수여도 친한 사람 앞과 회의실에서의 모습은 다를 수 있어요.
+                  점수보다 <span className="font-medium text-foreground">어떤 상황에서 그 성향이 강하게 드러나는지</span>를 함께 살펴보면 더 유용합니다.
+                </p>
+              </div>
+
+              <h3 className="mt-6 text-base font-semibold text-foreground">자기이해에 활용하는 방법</h3>
+              <ul className="mt-3 space-y-2.5 text-sm leading-relaxed text-muted-foreground sm:text-[15px]">
+                <li>
+                  <span className="font-medium text-foreground">강점으로 다시 읽기.</span>{" "}
+                  각 요인의 점수는 잘 맞는 환경과 일하는 방식의 단서입니다. 예: 성실성이 높다면 구조화된 계획이, 개방성이 높다면 새로운 자극이 동력이 됩니다.
+                </li>
+                <li>
+                  <span className="font-medium text-foreground">대비되는 두 요인을 함께 보기.</span>{" "}
+                  외향성 × 친화성, 성실성 × 개방성처럼 조합으로 볼 때 협업 스타일과 의사결정 패턴이 더 분명히 보입니다.
+                </li>
+                <li>
+                  <span className="font-medium text-foreground">신경성은 ‘민감도’로 읽기.</span>{" "}
+                  점수가 높다면 약점이 아니라 스트레스 신호를 빠르게 감지하는 신호 시스템이라고 보고, 회복 루틴을 함께 설계해보세요.
+                </li>
+                <li>
+                  <span className="font-medium text-foreground">시간을 두고 다시 측정해 보기.</span>{" "}
+                  6개월~1년 뒤 다시 해보면, 환경 변화에 따라 어떤 차원이 어떻게 움직였는지 관찰할 수 있습니다.
+                </li>
+                <li>
+                  <span className="font-medium text-foreground">결과를 대화의 출발점으로.</span>{" "}
+                  가까운 사람과 점수에 대해 이야기 나누면, 내가 인식하는 나와 타인이 보는 나 사이의 간극을 확인할 수 있습니다.
+                </li>
+              </ul>
+
+              <p className="mt-5 text-xs text-muted-foreground">
+                ※ 본 결과는 IPIP-50(Goldberg, 1992) 문항을 기반으로 한 자기이해용 자료이며, 임상적 진단이나 인사 의사결정의 근거가 아닙니다.
+              </p>
+            </Card>
+
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Button
                 onClick={handleKakaoShare}
