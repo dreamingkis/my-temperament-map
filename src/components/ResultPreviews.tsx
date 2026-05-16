@@ -8,17 +8,17 @@ const TRAITS = [
 
 export function BasicResultPreview() {
   return (
-    <div className="pointer-events-none aspect-[4/5] w-full overflow-hidden rounded-2xl border border-border/60 bg-gradient-to-br from-background to-muted/40 p-4 shadow-inner">
-      <div className="mb-3 text-center">
-        <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+    <div className="pointer-events-none w-full max-h-48 sm:max-h-56 overflow-hidden rounded-2xl border border-border/60 bg-gradient-to-br from-background to-muted/40 p-3 sm:p-4 shadow-inner">
+      <div className="mb-2 sm:mb-3 text-center">
+        <p className="text-[9px] sm:text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
           IPIP-50 · Big Five
         </p>
-        <p className="mt-0.5 text-xs font-bold">기본 성격 진단 결과</p>
+        <p className="mt-0.5 text-[11px] sm:text-xs font-bold">기본 성격 진단 결과</p>
       </div>
-      <div className="space-y-2.5">
+      <div className="space-y-1.5 sm:space-y-2.5">
         {TRAITS.map((t) => (
           <div key={t.key}>
-            <div className="mb-1 flex items-center justify-between text-[10px]">
+            <div className="mb-0.5 sm:mb-1 flex items-center justify-between text-[9px] sm:text-[10px]">
               <span className="font-semibold text-foreground">{t.name}</span>
               <span className="font-bold" style={{ color: t.color }}>
                 {t.score}
@@ -38,10 +38,10 @@ export function BasicResultPreview() {
 }
 
 export function DeepResultPreview() {
-  // pentagon radar
-  const size = 180;
-  const cx = size / 2;
-  const cy = size / 2 + 4;
+  // pentagon radar — use a viewBox so it scales responsively
+  const vbSize = 180;
+  const cx = vbSize / 2;
+  const cy = vbSize / 2 + 4;
   const radius = 62;
   const n = 5;
   const angle = (i: number) => -Math.PI / 2 + (i * 2 * Math.PI) / n;
@@ -65,20 +65,20 @@ export function DeepResultPreview() {
 
   return (
     <div
-      className="pointer-events-none aspect-[4/5] w-full overflow-hidden rounded-2xl border border-white/10 p-4 shadow-inner"
+      className="pointer-events-none w-full max-h-48 sm:max-h-56 overflow-hidden rounded-2xl border border-white/10 p-3 sm:p-4 shadow-inner"
       style={{
         background:
           "linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4c1d95 100%)",
       }}
     >
-      <div className="mb-2 text-center">
-        <p className="text-[10px] font-semibold uppercase tracking-widest text-white/60">
+      <div className="mb-1 sm:mb-2 text-center">
+        <p className="text-[9px] sm:text-[10px] font-semibold uppercase tracking-widest text-white/60">
           IPIP-NEO-120 · 30 Facets
         </p>
-        <p className="mt-0.5 text-xs font-bold text-white">심층 성격 진단 결과</p>
+        <p className="mt-0.5 text-[11px] sm:text-xs font-bold text-white">심층 성격 진단 결과</p>
       </div>
       <div className="flex justify-center">
-        <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+        <svg className="w-full h-auto max-w-[140px] sm:max-w-[160px]" viewBox={`0 0 ${vbSize} ${vbSize}`}>
           {[0.25, 0.5, 0.75, 1].map((s) => (
             <path
               key={s}
@@ -137,10 +137,10 @@ export function DeepResultPreview() {
       <div className="mt-1 grid grid-cols-5 gap-1">
         {TRAITS.map((t) => (
           <div key={t.key} className="text-center">
-            <div className="text-[9px] font-bold" style={{ color: t.color }}>
+            <div className="text-[8px] sm:text-[9px] font-bold" style={{ color: t.color }}>
               {t.score}
             </div>
-            <div className="text-[8px] text-white/50">{t.name[0]}</div>
+            <div className="text-[7px] sm:text-[8px] text-white/50">{t.name[0]}</div>
           </div>
         ))}
       </div>
