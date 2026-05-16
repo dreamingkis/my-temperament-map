@@ -164,11 +164,18 @@ function Index() {
         {stage === "quiz" && (
           <section>
             <div className="mb-6">
-              <div className="mb-2 flex items-center justify-between text-sm text-muted-foreground">
-                <span>
-                  {index + 1} / {QUESTIONS.length}
+              <div className="mb-2 flex items-baseline justify-between">
+                <div className="flex items-baseline gap-1">
+                  <span className="text-2xl font-bold tabular-nums text-foreground">
+                    {index + 1}
+                  </span>
+                  <span className="text-sm text-muted-foreground">
+                    / {QUESTIONS.length} 문항
+                  </span>
+                </div>
+                <span className="text-sm font-semibold tabular-nums text-primary">
+                  {Math.round(progress)}%
                 </span>
-                <span>{Math.round(progress)}%</span>
               </div>
               <Progress value={progress} />
             </div>
