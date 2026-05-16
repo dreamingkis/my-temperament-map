@@ -3,6 +3,14 @@ import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { Download, Link2, MessageCircle } from "lucide-react";
 import {
+  RadarChart,
+  Radar,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+  ResponsiveContainer,
+} from "recharts";
+import {
   QUESTIONS,
   SCALE_LABELS,
   TRAIT_INFO,
@@ -220,7 +228,43 @@ function Index() {
               각 요인별 점수는 0~100점으로 표시됩니다.
             </p>
 
-            <div className="mt-8 space-y-4">
+            <Card className="mt-6 p-4">
+              <div className="h-72 w-full sm:h-80">
+                <ResponsiveContainer width="100%" height="100%">
+                  <RadarChart
+                    data={[
+                      { subject: TRAIT_INFO.O.name, score: scores.O },
+                      { subject: TRAIT_INFO.C.name, score: scores.C },
+                      { subject: TRAIT_INFO.E.name, score: scores.E },
+                      { subject: TRAIT_INFO.A.name, score: scores.A },
+                      { subject: TRAIT_INFO.N.name, score: scores.N },
+                    ]}
+                    margin={{ top: 16, right: 16, bottom: 16, left: 16 }}
+                  >
+                    <PolarGrid stroke="hsl(var(--border))" />
+                    <PolarAngleAxis
+                      dataKey="subject"
+                      tick={{ fill: "hsl(var(--foreground))", fontSize: 13 }}
+                    />
+                    <PolarRadiusAxis
+                      domain={[0, 100]}
+                      tickCount={6}
+                      tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 11 }}
+                      stroke="hsl(var(--border))"
+                    />
+                    <Radar
+                      name="점수"
+                      dataKey="score"
+                      stroke="hsl(var(--primary))"
+                      fill="hsl(var(--primary))"
+                      fillOpacity={0.25}
+                    />
+                  </RadarChart>
+                </ResponsiveContainer>
+              </div>
+            </Card>
+
+            <div className="mt-6 space-y-4">
               {(Object.keys(TRAIT_INFO) as Trait[]).map((t) => {
                 const info = TRAIT_INFO[t];
                 const score = scores[t];
