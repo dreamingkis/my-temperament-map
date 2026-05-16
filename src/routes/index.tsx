@@ -263,7 +263,7 @@ function Index() {
                     margin={{ top: 24, right: 40, bottom: 24, left: 40 }}
                     outerRadius="75%"
                   >
-                    <PolarGrid stroke="hsl(var(--border))" strokeOpacity={0.7} />
+                    <PolarGrid stroke="var(--border)" strokeOpacity={1} />
                     <PolarAngleAxis
                       dataKey="subject"
                       tick={(props: any) => {
@@ -272,7 +272,7 @@ function Index() {
                         const entry = traits
                           .map((t) => ({ subject: TRAIT_INFO[t].name, trait: t }))
                           .find((d) => d.subject === payload.value);
-                        const color = entry ? TRAIT_INFO[entry.trait].color : "hsl(var(--foreground))";
+                        const color = entry ? TRAIT_INFO[entry.trait].color : "var(--foreground)";
                         return (
                           <text x={x} y={y} textAnchor={textAnchor} fill={color} fontSize={14} fontWeight={600}>
                             {payload.value}
@@ -284,34 +284,10 @@ function Index() {
                       domain={[0, 100]}
                       tickCount={6}
                       angle={90}
-                      tick={(props: any) => {
-                        const { x, y, payload } = props;
-                        return (
-                          <g>
-                            <rect
-                              x={x - 14}
-                              y={y - 8}
-                              width={28}
-                              height={16}
-                              rx={8}
-                              fill="hsl(var(--background))"
-                              fillOpacity={0.9}
-                              stroke="hsl(var(--border))"
-                              strokeOpacity={0.6}
-                            />
-                            <text
-                              x={x}
-                              y={y}
-                              dy={4}
-                              textAnchor="middle"
-                              fill="hsl(var(--muted-foreground))"
-                              fontSize={10}
-                              fontWeight={500}
-                            >
-                              {payload.value}
-                            </text>
-                          </g>
-                        );
+                      tick={{
+                        fill: "var(--muted-foreground)",
+                        fontSize: 10,
+                        fontWeight: 500,
                       }}
                       axisLine={false}
                       tickLine={false}
