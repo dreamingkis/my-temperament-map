@@ -36,73 +36,73 @@ export const TRAIT_INFO: Record<Trait, { name: string; desc: string; high: strin
 export interface Question {
   id: number;
   text: string;
+  en: string;
   trait: Trait;
   reverse: boolean;
 }
 
-// 25 questions, 5 per trait (mix of regular and reverse-scored)
 // IPIP Big-Five Factor Markers (50 items, Goldberg 1992) — public domain
 // Source: https://ipip.ori.org/New_IPIP-50-item-scale.htm
 export const QUESTIONS: Question[] = [
   // Extraversion (E) — 10 items
-  { id: 1, text: "나는 모임에서 분위기를 주도하는 편이다.", trait: "E", reverse: false },
-  { id: 2, text: "나는 평소 말수가 적은 편이다.", trait: "E", reverse: true },
-  { id: 3, text: "나는 사람들과 어울릴 때 마음이 편안하다.", trait: "E", reverse: false },
-  { id: 4, text: "나는 무리에서 한 발 뒤로 빠져 있는 편이다.", trait: "E", reverse: true },
-  { id: 5, text: "나는 먼저 다가가 말을 거는 편이다.", trait: "E", reverse: false },
-  { id: 6, text: "나는 딱히 할 말이 떠오르지 않을 때가 많다.", trait: "E", reverse: true },
-  { id: 7, text: "나는 모임에서 다양한 사람들과 두루 이야기를 나눈다.", trait: "E", reverse: false },
-  { id: 8, text: "나는 남들의 시선이 내게 쏠리는 것이 부담스럽다.", trait: "E", reverse: true },
-  { id: 9, text: "나는 사람들의 주목을 받는 상황이 싫지 않다.", trait: "E", reverse: false },
-  { id: 10, text: "나는 처음 보는 사람들 앞에서는 말이 없어진다.", trait: "E", reverse: true },
+  { id: 1, text: "나는 모임에서 분위기를 주도하는 편이다.", en: "Am the life of the party.", trait: "E", reverse: false },
+  { id: 2, text: "나는 평소 말수가 적은 편이다.", en: "Don't talk a lot.", trait: "E", reverse: true },
+  { id: 3, text: "나는 사람들과 어울릴 때 마음이 편안하다.", en: "Feel comfortable around people.", trait: "E", reverse: false },
+  { id: 4, text: "나는 무리에서 한 발 뒤로 빠져 있는 편이다.", en: "Keep in the background.", trait: "E", reverse: true },
+  { id: 5, text: "나는 먼저 다가가 말을 거는 편이다.", en: "Start conversations.", trait: "E", reverse: false },
+  { id: 6, text: "나는 딱히 할 말이 떠오르지 않을 때가 많다.", en: "Have little to say.", trait: "E", reverse: true },
+  { id: 7, text: "나는 모임에서 다양한 사람들과 두루 이야기를 나눈다.", en: "Talk to a lot of different people at parties.", trait: "E", reverse: false },
+  { id: 8, text: "나는 남들의 시선이 내게 쏠리는 것이 부담스럽다.", en: "Don't like to draw attention to myself.", trait: "E", reverse: true },
+  { id: 9, text: "나는 사람들의 주목을 받는 상황이 싫지 않다.", en: "Don't mind being the center of attention.", trait: "E", reverse: false },
+  { id: 10, text: "나는 처음 보는 사람들 앞에서는 말이 없어진다.", en: "Am quiet around strangers.", trait: "E", reverse: true },
 
   // Agreeableness (A) — 10 items
-  { id: 11, text: "나는 솔직히 타인의 일에는 별로 마음이 쓰이지 않는다.", trait: "A", reverse: true },
-  { id: 12, text: "나는 사람 자체에 흥미를 느낀다.", trait: "A", reverse: false },
-  { id: 13, text: "나는 상대방에게 상처가 될 만한 말을 할 때가 있다.", trait: "A", reverse: true },
-  { id: 14, text: "나는 다른 사람의 기분을 헤아릴 줄 안다.", trait: "A", reverse: false },
-  { id: 15, text: "나는 남의 고민에는 크게 신경 쓰지 않는다.", trait: "A", reverse: true },
-  { id: 16, text: "나는 정이 많고 마음이 따뜻한 편이다.", trait: "A", reverse: false },
-  { id: 17, text: "나는 다른 사람에 대해 굳이 알고 싶다는 생각이 들지 않는다.", trait: "A", reverse: true },
-  { id: 18, text: "나는 바쁘더라도 다른 사람을 위해 시간을 내준다.", trait: "A", reverse: false },
-  { id: 19, text: "나는 다른 사람의 감정에 쉽게 동화된다.", trait: "A", reverse: false },
-  { id: 20, text: "나는 사람들이 내 곁에서 편안함을 느끼게 한다.", trait: "A", reverse: false },
+  { id: 11, text: "나는 솔직히 타인의 일에는 별로 마음이 쓰이지 않는다.", en: "Feel little concern for others.", trait: "A", reverse: true },
+  { id: 12, text: "나는 사람 자체에 흥미를 느낀다.", en: "Am interested in people.", trait: "A", reverse: false },
+  { id: 13, text: "나는 상대방에게 상처가 될 만한 말을 할 때가 있다.", en: "Insult people.", trait: "A", reverse: true },
+  { id: 14, text: "나는 다른 사람의 기분을 헤아릴 줄 안다.", en: "Sympathize with others' feelings.", trait: "A", reverse: false },
+  { id: 15, text: "나는 남의 고민에는 크게 신경 쓰지 않는다.", en: "Am not interested in other people's problems.", trait: "A", reverse: true },
+  { id: 16, text: "나는 정이 많고 마음이 따뜻한 편이다.", en: "Have a soft heart.", trait: "A", reverse: false },
+  { id: 17, text: "나는 다른 사람에 대해 굳이 알고 싶다는 생각이 들지 않는다.", en: "Am not really interested in others.", trait: "A", reverse: true },
+  { id: 18, text: "나는 바쁘더라도 다른 사람을 위해 시간을 내준다.", en: "Take time out for others.", trait: "A", reverse: false },
+  { id: 19, text: "나는 다른 사람의 감정에 쉽게 동화된다.", en: "Feel others' emotions.", trait: "A", reverse: false },
+  { id: 20, text: "나는 사람들이 내 곁에서 편안함을 느끼게 한다.", en: "Make people feel at ease.", trait: "A", reverse: false },
 
   // Conscientiousness (C) — 10 items
-  { id: 21, text: "나는 무슨 일이든 미리 준비해두는 편이다.", trait: "C", reverse: false },
-  { id: 22, text: "나는 내 물건을 아무 데나 두곤 한다.", trait: "C", reverse: true },
-  { id: 23, text: "나는 사소한 부분까지 꼼꼼하게 챙긴다.", trait: "C", reverse: false },
-  { id: 24, text: "나는 일을 어수선하게 만들곤 한다.", trait: "C", reverse: true },
-  { id: 25, text: "나는 해야 할 일은 미루지 않고 바로 처리한다.", trait: "C", reverse: false },
-  { id: 26, text: "나는 물건을 제자리에 두는 것을 종종 잊는다.", trait: "C", reverse: true },
-  { id: 27, text: "나는 주변이 잘 정돈되어 있는 것을 좋아한다.", trait: "C", reverse: false },
-  { id: 28, text: "나는 내가 맡은 일을 슬쩍 미루거나 피할 때가 있다.", trait: "C", reverse: true },
-  { id: 29, text: "나는 정해진 계획과 일정에 따라 움직인다.", trait: "C", reverse: false },
-  { id: 30, text: "나는 맡은 일을 빈틈없이 처리하려 한다.", trait: "C", reverse: false },
+  { id: 21, text: "나는 무슨 일이든 미리 준비해두는 편이다.", en: "Am always prepared.", trait: "C", reverse: false },
+  { id: 22, text: "나는 내 물건을 아무 데나 두곤 한다.", en: "Leave my belongings around.", trait: "C", reverse: true },
+  { id: 23, text: "나는 사소한 부분까지 꼼꼼하게 챙긴다.", en: "Pay attention to details.", trait: "C", reverse: false },
+  { id: 24, text: "나는 일을 어수선하게 만들곤 한다.", en: "Make a mess of things.", trait: "C", reverse: true },
+  { id: 25, text: "나는 해야 할 일은 미루지 않고 바로 처리한다.", en: "Get chores done right away.", trait: "C", reverse: false },
+  { id: 26, text: "나는 물건을 제자리에 두는 것을 종종 잊는다.", en: "Often forget to put things back in their proper place.", trait: "C", reverse: true },
+  { id: 27, text: "나는 주변이 잘 정돈되어 있는 것을 좋아한다.", en: "Like order.", trait: "C", reverse: false },
+  { id: 28, text: "나는 내가 맡은 일을 슬쩍 미루거나 피할 때가 있다.", en: "Shirk my duties.", trait: "C", reverse: true },
+  { id: 29, text: "나는 정해진 계획과 일정에 따라 움직인다.", en: "Follow a schedule.", trait: "C", reverse: false },
+  { id: 30, text: "나는 맡은 일을 빈틈없이 처리하려 한다.", en: "Am exacting in my work.", trait: "C", reverse: false },
 
   // Neuroticism (N) — 10 items
-  { id: 31, text: "나는 작은 일에도 쉽게 스트레스를 받는다.", trait: "N", reverse: false },
-  { id: 32, text: "나는 평소 마음이 차분하고 여유로운 편이다.", trait: "N", reverse: true },
-  { id: 33, text: "나는 이런저런 일을 자주 곱씹으며 걱정한다.", trait: "N", reverse: false },
-  { id: 34, text: "나는 우울해지는 일이 거의 없다.", trait: "N", reverse: true },
-  { id: 35, text: "나는 작은 자극에도 마음이 쉽게 흔들린다.", trait: "N", reverse: false },
-  { id: 36, text: "나는 사소한 일에도 금세 속이 상한다.", trait: "N", reverse: false },
-  { id: 37, text: "나는 기분이 자주 바뀌는 편이다.", trait: "N", reverse: false },
-  { id: 38, text: "나는 감정의 기복이 큰 편이다.", trait: "N", reverse: false },
-  { id: 39, text: "나는 별것 아닌 일에도 쉽게 짜증이 난다.", trait: "N", reverse: false },
-  { id: 40, text: "나는 이유 없이 울적해질 때가 많다.", trait: "N", reverse: false },
+  { id: 31, text: "나는 작은 일에도 쉽게 스트레스를 받는다.", en: "Get stressed out easily.", trait: "N", reverse: false },
+  { id: 32, text: "나는 평소 마음이 차분하고 여유로운 편이다.", en: "Am relaxed most of the time.", trait: "N", reverse: true },
+  { id: 33, text: "나는 이런저런 일을 자주 곱씹으며 걱정한다.", en: "Worry about things.", trait: "N", reverse: false },
+  { id: 34, text: "나는 우울해지는 일이 거의 없다.", en: "Seldom feel blue.", trait: "N", reverse: true },
+  { id: 35, text: "나는 작은 자극에도 마음이 쉽게 흔들린다.", en: "Am easily disturbed.", trait: "N", reverse: false },
+  { id: 36, text: "나는 사소한 일에도 금세 속이 상한다.", en: "Get upset easily.", trait: "N", reverse: false },
+  { id: 37, text: "나는 기분이 자주 바뀌는 편이다.", en: "Change my mood a lot.", trait: "N", reverse: false },
+  { id: 38, text: "나는 감정의 기복이 큰 편이다.", en: "Have frequent mood swings.", trait: "N", reverse: false },
+  { id: 39, text: "나는 별것 아닌 일에도 쉽게 짜증이 난다.", en: "Get irritated easily.", trait: "N", reverse: false },
+  { id: 40, text: "나는 이유 없이 울적해질 때가 많다.", en: "Often feel blue.", trait: "N", reverse: false },
 
   // Openness (O) — 10 items
-  { id: 41, text: "나는 다양한 단어를 자유롭게 구사한다.", trait: "O", reverse: false },
-  { id: 42, text: "나는 추상적인 개념을 이해하는 것이 어렵다.", trait: "O", reverse: true },
-  { id: 43, text: "나는 머릿속에 생생한 상상이 잘 떠오른다.", trait: "O", reverse: false },
-  { id: 44, text: "나는 추상적인 주제에는 흥미가 가지 않는다.", trait: "O", reverse: true },
-  { id: 45, text: "나는 종종 기발한 아이디어를 떠올린다.", trait: "O", reverse: false },
-  { id: 46, text: "나는 상상력이 풍부한 편은 아니다.", trait: "O", reverse: true },
-  { id: 47, text: "나는 새로운 개념을 빠르게 이해하는 편이다.", trait: "O", reverse: false },
-  { id: 48, text: "나는 평소 어려운 단어도 자연스럽게 사용한다.", trait: "O", reverse: false },
-  { id: 49, text: "나는 어떤 일에 대해 깊이 생각하는 시간을 즐긴다.", trait: "O", reverse: false },
-  { id: 50, text: "나는 늘 새로운 아이디어로 가득 차 있다.", trait: "O", reverse: false },
+  { id: 41, text: "나는 다양한 단어를 자유롭게 구사한다.", en: "Have a rich vocabulary.", trait: "O", reverse: false },
+  { id: 42, text: "나는 추상적인 개념을 이해하는 것이 어렵다.", en: "Have difficulty understanding abstract ideas.", trait: "O", reverse: true },
+  { id: 43, text: "나는 머릿속에 생생한 상상이 잘 떠오른다.", en: "Have a vivid imagination.", trait: "O", reverse: false },
+  { id: 44, text: "나는 추상적인 주제에는 흥미가 가지 않는다.", en: "Am not interested in abstract ideas.", trait: "O", reverse: true },
+  { id: 45, text: "나는 종종 기발한 아이디어를 떠올린다.", en: "Have excellent ideas.", trait: "O", reverse: false },
+  { id: 46, text: "나는 상상력이 풍부한 편은 아니다.", en: "Do not have a good imagination.", trait: "O", reverse: true },
+  { id: 47, text: "나는 새로운 개념을 빠르게 이해하는 편이다.", en: "Am quick to understand things.", trait: "O", reverse: false },
+  { id: 48, text: "나는 평소 어려운 단어도 자연스럽게 사용한다.", en: "Use difficult words.", trait: "O", reverse: false },
+  { id: 49, text: "나는 어떤 일에 대해 깊이 생각하는 시간을 즐긴다.", en: "Spend time reflecting on things.", trait: "O", reverse: false },
+  { id: 50, text: "나는 늘 새로운 아이디어로 가득 차 있다.", en: "Am full of ideas.", trait: "O", reverse: false },
 ];
 
 export const SCALE_LABELS = [
