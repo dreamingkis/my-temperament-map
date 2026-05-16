@@ -242,25 +242,55 @@ function NeoTest() {
               </div>
             </Card>
 
-            <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-              {hasSavedProgress ? (
-                <>
-                  <Button size="lg" onClick={handleResume}>
-                    이어서 진단하기 ({Math.round(progress)}% 완료)
-                  </Button>
-                  <Button size="lg" variant="outline" onClick={handleStartFresh}>
-                    처음부터 다시 시작
-                  </Button>
-                </>
-              ) : (
-                <Button size="lg" onClick={() => setStage("quiz")}>
-                  진단 시작하기
+            {hasSavedProgress ? (
+              <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+                <Button size="lg" onClick={handleResume}>
+                  이어서 진단하기 ({Math.round(progress)}% 완료)
                 </Button>
-              )}
-              <Button asChild size="lg" variant="ghost">
+                <Button size="lg" variant="outline" onClick={() => { reset(); setStage("quiz"); }}>
+                  처음부터 다시 시작
+                </Button>
+              </div>
+            ) : (
+              <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                <Card className="p-5 text-left">
+                  <h3 className="text-base font-semibold">기본 진단만 받기</h3>
+                  <p className="mt-1.5 text-xs text-muted-foreground">
+                    120문항을 풀고 5요인 + 30 facet 점수만 확인합니다.
+                  </p>
+                  <Button className="mt-4 w-full" variant="outline" onClick={() => startQuiz(false)}>
+                    바로 시작
+                  </Button>
+                </Card>
+                <Card className="border-primary/40 bg-primary/5 p-5 text-left">
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-base font-semibold">맞춤 해석까지 받기</h3>
+                    <span className="rounded-full bg-primary px-2 py-0.5 text-[10px] font-bold text-primary-foreground">추천</span>
+                  </div>
+                  <p className="mt-1.5 text-xs text-muted-foreground">
+                    직업·연령·고민을 입력하면 당신의 점수를 그 맥락에서 해석합니다. 비스타가 후속 가이드에 활용합니다.
+                  </p>
+                  <Button className="mt-4 w-full" onClick={() => startQuiz(true)}>
+                    맞춤 해석으로 시작
+                  </Button>
+                </Card>
+              </div>
+            )}
+            <div className="mt-4 text-center">
+              <Button asChild size="sm" variant="ghost">
                 <Link to="/">← 다른 진단 보기</Link>
               </Button>
             </div>
+          </section>
+        )}
+
+        {stage === "intake" && (
+          <section>
+            <IntakeForm
+              onSubmit={handleIntakeSubmit}
+              onSkip={handleIntakeSkip}
+              submitting={submittingIntake}
+            />
           </section>
         )}
 
