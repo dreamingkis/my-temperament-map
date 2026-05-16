@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
-import { ChevronDown, Link2 } from "lucide-react";
+import { ChevronDown, Download, Link2 } from "lucide-react";
+import { generateNeoResultImage } from "@/lib/neo120-share";
 import {
   RadarChart,
   Radar,
@@ -82,6 +83,29 @@ function NeoTest() {
       toast.success("페이지 링크가 복사되었습니다");
     } catch {
       toast.error("복사에 실패했습니다");
+    }
+  };
+
+  const [isSaving, setIsSaving] = useState(false);
+  const handleDownloadImage = async () => {
+    if (isSaving) return;
+    setIsSaving(true);
+    try {
+      const blob = await generateNeoResultImage(scores);
+      if (!blob) throw new Error("no blob");
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `neo120-result-${Date.now()}.png`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      toast.success("결과 이미지가 저장되었습니다");
+    } catch {
+      toast.error("이미지 저장에 실패했습니다");
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -342,6 +366,10 @@ function NeoTest() {
             </div>
 
             <div className="mt-8 flex flex-col gap-2 sm:flex-row sm:justify-center">
+              <Button onClick={handleDownloadImage} disabled={isSaving}>
+                <Download className="mr-2 h-4 w-4" />
+                {isSaving ? "이미지 생성 중..." : "결과 이미지 저장 (PNG)"}
+              </Button>
               <Button onClick={handleCopyLink} variant="outline">
                 <Link2 className="mr-2 h-4 w-4" />
                 페이지 링크 복사
