@@ -12,7 +12,6 @@ import {
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
-
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -110,8 +109,8 @@ function Landing() {
                   color: "var(--primary)",
                 }}
               >
-              기본 · Standard
-            </span>
+                기본 · Standard
+              </span>
             </div>
 
             <h3 className="mb-2 text-2xl font-bold">BIG5 기본진단</h3>
@@ -175,7 +174,9 @@ function Landing() {
 
             <h3 className="mb-2 text-2xl font-bold">BIG5 심층진단</h3>
             <p className="mb-6 leading-relaxed text-muted-foreground">
-              5요인을 각각 6개 하위 facet으로 나눠 살펴봅니다. 같은 ‘외향성’ 안에서도 어느 면이 강한지 보입니다.
+              5요인을 각각 6개 하위 facet(세부 성향)으로 세분화해 분석합니다.
+              예를 들어 같은 &apos;외향성&apos; 안에서도 사교성·자기주장성·활동성 등
+              구체적인 면면을 살펴볼 수 있어, 훨씬 정교한 자기 이해가 가능합니다.
             </p>
 
             <div className="mb-8 space-y-3">
@@ -186,6 +187,10 @@ function Landing() {
               <div className="flex items-center text-sm text-muted-foreground">
                 <Clock className="mr-2 h-4 w-4" />
                 약 12~15분 소요
+              </div>
+              <div className="flex items-center text-sm text-muted-foreground">
+                <Layers className="mr-2 h-4 w-4" />
+                30 facet 세부 분석 + 결과 공유 이미지
               </div>
             </div>
 
@@ -199,6 +204,55 @@ function Landing() {
         <p className="mt-6 text-center text-xs text-muted-foreground">
           모든 진단은 로그인 없이 진행되며, 결과는 브라우저에만 남습니다.
         </p>
+      </section>
+
+      {/* Comparison / Guide */}
+      <section className="mx-auto max-w-4xl px-4 pb-20">
+        <div className="rounded-3xl border border-border bg-card p-8 shadow-sm">
+          <h2 className="mb-6 text-center text-xl font-bold">
+            어떤 진단을 선택해야 할까요?
+          </h2>
+          <div className="grid gap-8 sm:grid-cols-2">
+            <div>
+              <h3 className="mb-3 text-base font-semibold text-primary">
+                BIG5 기본진단이 더 적합한 경우
+              </h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                  처음 성격 진단을 접해보는 경우
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                  전체적인 성격 윤곽을 빠르게 파악하고 싶은 경우
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                  5~8분 내외의 짧은 시간만 투자할 수 있는 경우
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="mb-3 text-base font-semibold" style={{ color: "var(--chart-2)" }}>
+                BIG5 심층진단이 더 적합한 경우
+              </h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: "var(--chart-2)" }} />
+                  기본 진단을 이미 해보고 더 깊이 알고 싶은 경우
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: "var(--chart-2)" }} />
+                  같은 요인 안에서도 세부 성향 차이가 궁금한 경우
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: "var(--chart-2)" }} />
+                  구체적인 성격 프로파일을 바탕으로 자기 계발을 계획하고 싶은 경우
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Why / How */}
