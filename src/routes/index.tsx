@@ -145,14 +145,14 @@ function Landing() {
             <div
               aria-hidden
               className="absolute inset-x-0 top-0 h-1.5"
-              style={{ backgroundColor: "var(--accent)" }}
+              style={{ backgroundColor: "var(--chart-2)" }}
             />
             <div className="mb-6 flex items-start justify-between">
               <div
                 className="rounded-2xl p-3"
                 style={{
-                  backgroundColor: "color-mix(in oklab, var(--accent) 14%, transparent)",
-                  color: "var(--accent)",
+                  backgroundColor: "color-mix(in oklab, var(--chart-2) 12%, transparent)",
+                  color: "var(--chart-2)",
                 }}
               >
                 <Layers className="h-6 w-6" />
@@ -160,15 +160,15 @@ function Landing() {
               <span
                 className="rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider"
                 style={{
-                  backgroundColor: "color-mix(in oklab, var(--accent) 14%, transparent)",
-                  color: "var(--accent)",
+                  backgroundColor: "color-mix(in oklab, var(--chart-2) 12%, transparent)",
+                  color: "var(--chart-2)",
                 }}
               >
                 심층 · In-Depth
               </span>
             </div>
 
-            <h3 className="mb-2 text-2xl font-bold">30 facet 심층 진단</h3>
+            <h3 className="mb-2 text-2xl font-bold">BIG5 심층진단</h3>
             <p className="mb-6 leading-relaxed text-muted-foreground">
               5요인을 각각 6개 하위 facet으로 나눠 살펴봅니다. 같은 ‘외향성’ 안에서도 어느 면이 강한지 보입니다.
             </p>
