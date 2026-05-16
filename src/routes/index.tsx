@@ -51,6 +51,7 @@ function Index() {
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [index, setIndex] = useState(0);
   const [sharedScores, setSharedScores] = useState<Record<Trait, number> | null>(null);
+  const [expandedTrait, setExpandedTrait] = useState<Trait | null>(null);
 
   const current = QUESTIONS[index];
   const progress = (index / QUESTIONS.length) * 100;
