@@ -160,8 +160,8 @@ function Index() {
 
             <div className="mt-12 grid gap-3 text-left sm:grid-cols-2">
               {(Object.keys(TRAIT_INFO) as Trait[]).map((t) => (
-                <Card key={t} className="p-4">
-                  <div className="text-sm font-semibold">{TRAIT_INFO[t].name}</div>
+                <Card key={t} className="p-4 border-l-4" style={{ borderLeftColor: TRAIT_INFO[t].color }}>
+                  <div className="text-sm font-semibold" style={{ color: TRAIT_INFO[t].color }}>{TRAIT_INFO[t].name}</div>
                   <p className="mt-1 text-sm text-muted-foreground">{TRAIT_INFO[t].desc}</p>
                 </Card>
               ))}
