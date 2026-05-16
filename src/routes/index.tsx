@@ -40,10 +40,24 @@ function Index() {
   const [stage, setStage] = useState<Stage>("intro");
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [index, setIndex] = useState(0);
+  const [sharedScores, setSharedScores] = useState<Record<Trait, number> | null>(null);
 
   const current = QUESTIONS[index];
   const progress = (index / QUESTIONS.length) * 100;
-  const scores = useMemo(() => computeScores(answers), [answers]);
+  const computedScores = useMemo(() => computeScores(answers), [answers]);
+  const scores = sharedScores ?? computedScores;
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const match = window.location.hash.match(/r=([^&]+)/);
+    if (match) {
+      const decoded = decodeScores(decodeURIComponent(match[1]));
+      if (decoded) {
+        setSharedScores(decoded);
+        setStage("result");
+      }
+    }
+  }, []);
 
   const handleAnswer = (value: number) => {
     const newAnswers = { ...answers, [current.id]: value };
@@ -58,7 +72,38 @@ function Index() {
   const reset = () => {
     setAnswers({});
     setIndex(0);
+    setSharedScores(null);
+    if (typeof window !== "undefined" && window.location.hash) {
+      window.history.replaceState(null, "", window.location.pathname);
+    }
     setStage("intro");
+  };
+
+  const handleCopyLink = async () => {
+    const url = `${window.location.origin}${window.location.pathname}#r=${encodeScores(scores)}`;
+    try {
+      await navigator.clipboard.writeText(url);
+      toast.success("결과 링크가 복사되었습니다");
+    } catch {
+      toast.error("링크 복사에 실패했습니다");
+    }
+  };
+
+  const handleDownloadImage = async () => {
+    const blob = await generateResultImage(scores);
+    if (!blob) {
+      toast.error("이미지 생성에 실패했습니다");
+      return;
+    }
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "big5-result.png";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    toast.success("결과 이미지를 저장했습니다");
   };
 
   return (
