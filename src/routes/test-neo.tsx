@@ -357,6 +357,8 @@ function NeoTest() {
               5개 요인 + 30개 하위 facet 점수 (0~100). 각 요인을 눌러 facet 세부 결과를 확인하세요.
             </p>
 
+            {intakeData && <PersonalizedInsight intake={intakeData} scores={scores.domain} />}
+
             <Card className="mt-6 p-4">
               <div className="h-80 w-full sm:h-96">
                 <ResponsiveContainer width="100%" height="100%">
