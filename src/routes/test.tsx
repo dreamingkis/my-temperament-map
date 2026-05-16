@@ -48,7 +48,7 @@ export const Route = createFileRoute("/test")({
   component: Index,
 });
 
-type Stage = "intro" | "quiz" | "result";
+type Stage = "intro" | "quiz" | "intake" | "result";
 
 function Index() {
   const STORAGE_KEY = "big5-test-progress";
@@ -59,6 +59,9 @@ function Index() {
   const [sharedScores, setSharedScores] = useState<Record<Trait, number> | null>(null);
   const [expandedTrait, setExpandedTrait] = useState<Trait | null>(null);
   const [hasSavedProgress, setHasSavedProgress] = useState(false);
+  const [personalized, setPersonalized] = useState(false);
+  const [intakeData, setIntakeData] = useState<IntakeInput | null>(null);
+  const [submittingIntake, setSubmittingIntake] = useState(false);
 
   const current = QUESTIONS[index];
   const progress = (index / QUESTIONS.length) * 100;
