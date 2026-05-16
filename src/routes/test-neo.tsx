@@ -124,23 +124,51 @@ function NeoTest() {
       const finalDomain = computeNeoScores(next).domain;
       const top = TRAITS.reduce((a, b) => (finalDomain[b] > finalDomain[a] ? b : a));
       setExpandedTrait(top);
-      setStage("result");
       setHasSavedProgress(false);
+      setStage(personalized ? "intake" : "result");
     }
+  };
+
+  const handleIntakeSubmit = async (data: IntakeInput) => {
+    setSubmittingIntake(true);
+    try {
+      const s = computeNeoScores(answers);
+      await submitIntake({
+        ...data,
+        test_type: "deep",
+        scores: s.domain,
+        facet_scores: s.facet,
+      });
+      setIntakeData(data);
+      setStage("result");
+      toast.success("맞춤 해석을 준비했어요");
+    } catch (e) {
+      console.error(e);
+      toast.error("저장 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.");
+    } finally {
+      setSubmittingIntake(false);
+    }
+  };
+
+  const handleIntakeSkip = () => {
+    setIntakeData(null);
+    setStage("result");
   };
 
   const reset = () => {
     setAnswers({});
     setIndex(0);
     setHasSavedProgress(false);
+    setIntakeData(null);
+    setPersonalized(false);
     if (typeof window !== "undefined") {
       localStorage.removeItem(STORAGE_KEY);
     }
     setStage("intro");
   };
 
-  const handleStartFresh = () => {
-    reset();
+  const startQuiz = (withPersonalized: boolean) => {
+    setPersonalized(withPersonalized);
     setStage("quiz");
   };
 
