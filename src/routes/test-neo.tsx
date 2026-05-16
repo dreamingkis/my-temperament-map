@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { ChevronDown, Download, Link2 } from "lucide-react";
 import { generateNeoResultImage } from "@/lib/neo120-share";
@@ -66,14 +66,48 @@ function renderRadarDot(props: any) {
 }
 
 function NeoTest() {
+  const STORAGE_KEY = "big5-neo-test-progress";
+
   const [stage, setStage] = useState<Stage>("intro");
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [index, setIndex] = useState(0);
   const [expandedTrait, setExpandedTrait] = useState<NeoTrait | null>(null);
+  const [hasSavedProgress, setHasSavedProgress] = useState(false);
 
   const current = NEO_QUESTIONS[index];
   const progress = (index / NEO_QUESTIONS.length) * 100;
   const scores = useMemo(() => computeNeoScores(answers), [answers]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const data = JSON.parse(saved);
+        if (data.answers && data.index != null && data.stage) {
+          setAnswers(data.answers);
+          setIndex(data.index);
+          setStage(data.stage);
+          setHasSavedProgress(data.stage === "quiz");
+        }
+      }
+    } catch {
+      // ignore parse errors
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (stage === "quiz") {
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({ answers, index, stage })
+      );
+    }
+    if (stage === "result") {
+      localStorage.removeItem(STORAGE_KEY);
+    }
+  }, [answers, index, stage]);
 
   const handleAnswer = (value: number) => {
     const next = { ...answers, [current.id]: value };
@@ -85,13 +119,28 @@ function NeoTest() {
       const top = TRAITS.reduce((a, b) => (finalDomain[b] > finalDomain[a] ? b : a));
       setExpandedTrait(top);
       setStage("result");
+      setHasSavedProgress(false);
     }
   };
 
   const reset = () => {
     setAnswers({});
     setIndex(0);
+    setHasSavedProgress(false);
+    if (typeof window !== "undefined") {
+      localStorage.removeItem(STORAGE_KEY);
+    }
     setStage("intro");
+  };
+
+  const handleStartFresh = () => {
+    reset();
+    setStage("quiz");
+  };
+
+  const handleResume = () => {
+    setHasSavedProgress(false);
+    setStage("quiz");
   };
 
   const handleCopyLink = async () => {
@@ -160,9 +209,20 @@ function NeoTest() {
             </Card>
 
             <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-              <Button size="lg" onClick={() => setStage("quiz")}>
-                진단 시작하기
-              </Button>
+              {hasSavedProgress ? (
+                <>
+                  <Button size="lg" onClick={handleResume}>
+                    이어서 진단하기 ({Math.round(progress)}% 완료)
+                  </Button>
+                  <Button size="lg" variant="outline" onClick={handleStartFresh}>
+                    처음부터 다시 시작
+                  </Button>
+                </>
+              ) : (
+                <Button size="lg" onClick={() => setStage("quiz")}>
+                  진단 시작하기
+                </Button>
+              )}
               <Button asChild size="lg" variant="ghost">
                 <Link to="/">← 다른 진단 보기</Link>
               </Button>

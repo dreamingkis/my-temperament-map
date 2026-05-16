@@ -47,11 +47,14 @@ export const Route = createFileRoute("/test")({
 type Stage = "intro" | "quiz" | "result";
 
 function Index() {
+  const STORAGE_KEY = "big5-test-progress";
+
   const [stage, setStage] = useState<Stage>("intro");
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [index, setIndex] = useState(0);
   const [sharedScores, setSharedScores] = useState<Record<Trait, number> | null>(null);
   const [expandedTrait, setExpandedTrait] = useState<Trait | null>(null);
+  const [hasSavedProgress, setHasSavedProgress] = useState(false);
 
   const current = QUESTIONS[index];
   const progress = (index / QUESTIONS.length) * 100;
@@ -70,8 +73,36 @@ function Index() {
         setExpandedTrait(top);
         setStage("result");
       }
+    } else {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const data = JSON.parse(saved);
+          if (data.answers && data.index != null && data.stage) {
+            setAnswers(data.answers);
+            setIndex(data.index);
+            setStage(data.stage);
+            setHasSavedProgress(data.stage === "quiz");
+          }
+        }
+      } catch {
+        // ignore parse errors
+      }
     }
   }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (stage === "quiz") {
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({ answers, index, stage })
+      );
+    }
+    if (stage === "result") {
+      localStorage.removeItem(STORAGE_KEY);
+    }
+  }, [answers, index, stage]);
 
   const handleAnswer = (value: number) => {
     const newAnswers = { ...answers, [current.id]: value };
@@ -84,6 +115,7 @@ function Index() {
       const top = traits.reduce((a, b) => (finalScores[b] > finalScores[a] ? b : a));
       setExpandedTrait(top);
       setStage("result");
+      setHasSavedProgress(false);
     }
   };
 
@@ -91,10 +123,24 @@ function Index() {
     setAnswers({});
     setIndex(0);
     setSharedScores(null);
-    if (typeof window !== "undefined" && window.location.hash) {
-      window.history.replaceState(null, "", window.location.pathname);
+    setHasSavedProgress(false);
+    if (typeof window !== "undefined") {
+      localStorage.removeItem(STORAGE_KEY);
+      if (window.location.hash) {
+        window.history.replaceState(null, "", window.location.pathname);
+      }
     }
     setStage("intro");
+  };
+
+  const handleStartFresh = () => {
+    reset();
+    setStage("quiz");
+  };
+
+  const handleResume = () => {
+    setHasSavedProgress(false);
+    setStage("quiz");
   };
 
   const handleCopyLink = async () => {
@@ -191,9 +237,20 @@ function Index() {
               </div>
             </Card>
 
-            <Button size="lg" className="mt-8" onClick={() => setStage("quiz")}>
-              진단 시작하기
-            </Button>
+            {hasSavedProgress ? (
+              <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+                <Button size="lg" onClick={handleResume}>
+                  이어서 진단하기 ({Math.round(progress)}% 완료)
+                </Button>
+                <Button size="lg" variant="outline" onClick={handleStartFresh}>
+                  처음부터 다시 시작
+                </Button>
+              </div>
+            ) : (
+              <Button size="lg" className="mt-8" onClick={() => setStage("quiz")}>
+                진단 시작하기
+              </Button>
+            )}
           </section>
         )}
 
