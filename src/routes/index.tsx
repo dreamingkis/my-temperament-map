@@ -3,6 +3,14 @@ import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { Download, Link2, MessageCircle } from "lucide-react";
 import {
+  RadarChart,
+  Radar,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+  ResponsiveContainer,
+} from "recharts";
+import {
   QUESTIONS,
   SCALE_LABELS,
   TRAIT_INFO,
