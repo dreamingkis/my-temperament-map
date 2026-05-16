@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
-import { Download, Link2 } from "lucide-react";
+import { Download, Link2, MessageCircle } from "lucide-react";
 import {
   QUESTIONS,
   SCALE_LABELS,
@@ -106,6 +106,31 @@ function Index() {
     toast.success("결과 이미지를 저장했습니다");
   };
 
+  const handleKakaoShare = async () => {
+    const url = `${window.location.origin}${window.location.pathname}#r=${encodeScores(scores)}`;
+    const text = `Big5 성격유형 진단 결과를 확인해보세요!\n개방성 ${scores.O} · 성실성 ${scores.C} · 외향성 ${scores.E} · 친화성 ${scores.A} · 신경성 ${scores.N}`;
+
+    // 모바일: Web Share API로 카카오톡 선택 가능
+    if (typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share({ title: "Big5 성격유형 진단 결과", text, url });
+        return;
+      } catch (err) {
+        if ((err as Error)?.name === "AbortError") return;
+      }
+    }
+
+    // 데스크탑 폴백: 링크 복사 + 카카오톡 웹 열기 안내
+    try {
+      await navigator.clipboard.writeText(`${text}\n${url}`);
+      toast.success("결과 링크가 복사되었습니다", {
+        description: "카카오톡 대화창에 붙여넣어 공유하세요",
+      });
+      window.open("https://web.kakao.com/", "_blank", "noopener,noreferrer");
+    } catch {
+      toast.error("공유에 실패했습니다");
+    }
+  };
   return (
     <main className="min-h-screen bg-background text-foreground">
       <div className="mx-auto max-w-2xl px-4 py-12 sm:py-20">
@@ -214,6 +239,12 @@ function Index() {
             </div>
 
             <div className="mt-8 flex flex-wrap justify-center gap-3">
+              <Button
+                onClick={handleKakaoShare}
+                className="bg-[#FEE500] text-[#191600] hover:bg-[#FEE500]/90"
+              >
+                <MessageCircle className="mr-2 h-4 w-4" /> 카카오톡으로 공유
+              </Button>
               <Button onClick={handleCopyLink} variant="default">
                 <Link2 className="mr-2 h-4 w-4" /> 결과 링크 복사
               </Button>
