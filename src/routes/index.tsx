@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { toast } from "sonner";
+import { Download, Link2 } from "lucide-react";
 import {
   QUESTIONS,
   SCALE_LABELS,
@@ -8,6 +10,7 @@ import {
   scoreLevel,
   type Trait,
 } from "@/lib/big5";
+import { decodeScores, encodeScores, generateResultImage } from "@/lib/big5-share";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
