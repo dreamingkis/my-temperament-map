@@ -282,7 +282,7 @@ function Index() {
                     />
                     <PolarRadiusAxis
                       domain={[0, 100]}
-                      ticks={[20, 40, 60, 80, 100]}
+                      tickCount={6}
                       angle={90}
                       tick={(props: any) => {
                         const { x, y, payload } = props;
