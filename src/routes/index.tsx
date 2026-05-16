@@ -209,18 +209,22 @@ function Index() {
               <Progress value={progress} />
             </div>
 
-            <Card className="p-6 sm:p-8">
-              <h2 className="text-xl font-semibold sm:text-2xl">{current.text}</h2>
-              <p className="mt-2 text-sm italic text-muted-foreground">I {current.en.charAt(0).toLowerCase() + current.en.slice(1)}</p>
-              <div className="mt-6 flex flex-col gap-2">
+            <Card className="p-7 sm:p-10">
+              <h2 className="text-2xl font-bold leading-snug tracking-tight sm:text-3xl">
+                {current.text}
+              </h2>
+              <p className="mt-3 text-base italic text-muted-foreground sm:text-lg">
+                I {current.en.charAt(0).toLowerCase() + current.en.slice(1)}
+              </p>
+              <div className="mt-10 flex flex-col gap-4">
                 {SCALE_LABELS.map((label, i) => (
                   <Button
                     key={i}
                     variant="outline"
-                    className="h-auto justify-start py-3 text-left"
+                    className="h-auto justify-start py-4 text-left text-base"
                     onClick={() => handleAnswer(i + 1)}
                   >
-                    <span className="mr-3 inline-flex h-6 w-6 items-center justify-center rounded-full bg-secondary text-xs font-semibold">
+                    <span className="mr-3 inline-flex h-7 w-7 items-center justify-center rounded-full bg-secondary text-xs font-semibold">
                       {i + 1}
                     </span>
                     {label}
@@ -371,26 +375,31 @@ function Index() {
                           <h3 className="text-lg font-semibold" style={{ color: info.color }}>{info.name}</h3>
                           <p className="text-xs text-muted-foreground">{info.desc}</p>
                         </div>
-                        <div className="flex items-center gap-3">
-                          <div className="text-right">
-                            <div className="text-3xl font-bold tabular-nums" style={{ color: info.color }}>{score}</div>
-                            <div className="text-xs text-muted-foreground">{level}</div>
-                          </div>
-                          <ChevronDown
-                            className={cn(
-                              "h-5 w-5 text-muted-foreground transition-transform",
-                              isOpen && "rotate-180",
-                            )}
-                          />
+                        <div className="text-right">
+                          <div className="text-3xl font-bold tabular-nums" style={{ color: info.color }}>{score}</div>
+                          <div className="text-xs text-muted-foreground">{level}</div>
                         </div>
                       </div>
                       <Progress value={score} className="mt-3" indicatorClassName={`bg-trait-${t.toLowerCase()}`} />
                       <p className="mt-3 text-sm text-muted-foreground">
                         {isHigh ? info.high : info.low}
                       </p>
-                      <p className="mt-2 text-xs text-muted-foreground">
-                        {isOpen ? "접기" : "자세히 보기 ↓"}
-                      </p>
+                      <div
+                        className="mt-4 flex items-center justify-center gap-2 rounded-md border px-4 py-2.5 text-sm font-semibold transition-colors"
+                        style={{
+                          borderColor: info.color,
+                          color: isOpen ? "#ffffff" : info.color,
+                          backgroundColor: isOpen ? info.color : `color-mix(in oklab, ${info.color} 10%, transparent)`,
+                        }}
+                      >
+                        {isOpen ? "접기" : "자세한 해석 보기"}
+                        <ChevronDown
+                          className={cn(
+                            "h-4 w-4 transition-transform",
+                            isOpen && "rotate-180",
+                          )}
+                        />
+                      </div>
                     </button>
 
                     {isOpen && (
