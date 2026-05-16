@@ -23,6 +23,9 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
+import { IntakeForm } from "@/components/IntakeForm";
+import { PersonalizedInsight } from "@/components/PersonalizedInsight";
+import { submitIntake, type IntakeInput } from "@/lib/intake";
 
 export const Route = createFileRoute("/test-neo")({
   head: () => ({
@@ -38,7 +41,7 @@ export const Route = createFileRoute("/test-neo")({
   component: NeoTest,
 });
 
-type Stage = "intro" | "quiz" | "result";
+type Stage = "intro" | "quiz" | "intake" | "result";
 
 const TRAITS: NeoTrait[] = ["O", "C", "E", "A", "N"];
 
@@ -73,6 +76,9 @@ function NeoTest() {
   const [index, setIndex] = useState(0);
   const [expandedTrait, setExpandedTrait] = useState<NeoTrait | null>(null);
   const [hasSavedProgress, setHasSavedProgress] = useState(false);
+  const [personalized, setPersonalized] = useState(false);
+  const [intakeData, setIntakeData] = useState<IntakeInput | null>(null);
+  const [submittingIntake, setSubmittingIntake] = useState(false);
 
   const current = NEO_QUESTIONS[index];
   const progress = (index / NEO_QUESTIONS.length) * 100;
@@ -118,23 +124,51 @@ function NeoTest() {
       const finalDomain = computeNeoScores(next).domain;
       const top = TRAITS.reduce((a, b) => (finalDomain[b] > finalDomain[a] ? b : a));
       setExpandedTrait(top);
-      setStage("result");
       setHasSavedProgress(false);
+      setStage(personalized ? "intake" : "result");
     }
+  };
+
+  const handleIntakeSubmit = async (data: IntakeInput) => {
+    setSubmittingIntake(true);
+    try {
+      const s = computeNeoScores(answers);
+      await submitIntake({
+        ...data,
+        test_type: "deep",
+        scores: s.domain,
+        facet_scores: s.facet,
+      });
+      setIntakeData(data);
+      setStage("result");
+      toast.success("맞춤 해석을 준비했어요");
+    } catch (e) {
+      console.error(e);
+      toast.error("저장 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.");
+    } finally {
+      setSubmittingIntake(false);
+    }
+  };
+
+  const handleIntakeSkip = () => {
+    setIntakeData(null);
+    setStage("result");
   };
 
   const reset = () => {
     setAnswers({});
     setIndex(0);
     setHasSavedProgress(false);
+    setIntakeData(null);
+    setPersonalized(false);
     if (typeof window !== "undefined") {
       localStorage.removeItem(STORAGE_KEY);
     }
     setStage("intro");
   };
 
-  const handleStartFresh = () => {
-    reset();
+  const startQuiz = (withPersonalized: boolean) => {
+    setPersonalized(withPersonalized);
     setStage("quiz");
   };
 
@@ -208,25 +242,55 @@ function NeoTest() {
               </div>
             </Card>
 
-            <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-              {hasSavedProgress ? (
-                <>
-                  <Button size="lg" onClick={handleResume}>
-                    이어서 진단하기 ({Math.round(progress)}% 완료)
-                  </Button>
-                  <Button size="lg" variant="outline" onClick={handleStartFresh}>
-                    처음부터 다시 시작
-                  </Button>
-                </>
-              ) : (
-                <Button size="lg" onClick={() => setStage("quiz")}>
-                  진단 시작하기
+            {hasSavedProgress ? (
+              <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+                <Button size="lg" onClick={handleResume}>
+                  이어서 진단하기 ({Math.round(progress)}% 완료)
                 </Button>
-              )}
-              <Button asChild size="lg" variant="ghost">
+                <Button size="lg" variant="outline" onClick={() => { reset(); setStage("quiz"); }}>
+                  처음부터 다시 시작
+                </Button>
+              </div>
+            ) : (
+              <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                <Card className="p-5 text-left">
+                  <h3 className="text-base font-semibold">기본 진단만 받기</h3>
+                  <p className="mt-1.5 text-xs text-muted-foreground">
+                    120문항을 풀고 5요인 + 30 facet 점수만 확인합니다.
+                  </p>
+                  <Button className="mt-4 w-full" variant="outline" onClick={() => startQuiz(false)}>
+                    바로 시작
+                  </Button>
+                </Card>
+                <Card className="border-primary/40 bg-primary/5 p-5 text-left">
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-base font-semibold">맞춤 해석까지 받기</h3>
+                    <span className="rounded-full bg-primary px-2 py-0.5 text-[10px] font-bold text-primary-foreground">추천</span>
+                  </div>
+                  <p className="mt-1.5 text-xs text-muted-foreground">
+                    직업·연령·고민을 입력하면 당신의 점수를 그 맥락에서 해석합니다. 비스타가 후속 가이드에 활용합니다.
+                  </p>
+                  <Button className="mt-4 w-full" onClick={() => startQuiz(true)}>
+                    맞춤 해석으로 시작
+                  </Button>
+                </Card>
+              </div>
+            )}
+            <div className="mt-4 text-center">
+              <Button asChild size="sm" variant="ghost">
                 <Link to="/">← 다른 진단 보기</Link>
               </Button>
             </div>
+          </section>
+        )}
+
+        {stage === "intake" && (
+          <section>
+            <IntakeForm
+              onSubmit={handleIntakeSubmit}
+              onSkip={handleIntakeSkip}
+              submitting={submittingIntake}
+            />
           </section>
         )}
 
@@ -292,6 +356,8 @@ function NeoTest() {
             <p className="mt-2 text-muted-foreground">
               5개 요인 + 30개 하위 facet 점수 (0~100). 각 요인을 눌러 facet 세부 결과를 확인하세요.
             </p>
+
+            {intakeData && <PersonalizedInsight intake={intakeData} scores={scores.domain} />}
 
             <Card className="mt-6 p-4">
               <div className="h-80 w-full sm:h-96">
