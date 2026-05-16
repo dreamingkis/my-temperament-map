@@ -182,6 +182,7 @@ function Index() {
 
             <Card className="p-6 sm:p-8">
               <h2 className="text-xl font-semibold sm:text-2xl">{current.text}</h2>
+              <p className="mt-2 text-sm italic text-muted-foreground">I {current.en.charAt(0).toLowerCase() + current.en.slice(1)}</p>
               <div className="mt-6 flex flex-col gap-2">
                 {SCALE_LABELS.map((label, i) => (
                   <Button
