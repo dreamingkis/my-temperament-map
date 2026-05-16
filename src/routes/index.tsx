@@ -1,541 +1,145 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
-import { toast } from "sonner";
-import { ChevronDown, Download, Link2, MessageCircle } from "lucide-react";
-import {
-  RadarChart,
-  Radar,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-  ResponsiveContainer,
-} from "recharts";
-import {
-  QUESTIONS,
-  SCALE_LABELS,
-  TRAIT_INFO,
-  TRAIT_DETAIL,
-  computeScores,
-  scoreLevel,
-  type Trait,
-} from "@/lib/big5";
-import { decodeScores, encodeScores, generateResultImage } from "@/lib/big5-share";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
+import { ArrowRight, Brain, Compass, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { cn } from "@/lib/utils";
+import { TRAIT_INFO, type Trait } from "@/lib/big5";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Big5 성격유형 진단 — 5가지 성격 점수 확인" },
+      { title: "Big5 성격유형 진단 — 나를 더 잘 이해하는 시작" },
       {
         name: "description",
         content:
-          "공인된 IPIP-50 문항(Goldberg, 1992)으로 알아보는 Big5 성격유형 진단. 개방성, 성실성, 외향성, 친화성, 신경성을 점수로 확인하세요.",
+          "국제 표준 IPIP-50 문항으로 진행하는 무료 Big5 성격유형 진단. 5가지 요인 점수와 자기이해 가이드를 제공합니다.",
       },
       { property: "og:title", content: "Big5 성격유형 진단" },
       {
         property: "og:description",
-        content: "Big5 성격 5요인을 점수로 확인하는 무료 진단 테스트.",
+        content: "개방성·성실성·외향성·친화성·신경성을 점수로 확인하는 자기이해 도구.",
       },
     ],
   }),
-  component: Index,
+  component: Landing,
 });
 
-type Stage = "intro" | "quiz" | "result";
+function Landing() {
+  const navigate = useNavigate();
 
-function Index() {
-  const [stage, setStage] = useState<Stage>("intro");
-  const [answers, setAnswers] = useState<Record<number, number>>({});
-  const [index, setIndex] = useState(0);
-  const [sharedScores, setSharedScores] = useState<Record<Trait, number> | null>(null);
-  const [expandedTrait, setExpandedTrait] = useState<Trait | null>(null);
-
-  const current = QUESTIONS[index];
-  const progress = (index / QUESTIONS.length) * 100;
-  const computedScores = useMemo(() => computeScores(answers), [answers]);
-  const scores = sharedScores ?? computedScores;
-
+  // 기존 공유 링크 호환: '/#r=...' 로 들어오면 /test 로 이관
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const match = window.location.hash.match(/r=([^&]+)/);
-    if (match) {
-      const decoded = decodeScores(decodeURIComponent(match[1]));
-      if (decoded) {
-        setSharedScores(decoded);
-        const traits: Trait[] = ["O", "C", "E", "A", "N"];
-        const top = traits.reduce((a, b) => (decoded[b] > decoded[a] ? b : a));
-        setExpandedTrait(top);
-        setStage("result");
-      }
+    const hash = window.location.hash;
+    if (hash.startsWith("#r=")) {
+      navigate({ to: "/test", hash: hash.slice(1) as never });
     }
-  }, []);
+  }, [navigate]);
 
-  const handleAnswer = (value: number) => {
-    const newAnswers = { ...answers, [current.id]: value };
-    setAnswers(newAnswers);
-    if (index < QUESTIONS.length - 1) {
-      setIndex(index + 1);
-    } else {
-      const finalScores = computeScores(newAnswers);
-      const traits: Trait[] = ["O", "C", "E", "A", "N"];
-      const top = traits.reduce((a, b) => (finalScores[b] > finalScores[a] ? b : a));
-      setExpandedTrait(top);
-      setStage("result");
-    }
-  };
+  const traits = (Object.keys(TRAIT_INFO) as Trait[]).map((t) => ({
+    key: t,
+    ...TRAIT_INFO[t],
+  }));
 
-  const reset = () => {
-    setAnswers({});
-    setIndex(0);
-    setSharedScores(null);
-    if (typeof window !== "undefined" && window.location.hash) {
-      window.history.replaceState(null, "", window.location.pathname);
-    }
-    setStage("intro");
-  };
-
-  const handleCopyLink = async () => {
-    const url = `${window.location.origin}${window.location.pathname}#r=${encodeScores(scores)}`;
-    try {
-      await navigator.clipboard.writeText(url);
-      toast.success("결과 링크가 복사되었습니다");
-    } catch {
-      toast.error("링크 복사에 실패했습니다");
-    }
-  };
-
-  const handleDownloadImage = async () => {
-    const blob = await generateResultImage(scores);
-    if (!blob) {
-      toast.error("이미지 생성에 실패했습니다");
-      return;
-    }
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "big5-result.png";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    toast.success("결과 이미지를 저장했습니다");
-  };
-
-  const handleKakaoShare = async () => {
-    const url = `${window.location.origin}${window.location.pathname}#r=${encodeScores(scores)}`;
-    const text = `Big5 성격유형 진단 결과를 확인해보세요!\n개방성 ${scores.O} · 성실성 ${scores.C} · 외향성 ${scores.E} · 친화성 ${scores.A} · 신경성 ${scores.N}`;
-
-    // 모바일: Web Share API로 카카오톡 선택 가능
-    if (typeof navigator !== "undefined" && navigator.share) {
-      try {
-        await navigator.share({ title: "Big5 성격유형 진단 결과", text, url });
-        return;
-      } catch (err) {
-        if ((err as Error)?.name === "AbortError") return;
-      }
-    }
-
-    // 데스크탑 폴백: 링크 복사 + 카카오톡 웹 열기 안내
-    try {
-      await navigator.clipboard.writeText(`${text}\n${url}`);
-      toast.success("결과 링크가 복사되었습니다", {
-        description: "카카오톡 대화창에 붙여넣어 공유하세요",
-      });
-      window.open("https://web.kakao.com/", "_blank", "noopener,noreferrer");
-    } catch {
-      toast.error("공유에 실패했습니다");
-    }
-  };
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <div className="mx-auto max-w-2xl px-4 py-12 sm:py-20">
-        {stage === "intro" && (
-          <section className="text-center">
-            <p className="text-sm font-medium uppercase tracking-widest text-muted-foreground">
-              Big Five Personality Test
-            </p>
-            <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
-              나의 성격 5요인 진단
-            </h1>
-            <p className="mt-5 text-base text-muted-foreground sm:text-lg">
-              국제 표준 IPIP-50 문항으로 개방성·성실성·외향성·친화성·신경성을 점수로 확인해 보세요.
-              약 7분 정도 소요됩니다.
-            </p>
+      {/* Hero */}
+      <section className="relative overflow-hidden">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 -z-10 opacity-60"
+          style={{
+            background:
+              "radial-gradient(60% 50% at 20% 10%, color-mix(in oklab, var(--primary) 18%, transparent), transparent), radial-gradient(50% 40% at 90% 30%, color-mix(in oklab, var(--accent) 18%, transparent), transparent)",
+          }}
+        />
+        <div className="mx-auto max-w-3xl px-4 pt-20 pb-16 text-center sm:pt-28 sm:pb-24">
+          <p className="inline-flex items-center gap-2 rounded-full border border-border bg-card/50 px-3 py-1 text-xs font-medium uppercase tracking-widest text-muted-foreground backdrop-blur">
+            <Sparkles className="h-3.5 w-3.5" />
+            Big Five Personality Test
+          </p>
+          <h1 className="mt-6 text-4xl font-bold leading-tight tracking-tight sm:text-6xl">
+            나를 더 잘 이해하는
+            <br />
+            <span className="text-primary">5가지 성격 지도</span>
+          </h1>
+          <p className="mx-auto mt-6 max-w-xl text-base text-muted-foreground sm:text-lg">
+            국제 표준 IPIP-50 문항으로 알아보는 무료 Big5 성격유형 진단.
+            <br className="hidden sm:block" />
+            점수가 아니라, 나를 이해하는 대화의 출발점입니다.
+          </p>
 
-            <Card className="mt-8 p-6 text-left sm:p-7">
-              <div className="space-y-4 text-sm leading-relaxed text-muted-foreground sm:text-[15px]">
-                <p>
-                  이 체크는 나를 진단하거나 유형으로 고정하기 위한 검사가 아닙니다.
-                  <br />
-                  현재 내가 반복적으로 보이는 성향을 살펴보기 위한 자기이해 자료입니다.
-                </p>
-                <p>
-                  답할 때는 미래에 되고 싶은 모습이 아니라,{" "}
-                  <span className="font-medium text-foreground">최근 3~6개월 동안의 현재 모습</span>을 떠올려주세요.
-                  <br />
-                  친한 사람 앞의 나와 낯선 사람 앞의 나, 일할 때의 나와 일상 속의 나는 다를 수 있습니다.
-                  그럴 때는 특정한 한 장면만 기준으로 삼기보다, 여러 상황을 통틀어 대체로 더 자주 반복되는 모습을 골라주세요.
-                </p>
-                <p>
-                  만약 이 체크를 일과 브랜드 방향을 이해하기 위해 사용한다면,
-                  일·학습·고객/동료와의 관계·콘텐츠를 만들거나 사람을 만나는 장면을 함께 떠올려도 좋습니다.
-                </p>
-                <p>
-                  <span className="font-medium text-foreground">좋은 답이나 나쁜 답은 없습니다.</span>
-                  <br />
-                  점수는 나를 평가하는 결과가 아니라, 나를 더 잘 이해하기 위한 대화의 출발점입니다.
-                </p>
-              </div>
-            </Card>
-
-            <Button size="lg" className="mt-8" onClick={() => setStage("quiz")}>
-              진단 시작하기
+          <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Button asChild size="lg" className="group">
+              <Link to="/test">
+                진단 시작하기
+                <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </Link>
             </Button>
-          </section>
-        )}
+            <p className="text-sm text-muted-foreground">50문항 · 약 7분 · 로그인 불필요</p>
+          </div>
+        </div>
+      </section>
 
-        {stage === "quiz" && (
-          <section>
-            <div className="mb-6">
-              <div className="mb-2 flex items-baseline justify-between">
-                <div className="flex items-baseline gap-1">
-                  <span className="text-2xl font-bold tabular-nums text-foreground">
-                    {index + 1}
-                  </span>
-                  <span className="text-sm text-muted-foreground">
-                    / {QUESTIONS.length} 문항
-                  </span>
-                </div>
-                <span className="text-sm font-semibold tabular-nums text-primary">
-                  {Math.round(progress)}%
-                </span>
+      {/* 5 traits preview */}
+      <section className="mx-auto max-w-4xl px-4 pb-16">
+        <h2 className="text-center text-sm font-semibold uppercase tracking-widest text-muted-foreground">
+          진단하는 5가지 요인
+        </h2>
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-5">
+          {traits.map((t) => (
+            <Card key={t.key} className="p-4 text-center">
+              <div
+                className="mx-auto h-8 w-8 rounded-full"
+                style={{ backgroundColor: t.color }}
+              />
+              <div className="mt-3 text-sm font-semibold" style={{ color: t.color }}>
+                {t.name}
               </div>
-              <Progress value={progress} />
-            </div>
-
-            <Card className="p-7 sm:p-10">
-              <h2 className="text-2xl font-bold leading-snug tracking-tight sm:text-3xl">
-                {current.text}
-              </h2>
-              <p className="mt-3 text-base italic text-muted-foreground sm:text-lg">
-                I {current.en.charAt(0).toLowerCase() + current.en.slice(1)}
-              </p>
-              <div className="mt-10 flex flex-col gap-4">
-                {SCALE_LABELS.map((label, i) => (
-                  <Button
-                    key={i}
-                    variant="outline"
-                    className="h-auto justify-start py-4 text-left text-base"
-                    onClick={() => handleAnswer(i + 1)}
-                  >
-                    <span className="mr-3 inline-flex h-7 w-7 items-center justify-center rounded-full bg-secondary text-xs font-semibold">
-                      {i + 1}
-                    </span>
-                    {label}
-                  </Button>
-                ))}
-              </div>
+              <div className="mt-1 text-xs text-muted-foreground">{t.desc}</div>
             </Card>
+          ))}
+        </div>
+      </section>
 
-            {index > 0 && (
-              <div className="mt-4 text-center">
-                <button
-                  onClick={() => setIndex(index - 1)}
-                  className="text-sm text-muted-foreground hover:text-foreground"
-                >
-                  ← 이전 문항
-                </button>
-              </div>
-            )}
-          </section>
-        )}
-
-        {stage === "result" && (
-          <section>
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">진단 결과</h1>
-            <p className="mt-2 text-muted-foreground">
-              각 요인별 점수는 0~100점으로 표시됩니다.
+      {/* Why / How */}
+      <section className="mx-auto max-w-4xl px-4 pb-20">
+        <div className="grid gap-4 sm:grid-cols-3">
+          <Card className="p-6">
+            <ShieldCheck className="h-6 w-6 text-primary" />
+            <h3 className="mt-3 text-base font-semibold">학문적으로 검증된 문항</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              심리학에서 가장 널리 쓰이는 5요인 모델(Goldberg, 1992)의 공개 문항 IPIP-50을 사용합니다.
             </p>
+          </Card>
+          <Card className="p-6">
+            <Brain className="h-6 w-6 text-primary" />
+            <h3 className="mt-3 text-base font-semibold">유형이 아닌 스펙트럼</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              한 가지 유형으로 가두지 않고, 각 요인을 0~100점 스펙트럼으로 보여줍니다.
+            </p>
+          </Card>
+          <Card className="p-6">
+            <Compass className="h-6 w-6 text-primary" />
+            <h3 className="mt-3 text-base font-semibold">자기이해 가이드 제공</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              점수의 의미와 일·관계·학습에 적용하는 방법을 요인별로 자세히 안내합니다.
+            </p>
+          </Card>
+        </div>
 
-            <Card className="mt-6 p-4">
-              <div className="h-80 w-full sm:h-96">
-                <ResponsiveContainer width="100%" height="100%">
-                  <RadarChart
-                    data={[
-                      { subject: TRAIT_INFO.O.name, score: scores.O, trait: "O" as Trait },
-                      { subject: TRAIT_INFO.C.name, score: scores.C, trait: "C" as Trait },
-                      { subject: TRAIT_INFO.E.name, score: scores.E, trait: "E" as Trait },
-                      { subject: TRAIT_INFO.A.name, score: scores.A, trait: "A" as Trait },
-                      { subject: TRAIT_INFO.N.name, score: scores.N, trait: "N" as Trait },
-                    ]}
-                    margin={{ top: 24, right: 40, bottom: 24, left: 40 }}
-                    outerRadius="75%"
-                  >
-                    <PolarGrid stroke="var(--border)" strokeOpacity={1} />
-                    <PolarAngleAxis
-                      dataKey="subject"
-                      tick={(props: any) => {
-                        const { payload, x, y, textAnchor } = props;
-                        const traits: Trait[] = ["O", "C", "E", "A", "N"];
-                        const entry = traits
-                          .map((t) => ({ subject: TRAIT_INFO[t].name, trait: t }))
-                          .find((d) => d.subject === payload.value);
-                        const color = entry ? TRAIT_INFO[entry.trait].color : "var(--foreground)";
-                        return (
-                          <text x={x} y={y} textAnchor={textAnchor} fill={color} fontSize={14} fontWeight={600}>
-                            {payload.value}
-                          </text>
-                        );
-                      }}
-                    />
-                    <PolarRadiusAxis
-                      domain={[0, 100]}
-                      tickCount={6}
-                      angle={90}
-                      tick={{
-                        fill: "var(--muted-foreground)",
-                        fontSize: 10,
-                        fontWeight: 500,
-                      }}
-                      axisLine={false}
-                      tickLine={false}
-                    />
-                    <Radar
-                      name="점수"
-                      dataKey="score"
-                      stroke="var(--primary)"
-                      strokeWidth={2}
-                      fill="var(--primary)"
-                      fillOpacity={0.2}
-                      dot={(props: any) => {
-                        const { cx, cy, index } = props;
-                        const traits: Trait[] = ["O", "C", "E", "A", "N"];
-                        const color = TRAIT_INFO[traits[index]].color;
-                        return (
-                          <g>
-                            <circle cx={cx} cy={cy} r={6} fill={color} stroke="var(--background)" strokeWidth={2} />
-                          </g>
-                        );
-                      }}
-                      label={(props: any) => {
-                        const { x, y, index, value, cx, cy } = props;
-                        const traits: Trait[] = ["O", "C", "E", "A", "N"];
-                        const color = TRAIT_INFO[traits[index]].color;
-                        // push label outward from center
-                        const dx = x - cx;
-                        const dy = y - cy;
-                        const len = Math.sqrt(dx * dx + dy * dy) || 1;
-                        const offset = 18;
-                        const lx = x + (dx / len) * offset;
-                        const ly = y + (dy / len) * offset;
-                        return (
-                          <g>
-                            <rect
-                              x={lx - 16}
-                              y={ly - 11}
-                              width={32}
-                              height={20}
-                              rx={10}
-                              fill={color}
-                            />
-                            <text
-                              x={lx}
-                              y={ly}
-                              dy={4}
-                              textAnchor="middle"
-                              fill="#ffffff"
-                              fontSize={11}
-                              fontWeight={700}
-                            >
-                              {value}
-                            </text>
-                          </g>
-                        );
-                      }}
-                    />
-                  </RadarChart>
-                </ResponsiveContainer>
-              </div>
-            </Card>
-
-            <div className="mt-6 space-y-4">
-              {(Object.keys(TRAIT_INFO) as Trait[]).map((t) => {
-                const info = TRAIT_INFO[t];
-                const detail = TRAIT_DETAIL[t];
-                const score = scores[t];
-                const level = scoreLevel(score);
-                const isOpen = expandedTrait === t;
-                const isHigh = score >= 50;
-                return (
-                  <Card key={t} className="overflow-hidden p-0">
-                    <button
-                      type="button"
-                      onClick={() => setExpandedTrait(isOpen ? null : t)}
-                      aria-expanded={isOpen}
-                      className="w-full p-5 text-left transition-colors hover:bg-muted/40"
-                    >
-                      <div className="flex items-baseline justify-between gap-2">
-                        <div>
-                          <h3 className="text-lg font-semibold" style={{ color: info.color }}>{info.name}</h3>
-                          <p className="text-xs text-muted-foreground">{info.desc}</p>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-3xl font-bold tabular-nums" style={{ color: info.color }}>{score}</div>
-                          <div className="text-xs text-muted-foreground">{level}</div>
-                        </div>
-                      </div>
-                      <Progress value={score} className="mt-3" indicatorClassName={`bg-trait-${t.toLowerCase()}`} />
-                      <p className="mt-3 text-sm text-muted-foreground">
-                        {isHigh ? info.high : info.low}
-                      </p>
-                      <div
-                        className="mt-4 flex items-center justify-center gap-2 rounded-md border px-4 py-2.5 text-sm font-semibold transition-colors"
-                        style={{
-                          borderColor: info.color,
-                          color: isOpen ? "#ffffff" : info.color,
-                          backgroundColor: isOpen ? info.color : `color-mix(in oklab, ${info.color} 10%, transparent)`,
-                        }}
-                      >
-                        {isOpen ? "접기" : "자세한 해석 보기"}
-                        <ChevronDown
-                          className={cn(
-                            "h-4 w-4 transition-transform",
-                            isOpen && "rotate-180",
-                          )}
-                        />
-                      </div>
-                    </button>
-
-                    {isOpen && (
-                      <div className="border-t border-border px-5 pb-5 pt-4">
-                        <h4 className="text-sm font-semibold text-foreground">이 요인이 의미하는 것</h4>
-                        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                          {detail.meaning}
-                        </p>
-
-                        <div className="mt-5 grid gap-4 sm:grid-cols-2">
-                          <div
-                            className={cn(
-                              "rounded-md border p-3",
-                              isHigh ? "border-current/40" : "border-border",
-                            )}
-                            style={isHigh ? { borderColor: info.color, color: info.color } : undefined}
-                          >
-                            <div className="text-xs font-semibold uppercase tracking-wide">
-                              높은 점수의 특징
-                            </div>
-                            <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
-                              {detail.highTraits.map((s, i) => (
-                                <li key={i}>· {s}</li>
-                              ))}
-                            </ul>
-                          </div>
-                          <div
-                            className={cn(
-                              "rounded-md border p-3",
-                              !isHigh ? "border-current/40" : "border-border",
-                            )}
-                            style={!isHigh ? { borderColor: info.color, color: info.color } : undefined}
-                          >
-                            <div className="text-xs font-semibold uppercase tracking-wide">
-                              낮은 점수의 특징
-                            </div>
-                            <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
-                              {detail.lowTraits.map((s, i) => (
-                                <li key={i}>· {s}</li>
-                              ))}
-                            </ul>
-                          </div>
-                        </div>
-
-                        <h4 className="mt-5 text-sm font-semibold text-foreground">자기이해에 활용하는 팁</h4>
-                        <ul className="mt-2 space-y-2 text-sm leading-relaxed text-muted-foreground">
-                          {detail.tips.map((s, i) => (
-                            <li key={i} className="flex gap-2">
-                              <span style={{ color: info.color }}>●</span>
-                              <span>{s}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </Card>
-                );
-              })}
-            </div>
-
-            <Card className="mt-8 p-6 sm:p-7">
-              <h2 className="text-lg font-semibold sm:text-xl">점수를 어떻게 이해하면 좋을까요</h2>
-              <div className="mt-4 space-y-4 text-sm leading-relaxed text-muted-foreground sm:text-[15px]">
-                <p>
-                  Big Five는 성격을 다섯 개의 <span className="font-medium text-foreground">연속적인 차원</span>으로 보는 모델입니다.
-                  점수는 한 사람을 특정 유형으로 분류하는 라벨이 아니라, 각 성향이 나에게 얼마나 자주·강하게 나타나는지를 보여주는 상대적인 위치입니다.
-                  높다고 좋고 낮다고 나쁜 점수는 없으며, 각 위치마다 잘 어울리는 환경과 강점이 다릅니다.
-                </p>
-                <p>
-                  성격 특질은 비교적 안정적이지만 고정된 것은 아닙니다. 연구에 따르면 성인기 동안에도 환경, 역할, 인생 경험에 따라
-                  <span className="font-medium text-foreground"> 점진적으로 변화</span>합니다(Roberts &amp; Mroczek, 2008).
-                  오늘의 점수는 ‘지금의 나’를 비추는 스냅샷에 가깝습니다.
-                </p>
-                <p>
-                  또한 성격은 상황에 따라 다르게 표현됩니다(person-situation interaction).
-                  같은 외향성 점수여도 친한 사람 앞과 회의실에서의 모습은 다를 수 있어요.
-                  점수보다 <span className="font-medium text-foreground">어떤 상황에서 그 성향이 강하게 드러나는지</span>를 함께 살펴보면 더 유용합니다.
-                </p>
-              </div>
-
-              <h3 className="mt-6 text-base font-semibold text-foreground">자기이해에 활용하는 방법</h3>
-              <ul className="mt-3 space-y-2.5 text-sm leading-relaxed text-muted-foreground sm:text-[15px]">
-                <li>
-                  <span className="font-medium text-foreground">강점으로 다시 읽기.</span>{" "}
-                  각 요인의 점수는 잘 맞는 환경과 일하는 방식의 단서입니다. 예: 성실성이 높다면 구조화된 계획이, 개방성이 높다면 새로운 자극이 동력이 됩니다.
-                </li>
-                <li>
-                  <span className="font-medium text-foreground">대비되는 두 요인을 함께 보기.</span>{" "}
-                  외향성 × 친화성, 성실성 × 개방성처럼 조합으로 볼 때 협업 스타일과 의사결정 패턴이 더 분명히 보입니다.
-                </li>
-                <li>
-                  <span className="font-medium text-foreground">신경성은 ‘민감도’로 읽기.</span>{" "}
-                  점수가 높다면 약점이 아니라 스트레스 신호를 빠르게 감지하는 신호 시스템이라고 보고, 회복 루틴을 함께 설계해보세요.
-                </li>
-                <li>
-                  <span className="font-medium text-foreground">시간을 두고 다시 측정해 보기.</span>{" "}
-                  6개월~1년 뒤 다시 해보면, 환경 변화에 따라 어떤 차원이 어떻게 움직였는지 관찰할 수 있습니다.
-                </li>
-                <li>
-                  <span className="font-medium text-foreground">결과를 대화의 출발점으로.</span>{" "}
-                  가까운 사람과 점수에 대해 이야기 나누면, 내가 인식하는 나와 타인이 보는 나 사이의 간극을 확인할 수 있습니다.
-                </li>
-              </ul>
-
-              <p className="mt-5 text-xs text-muted-foreground">
-                ※ 본 결과는 IPIP-50(Goldberg, 1992) 문항을 기반으로 한 자기이해용 자료이며, 임상적 진단이나 인사 의사결정의 근거가 아닙니다.
-              </p>
-            </Card>
-
-            <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <Button
-                onClick={handleKakaoShare}
-                className="bg-[#FEE500] text-[#191600] hover:bg-[#FEE500]/90"
-              >
-                <MessageCircle className="mr-2 h-4 w-4" /> 카카오톡으로 공유
-              </Button>
-              <Button onClick={handleCopyLink} variant="default">
-                <Link2 className="mr-2 h-4 w-4" /> 결과 링크 복사
-              </Button>
-              <Button onClick={handleDownloadImage} variant="secondary">
-                <Download className="mr-2 h-4 w-4" /> 이미지로 저장
-              </Button>
-              <Button onClick={reset} variant="outline">
-                다시 진단하기
-              </Button>
-            </div>
-          </section>
-        )}
-      </div>
+        <div className="mt-12 text-center">
+          <Button asChild size="lg">
+            <Link to="/test">
+              진단 시작하기
+              <ArrowRight className="ml-1 h-4 w-4" />
+            </Link>
+          </Button>
+          <p className="mt-3 text-xs text-muted-foreground">
+            결과는 저장되지 않으며, 링크로 직접 공유할 때만 전달됩니다.
+          </p>
+        </div>
+      </section>
     </main>
   );
 }
