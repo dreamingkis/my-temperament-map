@@ -24,6 +24,10 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
+import { IntakeForm } from "@/components/IntakeForm";
+import { PersonalizedInsight } from "@/components/PersonalizedInsight";
+import { submitIntake, type IntakeInput } from "@/lib/intake";
+import { toast as sonnerToast } from "sonner";
 
 export const Route = createFileRoute("/test")({
   head: () => ({
