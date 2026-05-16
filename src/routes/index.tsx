@@ -11,6 +11,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { BasicResultPreview, DeepResultPreview } from "@/components/ResultPreviews";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -114,11 +115,18 @@ function Landing() {
             </div>
 
             <h3 className="mb-2 text-2xl font-bold">BIG5 기본진단</h3>
-            <p className="mb-6 leading-relaxed text-muted-foreground">
+            <p className="mb-5 leading-relaxed text-muted-foreground">
               5가지 핵심 성격 요인(개방성·성실성·외향성·친화성·신경성)의
               전체적인 성향을 빠르게 파악합니다. 각 요인을 0~100점 스펙트럼으로
               확인하며, 자신의 대략적인 성격 지도를 그리기에 적합합니다.
             </p>
+
+            <div className="mb-5">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                결과 화면 미리보기
+              </p>
+              <BasicResultPreview />
+            </div>
 
             <div className="mb-8 space-y-3">
               <div className="flex items-center text-sm text-muted-foreground">
@@ -173,11 +181,18 @@ function Landing() {
             </div>
 
             <h3 className="mb-2 text-2xl font-bold">BIG5 심층진단</h3>
-            <p className="mb-6 leading-relaxed text-muted-foreground">
+            <p className="mb-5 leading-relaxed text-muted-foreground">
               5요인을 각각 6개 하위 facet(세부 성향)으로 세분화해 분석합니다.
               예를 들어 같은 &apos;외향성&apos; 안에서도 사교성·자기주장성·활동성 등
               구체적인 면면을 살펴볼 수 있어, 훨씬 정교한 자기 이해가 가능합니다.
             </p>
+
+            <div className="mb-5">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                결과 화면 미리보기
+              </p>
+              <DeepResultPreview />
+            </div>
 
             <div className="mb-8 space-y-3">
               <div className="flex items-center text-sm text-muted-foreground">
