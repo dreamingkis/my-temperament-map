@@ -154,18 +154,36 @@ function Index() {
               국제 표준 IPIP-50 문항으로 개방성·성실성·외향성·친화성·신경성을 점수로 확인해 보세요.
               약 7분 정도 소요됩니다.
             </p>
+
+            <Card className="mt-8 p-6 text-left sm:p-7">
+              <div className="space-y-4 text-sm leading-relaxed text-muted-foreground sm:text-[15px]">
+                <p>
+                  이 체크는 나를 진단하거나 유형으로 고정하기 위한 검사가 아닙니다.
+                  <br />
+                  현재 내가 반복적으로 보이는 성향을 살펴보기 위한 자기이해 자료입니다.
+                </p>
+                <p>
+                  답할 때는 미래에 되고 싶은 모습이 아니라,{" "}
+                  <span className="font-medium text-foreground">최근 3~6개월 동안의 현재 모습</span>을 떠올려주세요.
+                  <br />
+                  친한 사람 앞의 나와 낯선 사람 앞의 나, 일할 때의 나와 일상 속의 나는 다를 수 있습니다.
+                  그럴 때는 특정한 한 장면만 기준으로 삼기보다, 여러 상황을 통틀어 대체로 더 자주 반복되는 모습을 골라주세요.
+                </p>
+                <p>
+                  만약 이 체크를 일과 브랜드 방향을 이해하기 위해 사용한다면,
+                  일·학습·고객/동료와의 관계·콘텐츠를 만들거나 사람을 만나는 장면을 함께 떠올려도 좋습니다.
+                </p>
+                <p>
+                  <span className="font-medium text-foreground">좋은 답이나 나쁜 답은 없습니다.</span>
+                  <br />
+                  점수는 나를 평가하는 결과가 아니라, 나를 더 잘 이해하기 위한 대화의 출발점입니다.
+                </p>
+              </div>
+            </Card>
+
             <Button size="lg" className="mt-8" onClick={() => setStage("quiz")}>
               진단 시작하기
             </Button>
-
-            <div className="mt-12 grid gap-3 text-left sm:grid-cols-2">
-              {(Object.keys(TRAIT_INFO) as Trait[]).map((t) => (
-                <Card key={t} className="p-4 border-l-4" style={{ borderLeftColor: TRAIT_INFO[t].color }}>
-                  <div className="text-sm font-semibold" style={{ color: TRAIT_INFO[t].color }}>{TRAIT_INFO[t].name}</div>
-                  <p className="mt-1 text-sm text-muted-foreground">{TRAIT_INFO[t].desc}</p>
-                </Card>
-              ))}
-            </div>
           </section>
         )}
 
