@@ -359,7 +359,7 @@ function Index() {
                 const isOpen = expandedTrait === t;
                 const isHigh = score >= 50;
                 return (
-                  <Card key={t} className="overflow-hidden border-l-4 p-0" style={{ borderLeftColor: info.color }}>
+                  <Card key={t} className="overflow-hidden p-0">
                     <button
                       type="button"
                       onClick={() => setExpandedTrait(isOpen ? null : t)}
