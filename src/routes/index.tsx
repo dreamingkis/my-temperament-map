@@ -64,42 +64,72 @@ function Landing() {
             <span className="text-primary">5가지 성격 지도</span>
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-base text-muted-foreground sm:text-lg">
-            국제 표준 IPIP-50 문항으로 알아보는 무료 Big5 성격유형 진단.
+            국제 표준 공개 문항으로 알아보는 무료 성격 진단.
             <br className="hidden sm:block" />
             점수가 아니라, 나를 이해하는 대화의 출발점입니다.
           </p>
-
-          <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button asChild size="lg" className="group">
-              <Link to="/test">
-                진단 시작하기
-                <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </Link>
-            </Button>
-            <p className="text-sm text-muted-foreground">50문항 · 약 7분 · 로그인 불필요</p>
-          </div>
         </div>
       </section>
 
-      {/* 5 traits preview */}
+      {/* Pick a test */}
       <section className="mx-auto max-w-4xl px-4 pb-16">
         <h2 className="text-center text-sm font-semibold uppercase tracking-widest text-muted-foreground">
-          진단하는 5가지 요인
+          진단을 선택하세요
         </h2>
-        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-5">
-          {traits.map((t) => (
-            <Card key={t.key} className="p-4 text-center">
-              <div
-                className="mx-auto h-8 w-8 rounded-full"
-                style={{ backgroundColor: t.color }}
-              />
-              <div className="mt-3 text-sm font-semibold" style={{ color: t.color }}>
-                {t.name}
-              </div>
-              <div className="mt-1 text-xs text-muted-foreground">{t.desc}</div>
-            </Card>
-          ))}
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          <Card className="flex flex-col p-6">
+            <div className="text-xs font-semibold uppercase tracking-widest text-primary">
+              빠른 진단 · IPIP-50
+            </div>
+            <h3 className="mt-2 text-xl font-bold">Big5 기본 진단</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              5요인(개방성·성실성·외향성·친화성·신경성) 점수를 빠르게 확인합니다.
+              처음이라면 여기서 시작하세요.
+            </p>
+            <ul className="mt-4 space-y-1 text-sm text-muted-foreground">
+              <li>· 50문항 · 약 7분</li>
+              <li>· 5요인 점수 + 요인별 해석</li>
+              <li>· 결과 이미지 9:16 저장 / 링크 공유</li>
+            </ul>
+            <div className="mt-6">
+              <Button asChild className="group w-full">
+                <Link to="/test">
+                  기본 진단 시작
+                  <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              </Button>
+            </div>
+          </Card>
+
+          <Card
+            className="flex flex-col border-primary/40 p-6"
+            style={{ backgroundColor: "color-mix(in oklab, var(--primary) 5%, transparent)" }}
+          >
+            <div className="text-xs font-semibold uppercase tracking-widest text-primary">
+              심층 진단 · IPIP-NEO-120
+            </div>
+            <h3 className="mt-2 text-xl font-bold">30 facet 심층 진단</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              5요인을 각각 6개 하위 facet으로 나눠 살펴봅니다. 같은 ‘외향성’ 안에서도 어느 면이 강한지 보입니다.
+            </p>
+            <ul className="mt-4 space-y-1 text-sm text-muted-foreground">
+              <li>· 120문항 · 약 12~15분</li>
+              <li>· 5요인 + 30 facet 점수</li>
+              <li>· Johnson(2014) 공개 도구 기반</li>
+            </ul>
+            <div className="mt-6">
+              <Button asChild className="group w-full">
+                <Link to="/test-neo">
+                  심층 진단 시작
+                  <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              </Button>
+            </div>
+          </Card>
         </div>
+        <p className="mt-4 text-center text-xs text-muted-foreground">
+          모든 진단은 로그인 없이 진행되며, 결과는 브라우저에만 남습니다.
+        </p>
       </section>
 
       {/* Why / How */}
