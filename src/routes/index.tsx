@@ -194,7 +194,7 @@ function Landing() {
               <DeepResultPreview />
             </div>
 
-            <div className="mb-8 space-y-3">
+            <div className="mb-6 sm:mb-8 space-y-3">
               <div className="flex items-center text-sm text-muted-foreground">
                 <ClipboardList className="mr-2 h-4 w-4" />
                 120문항 · IPIP-NEO-120
