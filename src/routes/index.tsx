@@ -295,9 +295,9 @@ function Index() {
                     <Radar
                       name="점수"
                       dataKey="score"
-                      stroke="hsl(var(--primary))"
+                      stroke="var(--primary)"
                       strokeWidth={2}
-                      fill="hsl(var(--primary))"
+                      fill="var(--primary)"
                       fillOpacity={0.2}
                       dot={(props: any) => {
                         const { cx, cy, index } = props;
@@ -305,7 +305,7 @@ function Index() {
                         const color = TRAIT_INFO[traits[index]].color;
                         return (
                           <g>
-                            <circle cx={cx} cy={cy} r={6} fill={color} stroke="hsl(var(--background))" strokeWidth={2} />
+                            <circle cx={cx} cy={cy} r={6} fill={color} stroke="var(--background)" strokeWidth={2} />
                           </g>
                         );
                       }}
