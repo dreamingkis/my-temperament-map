@@ -168,7 +168,13 @@ function Index() {
               })}
             </div>
 
-            <div className="mt-8 flex justify-center gap-3">
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
+              <Button onClick={handleCopyLink} variant="default">
+                <Link2 className="mr-2 h-4 w-4" /> 결과 링크 복사
+              </Button>
+              <Button onClick={handleDownloadImage} variant="secondary">
+                <Download className="mr-2 h-4 w-4" /> 이미지로 저장
+              </Button>
               <Button onClick={reset} variant="outline">
                 다시 진단하기
               </Button>
