@@ -76,6 +76,9 @@ function NeoTest() {
   const [index, setIndex] = useState(0);
   const [expandedTrait, setExpandedTrait] = useState<NeoTrait | null>(null);
   const [hasSavedProgress, setHasSavedProgress] = useState(false);
+  const [personalized, setPersonalized] = useState(false);
+  const [intakeData, setIntakeData] = useState<IntakeInput | null>(null);
+  const [submittingIntake, setSubmittingIntake] = useState(false);
 
   const current = NEO_QUESTIONS[index];
   const progress = (index / NEO_QUESTIONS.length) * 100;
