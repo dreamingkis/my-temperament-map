@@ -25,7 +25,7 @@ import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/test")({
   head: () => ({
     meta: [
       { title: "Big5 성격유형 진단 — 5가지 성격 점수 확인" },
