@@ -233,18 +233,33 @@ function Index() {
                 <ResponsiveContainer width="100%" height="100%">
                   <RadarChart
                     data={[
-                      { subject: TRAIT_INFO.O.name, score: scores.O },
-                      { subject: TRAIT_INFO.C.name, score: scores.C },
-                      { subject: TRAIT_INFO.E.name, score: scores.E },
-                      { subject: TRAIT_INFO.A.name, score: scores.A },
-                      { subject: TRAIT_INFO.N.name, score: scores.N },
+                      { subject: TRAIT_INFO.O.name, score: scores.O, trait: "O" as Trait },
+                      { subject: TRAIT_INFO.C.name, score: scores.C, trait: "C" as Trait },
+                      { subject: TRAIT_INFO.E.name, score: scores.E, trait: "E" as Trait },
+                      { subject: TRAIT_INFO.A.name, score: scores.A, trait: "A" as Trait },
+                      { subject: TRAIT_INFO.N.name, score: scores.N, trait: "N" as Trait },
                     ]}
                     margin={{ top: 16, right: 16, bottom: 16, left: 16 }}
                   >
                     <PolarGrid stroke="hsl(var(--border))" />
                     <PolarAngleAxis
                       dataKey="subject"
-                      tick={{ fill: "hsl(var(--foreground))", fontSize: 13 }}
+                      tick={(props: any) => {
+                        const { payload, x, y, textAnchor } = props;
+                        const entry = [
+                          { subject: TRAIT_INFO.O.name, trait: "O" as Trait },
+                          { subject: TRAIT_INFO.C.name, trait: "C" as Trait },
+                          { subject: TRAIT_INFO.E.name, trait: "E" as Trait },
+                          { subject: TRAIT_INFO.A.name, trait: "A" as Trait },
+                          { subject: TRAIT_INFO.N.name, trait: "N" as Trait },
+                        ].find((d) => d.subject === payload.value);
+                        const color = entry ? TRAIT_INFO[entry.trait].color : "hsl(var(--foreground))";
+                        return (
+                          <text x={x} y={y} textAnchor={textAnchor} fill={color} fontSize={13}>
+                            {payload.value}
+                          </text>
+                        );
+                      }}
                     />
                     <PolarRadiusAxis
                       domain={[0, 100]}
@@ -258,10 +273,15 @@ function Index() {
                       stroke="hsl(var(--primary))"
                       fill="hsl(var(--primary))"
                       fillOpacity={0.25}
-                      label={{
-                        fill: "hsl(var(--foreground))",
-                        fontSize: 12,
-                        offset: 10,
+                      label={(props: any) => {
+                        const { x, y, index, value } = props;
+                        const traits: Trait[] = ["O", "C", "E", "A", "N"];
+                        const color = TRAIT_INFO[traits[index]].color;
+                        return (
+                          <text x={x} y={y} fill={color} fontSize={12} textAnchor="middle" dy={-10}>
+                            {value}
+                          </text>
+                        );
                       }}
                     />
                   </RadarChart>
