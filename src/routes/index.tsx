@@ -65,6 +65,9 @@ function Index() {
       const decoded = decodeScores(decodeURIComponent(match[1]));
       if (decoded) {
         setSharedScores(decoded);
+        const traits: Trait[] = ["O", "C", "E", "A", "N"];
+        const top = traits.reduce((a, b) => (decoded[b] > decoded[a] ? b : a));
+        setExpandedTrait(top);
         setStage("result");
       }
     }
@@ -76,6 +79,10 @@ function Index() {
     if (index < QUESTIONS.length - 1) {
       setIndex(index + 1);
     } else {
+      const finalScores = computeScores(newAnswers);
+      const traits: Trait[] = ["O", "C", "E", "A", "N"];
+      const top = traits.reduce((a, b) => (finalScores[b] > finalScores[a] ? b : a));
+      setExpandedTrait(top);
       setStage("result");
     }
   };
