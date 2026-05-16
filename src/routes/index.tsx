@@ -187,7 +187,7 @@ function Landing() {
               구체적인 면면을 살펴볼 수 있어, 훨씬 정교한 자기 이해가 가능합니다.
             </p>
 
-            <div className="mb-5">
+            <div className="mb-4 sm:mb-5">
               <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 결과 화면 미리보기
               </p>
