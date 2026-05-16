@@ -133,7 +133,7 @@ function Landing() {
             <ShieldCheck className="h-6 w-6 text-primary" />
             <h3 className="mt-3 text-base font-semibold">학문적으로 검증된 문항</h3>
             <p className="mt-2 text-sm text-muted-foreground">
-              심리학에서 가장 널리 쓰이는 5요인 모델(Goldberg, 1992)의 공개 문항 IPIP-50을 사용합니다.
+              IPIP-50, IPIP-NEO-120 등 학계에서 공개한 퍼블릭 도메인 문항을 사용합니다.
             </p>
           </Card>
           <Card className="p-6">
@@ -150,18 +150,6 @@ function Landing() {
               점수의 의미와 일·관계·학습에 적용하는 방법을 요인별로 자세히 안내합니다.
             </p>
           </Card>
-        </div>
-
-        <div className="mt-12 text-center">
-          <Button asChild size="lg">
-            <Link to="/test">
-              진단 시작하기
-              <ArrowRight className="ml-1 h-4 w-4" />
-            </Link>
-          </Button>
-          <p className="mt-3 text-xs text-muted-foreground">
-            결과는 저장되지 않으며, 링크로 직접 공유할 때만 전달됩니다.
-          </p>
         </div>
       </section>
     </main>
