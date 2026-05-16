@@ -151,6 +151,8 @@ function Index() {
     setIndex(0);
     setSharedScores(null);
     setHasSavedProgress(false);
+    setIntakeData(null);
+    setPersonalized(false);
     if (typeof window !== "undefined") {
       localStorage.removeItem(STORAGE_KEY);
       if (window.location.hash) {
@@ -158,6 +160,11 @@ function Index() {
       }
     }
     setStage("intro");
+  };
+
+  const startQuiz = (withPersonalized: boolean) => {
+    setPersonalized(withPersonalized);
+    setStage("quiz");
   };
 
   const handleStartFresh = () => {
