@@ -126,6 +126,9 @@ function Landing() {
                 결과 화면 미리보기
               </p>
               <BasicResultPreview />
+              <p className="mt-2 text-center text-[10px] text-muted-foreground/70">
+                제공: 심리 기반 강점브랜딩 스튜디오 <a href="https://www.bestar.kr/" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary">비스타</a>
+              </p>
             </div>
 
             <div className="mb-6 sm:mb-8 space-y-3">
