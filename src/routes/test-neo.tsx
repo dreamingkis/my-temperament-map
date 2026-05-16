@@ -209,9 +209,20 @@ function NeoTest() {
             </Card>
 
             <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-              <Button size="lg" onClick={() => setStage("quiz")}>
-                진단 시작하기
-              </Button>
+              {hasSavedProgress ? (
+                <>
+                  <Button size="lg" onClick={handleResume}>
+                    이어서 진단하기 ({Math.round(progress)}% 완료)
+                  </Button>
+                  <Button size="lg" variant="outline" onClick={handleStartFresh}>
+                    처음부터 다시 시작
+                  </Button>
+                </>
+              ) : (
+                <Button size="lg" onClick={() => setStage("quiz")}>
+                  진단 시작하기
+                </Button>
+              )}
               <Button asChild size="lg" variant="ghost">
                 <Link to="/">← 다른 진단 보기</Link>
               </Button>
