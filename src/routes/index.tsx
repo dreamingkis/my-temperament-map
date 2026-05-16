@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { ArrowRight, Brain, Compass, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { TRAIT_INFO, type Trait } from "@/lib/big5";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
