@@ -246,19 +246,7 @@ function NeoTest() {
                     outerRadius="75%"
                   >
                     <PolarGrid stroke="var(--border)" />
-                    <PolarAngleAxis
-                      dataKey="subject"
-                      tick={(props: any) => {
-                        const { payload, x, y, textAnchor } = props;
-                        const entry = TRAITS.find((t) => TRAIT_INFO[t].name === payload.value);
-                        const color = entry ? TRAIT_INFO[entry].color : "var(--foreground)";
-                        return (
-                          <text x={x} y={y} textAnchor={textAnchor} fill={color} fontSize={14} fontWeight={600}>
-                            {payload.value}
-                          </text>
-                        );
-                      }}
-                    />
+                    <PolarAngleAxis dataKey="subject" tick={renderAxisTick} />
                     <PolarRadiusAxis
                       domain={[0, 100]}
                       tickCount={6}
@@ -273,11 +261,7 @@ function NeoTest() {
                       strokeWidth={2}
                       fill="var(--primary)"
                       fillOpacity={0.2}
-                      dot={(props: any) => {
-                        const { cx, cy, index: i } = props;
-                        const color = TRAIT_INFO[TRAITS[i]].color;
-                        return <circle cx={cx} cy={cy} r={6} fill={color} stroke="var(--background)" strokeWidth={2} />;
-                      }}
+                      dot={renderRadarDot}
                     />
                   </RadarChart>
                 </ResponsiveContainer>
