@@ -24,11 +24,23 @@ export function decodeScores(str: string): Record<Trait, number> | null {
   }
 }
 
+// Resolve a CSS variable like "var(--trait-o)" to a concrete color string usable in canvas.
+function resolveColor(value: string): string {
+  if (typeof window === "undefined") return "#a78bfa";
+  const match = value.match(/var\((--[\w-]+)\)/);
+  if (!match) return value;
+  const resolved = getComputedStyle(document.documentElement)
+    .getPropertyValue(match[1])
+    .trim();
+  return resolved || "#a78bfa";
+}
+
 export async function generateResultImage(
   scores: Record<Trait, number>,
 ): Promise<Blob | null> {
+  // 9:16 aspect ratio for stories / shorts
   const width = 1080;
-  const height = 1350;
+  const height = 1920;
   const canvas = document.createElement("canvas");
   canvas.width = width;
   canvas.height = height;
@@ -43,62 +55,198 @@ export async function generateResultImage(
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, width, height);
 
+  // Subtle radial highlight
+  const radial = ctx.createRadialGradient(width / 2, 300, 50, width / 2, 300, 900);
+  radial.addColorStop(0, "rgba(255,255,255,0.15)");
+  radial.addColorStop(1, "rgba(255,255,255,0)");
+  ctx.fillStyle = radial;
+  ctx.fillRect(0, 0, width, height);
+
   // Header
-  ctx.fillStyle = "rgba(255,255,255,0.7)";
-  ctx.font = "600 28px system-ui, -apple-system, sans-serif";
-  ctx.fillText("BIG FIVE PERSONALITY", 80, 120);
+  ctx.fillStyle = "rgba(255,255,255,0.65)";
+  ctx.font = "600 30px Pretendard, system-ui, -apple-system, sans-serif";
+  ctx.textAlign = "center";
+  ctx.fillText("BIG FIVE PERSONALITY", width / 2, 130);
 
   ctx.fillStyle = "#ffffff";
-  ctx.font = "700 64px system-ui, -apple-system, sans-serif";
-  ctx.fillText("나의 성격 진단 결과", 80, 200);
+  ctx.font = "700 64px Pretendard, system-ui, -apple-system, sans-serif";
+  ctx.fillText("나의 성격 5요인 진단", width / 2, 215);
+  ctx.textAlign = "left";
 
-  // Score bars
+  // ===== Radar chart at top =====
   const order: Trait[] = ["O", "C", "E", "A", "N"];
-  const startY = 300;
-  const rowH = 180;
+  const colors: Record<Trait, string> = {
+    O: resolveColor(TRAIT_INFO.O.color),
+    C: resolveColor(TRAIT_INFO.C.color),
+    E: resolveColor(TRAIT_INFO.E.color),
+    A: resolveColor(TRAIT_INFO.A.color),
+    N: resolveColor(TRAIT_INFO.N.color),
+  };
+
+  const cx = width / 2;
+  const cy = 720;
+  const radius = 320;
+  const n = order.length;
+  // start at top (-90deg) and go clockwise
+  const angleFor = (i: number) => -Math.PI / 2 + (i * 2 * Math.PI) / n;
+
+  // Grid rings
+  const ringSteps = [20, 40, 60, 80, 100];
+  ctx.lineWidth = 1.5;
+  ringSteps.forEach((step) => {
+    const r = (radius * step) / 100;
+    ctx.beginPath();
+    for (let i = 0; i < n; i++) {
+      const a = angleFor(i);
+      const x = cx + Math.cos(a) * r;
+      const y = cy + Math.sin(a) * r;
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+    ctx.strokeStyle = "rgba(255,255,255,0.18)";
+    ctx.stroke();
+  });
+
+  // Axis lines + scale ticks
+  ctx.strokeStyle = "rgba(255,255,255,0.18)";
+  ctx.lineWidth = 1;
+  for (let i = 0; i < n; i++) {
+    const a = angleFor(i);
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + Math.cos(a) * radius, cy + Math.sin(a) * radius);
+    ctx.stroke();
+  }
+
+  // Scale labels on vertical axis (top)
+  ctx.font = "500 20px Pretendard, system-ui, sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ringSteps.forEach((step) => {
+    const r = (radius * step) / 100;
+    const x = cx;
+    const y = cy - r;
+    // pill background
+    ctx.fillStyle = "rgba(15, 12, 50, 0.85)";
+    const pillW = 50;
+    const pillH = 26;
+    roundRect(ctx, x - pillW / 2, y - pillH / 2, pillW, pillH, 13);
+    ctx.fill();
+    ctx.fillStyle = "rgba(255,255,255,0.75)";
+    ctx.fillText(String(step), x, y);
+  });
+
+  // Data polygon
+  const points = order.map((t, i) => {
+    const a = angleFor(i);
+    const r = (radius * scores[t]) / 100;
+    return { x: cx + Math.cos(a) * r, y: cy + Math.sin(a) * r };
+  });
+
+  ctx.beginPath();
+  points.forEach((p, i) => {
+    if (i === 0) ctx.moveTo(p.x, p.y);
+    else ctx.lineTo(p.x, p.y);
+  });
+  ctx.closePath();
+  ctx.fillStyle = "rgba(167, 139, 250, 0.35)";
+  ctx.fill();
+  ctx.strokeStyle = "rgba(240, 171, 252, 0.9)";
+  ctx.lineWidth = 3;
+  ctx.stroke();
+
+  // Trait name labels (outside)
+  ctx.font = "700 30px Pretendard, system-ui, sans-serif";
+  ctx.textBaseline = "middle";
+  order.forEach((t, i) => {
+    const a = angleFor(i);
+    const labelR = radius + 60;
+    const x = cx + Math.cos(a) * labelR;
+    const y = cy + Math.sin(a) * labelR;
+    ctx.fillStyle = colors[t];
+    ctx.textAlign = Math.abs(Math.cos(a)) < 0.2 ? "center" : Math.cos(a) > 0 ? "left" : "right";
+    ctx.fillText(TRAIT_INFO[t].name, x, y);
+  });
+
+  // Score pills at each vertex
+  ctx.font = "700 22px Pretendard, system-ui, sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  points.forEach((p, i) => {
+    const t = order[i];
+    // dot
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 9, 0, Math.PI * 2);
+    ctx.fillStyle = colors[t];
+    ctx.fill();
+    ctx.strokeStyle = "#ffffff";
+    ctx.lineWidth = 3;
+    ctx.stroke();
+
+    // score pill pushed outward
+    const a = angleFor(i);
+    const px = p.x + Math.cos(a) * 28;
+    const py = p.y + Math.sin(a) * 28;
+    const pillW = 56;
+    const pillH = 32;
+    ctx.fillStyle = colors[t];
+    roundRect(ctx, px - pillW / 2, py - pillH / 2, pillW, pillH, 16);
+    ctx.fill();
+    ctx.fillStyle = "#ffffff";
+    ctx.fillText(String(scores[t]), px, py);
+  });
+
+  ctx.textBaseline = "alphabetic";
+  ctx.textAlign = "left";
+
+  // ===== Score bars below radar =====
+  const startY = 1180;
+  const rowH = 120;
 
   order.forEach((t, i) => {
     const y = startY + i * rowH;
     const info = TRAIT_INFO[t];
     const score = scores[t];
+    const color = colors[t];
 
     // Name
     ctx.fillStyle = "#ffffff";
-    ctx.font = "600 36px system-ui, -apple-system, sans-serif";
+    ctx.font = "600 34px Pretendard, system-ui, sans-serif";
+    ctx.textAlign = "left";
     ctx.fillText(info.name, 80, y);
 
     // Score number
-    ctx.font = "700 56px system-ui, -apple-system, sans-serif";
+    ctx.fillStyle = color;
+    ctx.font = "700 44px Pretendard, system-ui, sans-serif";
     ctx.textAlign = "right";
     ctx.fillText(String(score), width - 80, y);
 
     // Level
-    ctx.fillStyle = "rgba(255,255,255,0.6)";
-    ctx.font = "500 22px system-ui, -apple-system, sans-serif";
-    ctx.fillText(scoreLevel(score), width - 80, y + 32);
+    ctx.fillStyle = "rgba(255,255,255,0.55)";
+    ctx.font = "500 20px Pretendard, system-ui, sans-serif";
+    ctx.fillText(scoreLevel(score), width - 80, y + 28);
     ctx.textAlign = "left";
 
     // Bar bg
-    const barY = y + 60;
-    const barH = 18;
+    const barY = y + 48;
+    const barH = 14;
     const barW = width - 160;
     ctx.fillStyle = "rgba(255,255,255,0.15)";
-    roundRect(ctx, 80, barY, barW, barH, 9);
+    roundRect(ctx, 80, barY, barW, barH, 7);
     ctx.fill();
 
-    // Bar fill
-    const fillGrad = ctx.createLinearGradient(80, 0, 80 + barW, 0);
-    fillGrad.addColorStop(0, "#a78bfa");
-    fillGrad.addColorStop(1, "#f0abfc");
-    ctx.fillStyle = fillGrad;
-    roundRect(ctx, 80, barY, (barW * score) / 100, barH, 9);
+    // Bar fill (trait color)
+    ctx.fillStyle = color;
+    roundRect(ctx, 80, barY, (barW * score) / 100, barH, 7);
     ctx.fill();
   });
 
   // Footer
   ctx.fillStyle = "rgba(255,255,255,0.5)";
-  ctx.font = "500 24px system-ui, -apple-system, sans-serif";
-  ctx.fillText("Big5 성격유형 진단 · 직접 해보기", 80, height - 80);
+  ctx.font = "500 24px Pretendard, system-ui, sans-serif";
+  ctx.textAlign = "center";
+  ctx.fillText("Big5 성격유형 진단 · 직접 해보기", width / 2, height - 70);
 
   return await new Promise((resolve) => canvas.toBlob((b) => resolve(b), "image/png"));
 }
