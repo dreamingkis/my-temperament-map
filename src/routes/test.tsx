@@ -384,6 +384,8 @@ function Index() {
               각 요인별 점수는 0~100점으로 표시됩니다.
             </p>
 
+            {intakeData && <PersonalizedInsight intake={intakeData} scores={scores} />}
+
             <Card className="mt-6 p-4">
               <div className="h-80 w-full sm:h-96">
                 <ResponsiveContainer width="100%" height="100%">
