@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
-import { Download, Link2, MessageCircle } from "lucide-react";
+import { ChevronDown, Download, Link2, MessageCircle } from "lucide-react";
 import {
   RadarChart,
   Radar,
@@ -14,6 +14,7 @@ import {
   QUESTIONS,
   SCALE_LABELS,
   TRAIT_INFO,
+  TRAIT_DETAIL,
   computeScores,
   scoreLevel,
   type Trait,
@@ -22,6 +23,7 @@ import { decodeScores, encodeScores, generateResultImage } from "@/lib/big5-shar
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
   head: () => ({
