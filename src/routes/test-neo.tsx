@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
-import { ChevronDown, Link2 } from "lucide-react";
+import { ChevronDown, Download, Link2 } from "lucide-react";
+import { generateNeoResultImage } from "@/lib/neo120-share";
 import {
   RadarChart,
   Radar,
