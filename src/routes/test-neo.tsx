@@ -108,6 +108,8 @@ function NeoTest() {
       setIsSaving(false);
     }
   };
+
+  return (
     <main className="min-h-screen bg-background text-foreground">
       <div className="mx-auto max-w-2xl px-4 py-12 sm:py-20">
         {stage === "intro" && (
