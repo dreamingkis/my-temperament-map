@@ -167,10 +167,7 @@ function Index() {
     setStage("quiz");
   };
 
-  const handleStartFresh = () => {
-    reset();
-    setStage("quiz");
-  };
+
 
   const handleResume = () => {
     setHasSavedProgress(false);
