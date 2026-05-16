@@ -237,9 +237,20 @@ function Index() {
               </div>
             </Card>
 
-            <Button size="lg" className="mt-8" onClick={() => setStage("quiz")}>
-              진단 시작하기
-            </Button>
+            {hasSavedProgress ? (
+              <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+                <Button size="lg" onClick={handleResume}>
+                  이어서 진단하기 ({Math.round(progress)}% 완료)
+                </Button>
+                <Button size="lg" variant="outline" onClick={handleStartFresh}>
+                  처음부터 다시 시작
+                </Button>
+              </div>
+            ) : (
+              <Button size="lg" className="mt-8" onClick={() => setStage("quiz")}>
+                진단 시작하기
+              </Button>
+            )}
           </section>
         )}
 
