@@ -41,7 +41,7 @@ export const Route = createFileRoute("/test-neo")({
   component: NeoTest,
 });
 
-type Stage = "intro" | "quiz" | "result";
+type Stage = "intro" | "quiz" | "intake" | "result";
 
 const TRAITS: NeoTrait[] = ["O", "C", "E", "A", "N"];
 
