@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
-import { Download, Link2, MessageCircle } from "lucide-react";
+import { ChevronDown, Download, Link2, MessageCircle } from "lucide-react";
 import {
   RadarChart,
   Radar,
@@ -14,6 +14,7 @@ import {
   QUESTIONS,
   SCALE_LABELS,
   TRAIT_INFO,
+  TRAIT_DETAIL,
   computeScores,
   scoreLevel,
   type Trait,
@@ -22,6 +23,7 @@ import { decodeScores, encodeScores, generateResultImage } from "@/lib/big5-shar
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -49,6 +51,7 @@ function Index() {
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [index, setIndex] = useState(0);
   const [sharedScores, setSharedScores] = useState<Record<Trait, number> | null>(null);
+  const [expandedTrait, setExpandedTrait] = useState<Trait | null>(null);
 
   const current = QUESTIONS[index];
   const progress = (index / QUESTIONS.length) * 100;
@@ -310,24 +313,99 @@ function Index() {
             <div className="mt-6 space-y-4">
               {(Object.keys(TRAIT_INFO) as Trait[]).map((t) => {
                 const info = TRAIT_INFO[t];
+                const detail = TRAIT_DETAIL[t];
                 const score = scores[t];
                 const level = scoreLevel(score);
+                const isOpen = expandedTrait === t;
+                const isHigh = score >= 50;
                 return (
-                  <Card key={t} className="p-5 border-l-4" style={{ borderLeftColor: info.color }}>
-                    <div className="flex items-baseline justify-between gap-2">
-                      <div>
-                        <h3 className="text-lg font-semibold" style={{ color: info.color }}>{info.name}</h3>
-                        <p className="text-xs text-muted-foreground">{info.desc}</p>
+                  <Card key={t} className="overflow-hidden border-l-4 p-0" style={{ borderLeftColor: info.color }}>
+                    <button
+                      type="button"
+                      onClick={() => setExpandedTrait(isOpen ? null : t)}
+                      aria-expanded={isOpen}
+                      className="w-full p-5 text-left transition-colors hover:bg-muted/40"
+                    >
+                      <div className="flex items-baseline justify-between gap-2">
+                        <div>
+                          <h3 className="text-lg font-semibold" style={{ color: info.color }}>{info.name}</h3>
+                          <p className="text-xs text-muted-foreground">{info.desc}</p>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <div className="text-right">
+                            <div className="text-3xl font-bold tabular-nums" style={{ color: info.color }}>{score}</div>
+                            <div className="text-xs text-muted-foreground">{level}</div>
+                          </div>
+                          <ChevronDown
+                            className={cn(
+                              "h-5 w-5 text-muted-foreground transition-transform",
+                              isOpen && "rotate-180",
+                            )}
+                          />
+                        </div>
                       </div>
-                      <div className="text-right">
-                        <div className="text-3xl font-bold tabular-nums" style={{ color: info.color }}>{score}</div>
-                        <div className="text-xs text-muted-foreground">{level}</div>
+                      <Progress value={score} className="mt-3" indicatorClassName={`bg-trait-${t.toLowerCase()}`} />
+                      <p className="mt-3 text-sm text-muted-foreground">
+                        {isHigh ? info.high : info.low}
+                      </p>
+                      <p className="mt-2 text-xs text-muted-foreground">
+                        {isOpen ? "접기" : "자세히 보기 ↓"}
+                      </p>
+                    </button>
+
+                    {isOpen && (
+                      <div className="border-t border-border px-5 pb-5 pt-4">
+                        <h4 className="text-sm font-semibold text-foreground">이 요인이 의미하는 것</h4>
+                        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                          {detail.meaning}
+                        </p>
+
+                        <div className="mt-5 grid gap-4 sm:grid-cols-2">
+                          <div
+                            className={cn(
+                              "rounded-md border p-3",
+                              isHigh ? "border-current/40" : "border-border",
+                            )}
+                            style={isHigh ? { borderColor: info.color, color: info.color } : undefined}
+                          >
+                            <div className="text-xs font-semibold uppercase tracking-wide">
+                              높은 점수의 특징
+                            </div>
+                            <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
+                              {detail.highTraits.map((s, i) => (
+                                <li key={i}>· {s}</li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div
+                            className={cn(
+                              "rounded-md border p-3",
+                              !isHigh ? "border-current/40" : "border-border",
+                            )}
+                            style={!isHigh ? { borderColor: info.color, color: info.color } : undefined}
+                          >
+                            <div className="text-xs font-semibold uppercase tracking-wide">
+                              낮은 점수의 특징
+                            </div>
+                            <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
+                              {detail.lowTraits.map((s, i) => (
+                                <li key={i}>· {s}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+
+                        <h4 className="mt-5 text-sm font-semibold text-foreground">자기이해에 활용하는 팁</h4>
+                        <ul className="mt-2 space-y-2 text-sm leading-relaxed text-muted-foreground">
+                          {detail.tips.map((s, i) => (
+                            <li key={i} className="flex gap-2">
+                              <span style={{ color: info.color }}>●</span>
+                              <span>{s}</span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
-                    </div>
-                    <Progress value={score} className="mt-3" indicatorClassName={`bg-trait-${t.toLowerCase()}`} />
-                    <p className="mt-3 text-sm text-muted-foreground">
-                      {score >= 50 ? info.high : info.low}
-                    </p>
+                    )}
                   </Card>
                 );
               })}
