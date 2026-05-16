@@ -209,18 +209,22 @@ function Index() {
               <Progress value={progress} />
             </div>
 
-            <Card className="p-6 sm:p-8">
-              <h2 className="text-xl font-semibold sm:text-2xl">{current.text}</h2>
-              <p className="mt-2 text-sm italic text-muted-foreground">I {current.en.charAt(0).toLowerCase() + current.en.slice(1)}</p>
-              <div className="mt-6 flex flex-col gap-2">
+            <Card className="p-7 sm:p-10">
+              <h2 className="text-2xl font-bold leading-snug tracking-tight sm:text-3xl">
+                {current.text}
+              </h2>
+              <p className="mt-3 text-base italic text-muted-foreground sm:text-lg">
+                I {current.en.charAt(0).toLowerCase() + current.en.slice(1)}
+              </p>
+              <div className="mt-10 flex flex-col gap-4">
                 {SCALE_LABELS.map((label, i) => (
                   <Button
                     key={i}
                     variant="outline"
-                    className="h-auto justify-start py-3 text-left"
+                    className="h-auto justify-start py-4 text-left text-base"
                     onClick={() => handleAnswer(i + 1)}
                   >
-                    <span className="mr-3 inline-flex h-6 w-6 items-center justify-center rounded-full bg-secondary text-xs font-semibold">
+                    <span className="mr-3 inline-flex h-7 w-7 items-center justify-center rounded-full bg-secondary text-xs font-semibold">
                       {i + 1}
                     </span>
                     {label}
