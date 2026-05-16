@@ -78,58 +78,120 @@ function Landing() {
         <h2 className="text-center text-sm font-semibold uppercase tracking-widest text-muted-foreground">
           진단을 선택하세요
         </h2>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2">
-          <Card className="flex flex-col p-6">
-            <div className="text-xs font-semibold uppercase tracking-widest text-primary">
-              빠른 진단 · IPIP-50
+        <p className="mx-auto mt-2 max-w-md text-center text-sm text-muted-foreground">
+          원하는 깊이에 맞는 성격 분석을 선택해 보세요.
+        </p>
+
+        <div className="mt-8 grid gap-6 sm:grid-cols-2">
+          {/* IPIP-50 */}
+          <Link
+            to="/test"
+            className="group relative flex flex-col overflow-hidden rounded-3xl border border-border bg-card p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+          >
+            <div
+              aria-hidden
+              className="absolute inset-x-0 top-0 h-1.5"
+              style={{ backgroundColor: "var(--primary)" }}
+            />
+            <div className="mb-6 flex items-start justify-between">
+              <div
+                className="rounded-2xl p-3"
+                style={{
+                  backgroundColor: "color-mix(in oklab, var(--primary) 10%, transparent)",
+                  color: "var(--primary)",
+                }}
+              >
+                <ClipboardList className="h-6 w-6" />
+              </div>
+              <span
+                className="rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider"
+                style={{
+                  backgroundColor: "color-mix(in oklab, var(--primary) 10%, transparent)",
+                  color: "var(--primary)",
+                }}
+              >
+                기본 · Standard
+              </span>
             </div>
-            <h3 className="mt-2 text-xl font-bold">Big5 기본 진단</h3>
-            <p className="mt-2 text-sm text-muted-foreground">
+
+            <h3 className="mb-2 text-2xl font-bold">Big5 기본 진단</h3>
+            <p className="mb-6 leading-relaxed text-muted-foreground">
               5요인(개방성·성실성·외향성·친화성·신경성) 점수를 빠르게 확인합니다.
               처음이라면 여기서 시작하세요.
             </p>
-            <ul className="mt-4 space-y-1 text-sm text-muted-foreground">
-              <li>· 50문항 · 약 7분</li>
-              <li>· 5요인 점수 + 요인별 해석</li>
-              <li>· 결과 이미지 9:16 저장 / 링크 공유</li>
-            </ul>
-            <div className="mt-6">
-              <Button asChild className="group w-full">
-                <Link to="/test">
-                  기본 진단 시작
-                  <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                </Link>
-              </Button>
-            </div>
-          </Card>
 
-          <Card
-            className="flex flex-col border-primary/40 p-6"
-            style={{ backgroundColor: "color-mix(in oklab, var(--primary) 5%, transparent)" }}
-          >
-            <div className="text-xs font-semibold uppercase tracking-widest text-primary">
-              심층 진단 · IPIP-NEO-120
+            <div className="mb-8 space-y-3">
+              <div className="flex items-center text-sm text-muted-foreground">
+                <ClipboardList className="mr-2 h-4 w-4" />
+                50문항 · IPIP-50
+              </div>
+              <div className="flex items-center text-sm text-muted-foreground">
+                <Clock className="mr-2 h-4 w-4" />
+                약 5~8분 소요
+              </div>
             </div>
-            <h3 className="mt-2 text-xl font-bold">30 facet 심층 진단</h3>
-            <p className="mt-2 text-sm text-muted-foreground">
+
+            <div className="mt-auto inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-primary py-4 font-semibold text-primary-foreground transition-all group-hover:gap-3 group-active:scale-[0.98]">
+              기본 진단 시작
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </div>
+          </Link>
+
+          {/* IPIP-NEO-120 */}
+          <Link
+            to="/test-neo"
+            className="group relative flex flex-col overflow-hidden rounded-3xl border border-border bg-card p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+          >
+            <div
+              aria-hidden
+              className="absolute inset-x-0 top-0 h-1.5"
+              style={{ backgroundColor: "var(--accent)" }}
+            />
+            <div className="mb-6 flex items-start justify-between">
+              <div
+                className="rounded-2xl p-3"
+                style={{
+                  backgroundColor: "color-mix(in oklab, var(--accent) 14%, transparent)",
+                  color: "var(--accent)",
+                }}
+              >
+                <Layers className="h-6 w-6" />
+              </div>
+              <span
+                className="rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider"
+                style={{
+                  backgroundColor: "color-mix(in oklab, var(--accent) 14%, transparent)",
+                  color: "var(--accent)",
+                }}
+              >
+                심층 · In-Depth
+              </span>
+            </div>
+
+            <h3 className="mb-2 text-2xl font-bold">30 facet 심층 진단</h3>
+            <p className="mb-6 leading-relaxed text-muted-foreground">
               5요인을 각각 6개 하위 facet으로 나눠 살펴봅니다. 같은 ‘외향성’ 안에서도 어느 면이 강한지 보입니다.
             </p>
-            <ul className="mt-4 space-y-1 text-sm text-muted-foreground">
-              <li>· 120문항 · 약 12~15분</li>
-              <li>· 5요인 + 30 facet 점수</li>
-              <li>· Johnson(2014) 공개 도구 기반</li>
-            </ul>
-            <div className="mt-6">
-              <Button asChild className="group w-full">
-                <Link to="/test-neo">
-                  심층 진단 시작
-                  <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                </Link>
-              </Button>
+
+            <div className="mb-8 space-y-3">
+              <div className="flex items-center text-sm text-muted-foreground">
+                <ClipboardList className="mr-2 h-4 w-4" />
+                120문항 · IPIP-NEO-120
+              </div>
+              <div className="flex items-center text-sm text-muted-foreground">
+                <Clock className="mr-2 h-4 w-4" />
+                약 12~15분 소요
+              </div>
             </div>
-          </Card>
+
+            <div className="mt-auto inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-primary py-4 font-semibold text-primary-foreground transition-all group-hover:gap-3 group-active:scale-[0.98]">
+              심층 진단 시작
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </div>
+          </Link>
         </div>
-        <p className="mt-4 text-center text-xs text-muted-foreground">
+
+        <p className="mt-6 text-center text-xs text-muted-foreground">
           모든 진단은 로그인 없이 진행되며, 결과는 브라우저에만 남습니다.
         </p>
       </section>
