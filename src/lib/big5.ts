@@ -41,41 +41,68 @@ export interface Question {
 }
 
 // 25 questions, 5 per trait (mix of regular and reverse-scored)
+// IPIP Big-Five Factor Markers (50 items, Goldberg 1992) — public domain
+// Source: https://ipip.ori.org/New_IPIP-50-item-scale.htm
 export const QUESTIONS: Question[] = [
-  // Openness
-  { id: 1, text: "나는 새로운 아이디어를 떠올리는 것을 좋아한다.", trait: "O", reverse: false },
-  { id: 2, text: "나는 예술이나 음악, 문학에 관심이 많다.", trait: "O", reverse: false },
-  { id: 3, text: "나는 추상적인 개념에 대해 깊이 생각하는 것을 즐긴다.", trait: "O", reverse: false },
-  { id: 4, text: "나는 익숙한 방식대로 하는 것을 선호한다.", trait: "O", reverse: true },
-  { id: 5, text: "나는 상상력이 풍부한 편이다.", trait: "O", reverse: false },
+  // Extraversion (E) — 10 items
+  { id: 1, text: "나는 파티의 분위기를 띄우는 사람이다.", trait: "E", reverse: false },
+  { id: 2, text: "나는 말이 많지 않다.", trait: "E", reverse: true },
+  { id: 3, text: "나는 사람들과 함께 있을 때 편안함을 느낀다.", trait: "E", reverse: false },
+  { id: 4, text: "나는 뒤에 물러나 있는 편이다.", trait: "E", reverse: true },
+  { id: 5, text: "나는 먼저 대화를 시작한다.", trait: "E", reverse: false },
+  { id: 6, text: "나는 할 말이 별로 없다.", trait: "E", reverse: true },
+  { id: 7, text: "나는 파티에서 다양한 사람들과 이야기를 나눈다.", trait: "E", reverse: false },
+  { id: 8, text: "나는 사람들의 주목을 받는 것을 좋아하지 않는다.", trait: "E", reverse: true },
+  { id: 9, text: "나는 관심의 중심에 있는 것을 꺼리지 않는다.", trait: "E", reverse: false },
+  { id: 10, text: "나는 낯선 사람들 앞에서 조용한 편이다.", trait: "E", reverse: true },
 
-  // Conscientiousness
-  { id: 6, text: "나는 일을 계획적으로 처리한다.", trait: "C", reverse: false },
-  { id: 7, text: "나는 약속과 마감일을 잘 지킨다.", trait: "C", reverse: false },
-  { id: 8, text: "나는 물건을 정리정돈하는 것을 좋아한다.", trait: "C", reverse: false },
-  { id: 9, text: "나는 일을 미루는 경향이 있다.", trait: "C", reverse: true },
-  { id: 10, text: "나는 세부사항에 주의를 기울인다.", trait: "C", reverse: false },
+  // Agreeableness (A) — 10 items
+  { id: 11, text: "나는 다른 사람에 대한 관심이 거의 없다.", trait: "A", reverse: true },
+  { id: 12, text: "나는 사람들에게 관심이 많다.", trait: "A", reverse: false },
+  { id: 13, text: "나는 다른 사람을 모욕한다.", trait: "A", reverse: true },
+  { id: 14, text: "나는 다른 사람의 감정에 공감한다.", trait: "A", reverse: false },
+  { id: 15, text: "나는 다른 사람의 문제에 별 관심이 없다.", trait: "A", reverse: true },
+  { id: 16, text: "나는 마음이 따뜻한 편이다.", trait: "A", reverse: false },
+  { id: 17, text: "나는 다른 사람에게 별로 관심이 없다.", trait: "A", reverse: true },
+  { id: 18, text: "나는 다른 사람을 위해 시간을 낸다.", trait: "A", reverse: false },
+  { id: 19, text: "나는 다른 사람의 감정을 느낀다.", trait: "A", reverse: false },
+  { id: 20, text: "나는 사람들을 편안하게 만들어준다.", trait: "A", reverse: false },
 
-  // Extraversion
-  { id: 11, text: "나는 사람들과 어울리는 것을 좋아한다.", trait: "E", reverse: false },
-  { id: 12, text: "나는 모임에서 대화를 주도하는 편이다.", trait: "E", reverse: false },
-  { id: 13, text: "나는 활기차고 에너지가 넘친다.", trait: "E", reverse: false },
-  { id: 14, text: "나는 혼자 있는 시간을 더 좋아한다.", trait: "E", reverse: true },
-  { id: 15, text: "나는 새로운 사람을 만나는 것이 즐겁다.", trait: "E", reverse: false },
+  // Conscientiousness (C) — 10 items
+  { id: 21, text: "나는 항상 준비가 되어 있다.", trait: "C", reverse: false },
+  { id: 22, text: "나는 물건을 여기저기 늘어놓는다.", trait: "C", reverse: true },
+  { id: 23, text: "나는 세부사항에 주의를 기울인다.", trait: "C", reverse: false },
+  { id: 24, text: "나는 일을 엉망으로 만든다.", trait: "C", reverse: true },
+  { id: 25, text: "나는 해야 할 일을 곧바로 처리한다.", trait: "C", reverse: false },
+  { id: 26, text: "나는 물건을 제자리에 두는 것을 자주 잊는다.", trait: "C", reverse: true },
+  { id: 27, text: "나는 정돈된 것을 좋아한다.", trait: "C", reverse: false },
+  { id: 28, text: "나는 내 의무를 회피한다.", trait: "C", reverse: true },
+  { id: 29, text: "나는 일정을 따른다.", trait: "C", reverse: false },
+  { id: 30, text: "나는 일을 꼼꼼하게 한다.", trait: "C", reverse: false },
 
-  // Agreeableness
-  { id: 16, text: "나는 다른 사람의 감정에 공감을 잘한다.", trait: "A", reverse: false },
-  { id: 17, text: "나는 타인을 돕는 것에서 기쁨을 느낀다.", trait: "A", reverse: false },
-  { id: 18, text: "나는 사람들을 잘 믿는 편이다.", trait: "A", reverse: false },
-  { id: 19, text: "나는 다른 사람과 자주 논쟁한다.", trait: "A", reverse: true },
-  { id: 20, text: "나는 협력하는 것을 중요하게 생각한다.", trait: "A", reverse: false },
+  // Neuroticism (N) — 10 items
+  { id: 31, text: "나는 쉽게 스트레스를 받는다.", trait: "N", reverse: false },
+  { id: 32, text: "나는 대부분의 시간을 편안하게 보낸다.", trait: "N", reverse: true },
+  { id: 33, text: "나는 여러 가지 일을 걱정한다.", trait: "N", reverse: false },
+  { id: 34, text: "나는 우울한 기분을 거의 느끼지 않는다.", trait: "N", reverse: true },
+  { id: 35, text: "나는 쉽게 동요한다.", trait: "N", reverse: false },
+  { id: 36, text: "나는 쉽게 화가 난다.", trait: "N", reverse: false },
+  { id: 37, text: "나는 기분 변화가 심하다.", trait: "N", reverse: false },
+  { id: 38, text: "나는 자주 기분이 오르락내리락한다.", trait: "N", reverse: false },
+  { id: 39, text: "나는 쉽게 짜증이 난다.", trait: "N", reverse: false },
+  { id: 40, text: "나는 자주 우울함을 느낀다.", trait: "N", reverse: false },
 
-  // Neuroticism
-  { id: 21, text: "나는 자주 걱정하는 편이다.", trait: "N", reverse: false },
-  { id: 22, text: "나는 작은 일에도 쉽게 스트레스를 받는다.", trait: "N", reverse: false },
-  { id: 23, text: "나는 기분이 자주 변한다.", trait: "N", reverse: false },
-  { id: 24, text: "나는 어려운 상황에서도 침착함을 유지한다.", trait: "N", reverse: true },
-  { id: 25, text: "나는 종종 우울하거나 불안함을 느낀다.", trait: "N", reverse: false },
+  // Openness (O) — 10 items
+  { id: 41, text: "나는 어휘력이 풍부하다.", trait: "O", reverse: false },
+  { id: 42, text: "나는 추상적인 개념을 이해하는 데 어려움이 있다.", trait: "O", reverse: true },
+  { id: 43, text: "나는 상상력이 생생하다.", trait: "O", reverse: false },
+  { id: 44, text: "나는 추상적인 아이디어에 관심이 없다.", trait: "O", reverse: true },
+  { id: 45, text: "나는 훌륭한 아이디어를 가지고 있다.", trait: "O", reverse: false },
+  { id: 46, text: "나는 상상력이 좋지 않다.", trait: "O", reverse: true },
+  { id: 47, text: "나는 빠르게 사물을 이해한다.", trait: "O", reverse: false },
+  { id: 48, text: "나는 어려운 단어를 사용한다.", trait: "O", reverse: false },
+  { id: 49, text: "나는 사물에 대해 깊이 생각하며 시간을 보낸다.", trait: "O", reverse: false },
+  { id: 50, text: "나는 아이디어가 풍부하다.", trait: "O", reverse: false },
 ];
 
 export const SCALE_LABELS = [

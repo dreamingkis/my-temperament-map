@@ -22,7 +22,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "25문항으로 알아보는 Big5 성격유형 진단. 개방성, 성실성, 외향성, 친화성, 신경성을 점수로 확인하세요.",
+          "공인된 IPIP-50 문항(Goldberg, 1992)으로 알아보는 Big5 성격유형 진단. 개방성, 성실성, 외향성, 친화성, 신경성을 점수로 확인하세요.",
       },
       { property: "og:title", content: "Big5 성격유형 진단" },
       {
@@ -143,8 +143,8 @@ function Index() {
               나의 성격 5요인 진단
             </h1>
             <p className="mt-5 text-base text-muted-foreground sm:text-lg">
-              25개의 짧은 문항으로 개방성·성실성·외향성·친화성·신경성을 점수로 확인해 보세요.
-              약 3분 정도 소요됩니다.
+              국제 표준 IPIP-50 문항으로 개방성·성실성·외향성·친화성·신경성을 점수로 확인해 보세요.
+              약 7분 정도 소요됩니다.
             </p>
             <Button size="lg" className="mt-8" onClick={() => setStage("quiz")}>
               진단 시작하기
