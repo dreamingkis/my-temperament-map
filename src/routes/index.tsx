@@ -250,7 +250,7 @@ function Index() {
             </p>
 
             <Card className="mt-6 p-4">
-              <div className="h-72 w-full sm:h-80">
+              <div className="h-80 w-full sm:h-96">
                 <ResponsiveContainer width="100%" height="100%">
                   <RadarChart
                     data={[
@@ -260,23 +260,21 @@ function Index() {
                       { subject: TRAIT_INFO.A.name, score: scores.A, trait: "A" as Trait },
                       { subject: TRAIT_INFO.N.name, score: scores.N, trait: "N" as Trait },
                     ]}
-                    margin={{ top: 16, right: 16, bottom: 16, left: 16 }}
+                    margin={{ top: 24, right: 40, bottom: 24, left: 40 }}
+                    outerRadius="75%"
                   >
-                    <PolarGrid stroke="hsl(var(--border))" />
+                    <PolarGrid stroke="hsl(var(--border))" strokeOpacity={0.7} />
                     <PolarAngleAxis
                       dataKey="subject"
                       tick={(props: any) => {
                         const { payload, x, y, textAnchor } = props;
-                        const entry = [
-                          { subject: TRAIT_INFO.O.name, trait: "O" as Trait },
-                          { subject: TRAIT_INFO.C.name, trait: "C" as Trait },
-                          { subject: TRAIT_INFO.E.name, trait: "E" as Trait },
-                          { subject: TRAIT_INFO.A.name, trait: "A" as Trait },
-                          { subject: TRAIT_INFO.N.name, trait: "N" as Trait },
-                        ].find((d) => d.subject === payload.value);
+                        const traits: Trait[] = ["O", "C", "E", "A", "N"];
+                        const entry = traits
+                          .map((t) => ({ subject: TRAIT_INFO[t].name, trait: t }))
+                          .find((d) => d.subject === payload.value);
                         const color = entry ? TRAIT_INFO[entry.trait].color : "hsl(var(--foreground))";
                         return (
-                          <text x={x} y={y} textAnchor={textAnchor} fill={color} fontSize={13}>
+                          <text x={x} y={y} textAnchor={textAnchor} fill={color} fontSize={14} fontWeight={600}>
                             {payload.value}
                           </text>
                         );
@@ -285,23 +283,89 @@ function Index() {
                     <PolarRadiusAxis
                       domain={[0, 100]}
                       tickCount={6}
-                      tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 11 }}
-                      stroke="hsl(var(--border))"
+                      angle={90}
+                      tick={(props: any) => {
+                        const { x, y, payload } = props;
+                        return (
+                          <g>
+                            <rect
+                              x={x - 14}
+                              y={y - 8}
+                              width={28}
+                              height={16}
+                              rx={8}
+                              fill="hsl(var(--background))"
+                              fillOpacity={0.9}
+                              stroke="hsl(var(--border))"
+                              strokeOpacity={0.6}
+                            />
+                            <text
+                              x={x}
+                              y={y}
+                              dy={4}
+                              textAnchor="middle"
+                              fill="hsl(var(--muted-foreground))"
+                              fontSize={10}
+                              fontWeight={500}
+                            >
+                              {payload.value}
+                            </text>
+                          </g>
+                        );
+                      }}
+                      axisLine={false}
+                      tickLine={false}
                     />
                     <Radar
                       name="점수"
                       dataKey="score"
                       stroke="hsl(var(--primary))"
+                      strokeWidth={2}
                       fill="hsl(var(--primary))"
-                      fillOpacity={0.25}
-                      label={(props: any) => {
-                        const { x, y, index, value } = props;
+                      fillOpacity={0.2}
+                      dot={(props: any) => {
+                        const { cx, cy, index } = props;
                         const traits: Trait[] = ["O", "C", "E", "A", "N"];
                         const color = TRAIT_INFO[traits[index]].color;
                         return (
-                          <text x={x} y={y} fill={color} fontSize={12} textAnchor="middle" dy={-10}>
-                            {value}
-                          </text>
+                          <g>
+                            <circle cx={cx} cy={cy} r={6} fill={color} stroke="hsl(var(--background))" strokeWidth={2} />
+                          </g>
+                        );
+                      }}
+                      label={(props: any) => {
+                        const { x, y, index, value, cx, cy } = props;
+                        const traits: Trait[] = ["O", "C", "E", "A", "N"];
+                        const color = TRAIT_INFO[traits[index]].color;
+                        // push label outward from center
+                        const dx = x - cx;
+                        const dy = y - cy;
+                        const len = Math.sqrt(dx * dx + dy * dy) || 1;
+                        const offset = 18;
+                        const lx = x + (dx / len) * offset;
+                        const ly = y + (dy / len) * offset;
+                        return (
+                          <g>
+                            <rect
+                              x={lx - 16}
+                              y={ly - 11}
+                              width={32}
+                              height={20}
+                              rx={10}
+                              fill={color}
+                            />
+                            <text
+                              x={lx}
+                              y={ly}
+                              dy={4}
+                              textAnchor="middle"
+                              fill="#ffffff"
+                              fontSize={11}
+                              fontWeight={700}
+                            >
+                              {value}
+                            </text>
+                          </g>
                         );
                       }}
                     />
