@@ -160,8 +160,8 @@ function Index() {
 
             <div className="mt-12 grid gap-3 text-left sm:grid-cols-2">
               {(Object.keys(TRAIT_INFO) as Trait[]).map((t) => (
-                <Card key={t} className="p-4">
-                  <div className="text-sm font-semibold">{TRAIT_INFO[t].name}</div>
+                <Card key={t} className="p-4 border-l-4" style={{ borderLeftColor: TRAIT_INFO[t].color }}>
+                  <div className="text-sm font-semibold" style={{ color: TRAIT_INFO[t].color }}>{TRAIT_INFO[t].name}</div>
                   <p className="mt-1 text-sm text-muted-foreground">{TRAIT_INFO[t].desc}</p>
                 </Card>
               ))}
@@ -233,18 +233,33 @@ function Index() {
                 <ResponsiveContainer width="100%" height="100%">
                   <RadarChart
                     data={[
-                      { subject: TRAIT_INFO.O.name, score: scores.O },
-                      { subject: TRAIT_INFO.C.name, score: scores.C },
-                      { subject: TRAIT_INFO.E.name, score: scores.E },
-                      { subject: TRAIT_INFO.A.name, score: scores.A },
-                      { subject: TRAIT_INFO.N.name, score: scores.N },
+                      { subject: TRAIT_INFO.O.name, score: scores.O, trait: "O" as Trait },
+                      { subject: TRAIT_INFO.C.name, score: scores.C, trait: "C" as Trait },
+                      { subject: TRAIT_INFO.E.name, score: scores.E, trait: "E" as Trait },
+                      { subject: TRAIT_INFO.A.name, score: scores.A, trait: "A" as Trait },
+                      { subject: TRAIT_INFO.N.name, score: scores.N, trait: "N" as Trait },
                     ]}
                     margin={{ top: 16, right: 16, bottom: 16, left: 16 }}
                   >
                     <PolarGrid stroke="hsl(var(--border))" />
                     <PolarAngleAxis
                       dataKey="subject"
-                      tick={{ fill: "hsl(var(--foreground))", fontSize: 13 }}
+                      tick={(props: any) => {
+                        const { payload, x, y, textAnchor } = props;
+                        const entry = [
+                          { subject: TRAIT_INFO.O.name, trait: "O" as Trait },
+                          { subject: TRAIT_INFO.C.name, trait: "C" as Trait },
+                          { subject: TRAIT_INFO.E.name, trait: "E" as Trait },
+                          { subject: TRAIT_INFO.A.name, trait: "A" as Trait },
+                          { subject: TRAIT_INFO.N.name, trait: "N" as Trait },
+                        ].find((d) => d.subject === payload.value);
+                        const color = entry ? TRAIT_INFO[entry.trait].color : "hsl(var(--foreground))";
+                        return (
+                          <text x={x} y={y} textAnchor={textAnchor} fill={color} fontSize={13}>
+                            {payload.value}
+                          </text>
+                        );
+                      }}
                     />
                     <PolarRadiusAxis
                       domain={[0, 100]}
@@ -258,10 +273,15 @@ function Index() {
                       stroke="hsl(var(--primary))"
                       fill="hsl(var(--primary))"
                       fillOpacity={0.25}
-                      label={{
-                        fill: "hsl(var(--foreground))",
-                        fontSize: 12,
-                        offset: 10,
+                      label={(props: any) => {
+                        const { x, y, index, value } = props;
+                        const traits: Trait[] = ["O", "C", "E", "A", "N"];
+                        const color = TRAIT_INFO[traits[index]].color;
+                        return (
+                          <text x={x} y={y} fill={color} fontSize={12} textAnchor="middle" dy={-10}>
+                            {value}
+                          </text>
+                        );
                       }}
                     />
                   </RadarChart>
@@ -275,18 +295,18 @@ function Index() {
                 const score = scores[t];
                 const level = scoreLevel(score);
                 return (
-                  <Card key={t} className="p-5">
+                  <Card key={t} className="p-5 border-l-4" style={{ borderLeftColor: info.color }}>
                     <div className="flex items-baseline justify-between gap-2">
                       <div>
-                        <h3 className="text-lg font-semibold">{info.name}</h3>
+                        <h3 className="text-lg font-semibold" style={{ color: info.color }}>{info.name}</h3>
                         <p className="text-xs text-muted-foreground">{info.desc}</p>
                       </div>
                       <div className="text-right">
-                        <div className="text-3xl font-bold tabular-nums">{score}</div>
+                        <div className="text-3xl font-bold tabular-nums" style={{ color: info.color }}>{score}</div>
                         <div className="text-xs text-muted-foreground">{level}</div>
                       </div>
                     </div>
-                    <Progress value={score} className="mt-3" />
+                    <Progress value={score} className="mt-3" indicatorClassName={`bg-trait-${t.toLowerCase()}`} />
                     <p className="mt-3 text-sm text-muted-foreground">
                       {score >= 50 ? info.high : info.low}
                     </p>

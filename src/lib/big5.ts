@@ -1,35 +1,40 @@
 export type Trait = "O" | "C" | "E" | "A" | "N";
 
-export const TRAIT_INFO: Record<Trait, { name: string; desc: string; high: string; low: string }> = {
+export const TRAIT_INFO: Record<Trait, { name: string; desc: string; high: string; low: string; color: string }> = {
   O: {
     name: "개방성",
     desc: "새로운 경험과 아이디어에 대한 호기심",
     high: "상상력이 풍부하고 호기심이 많으며 새로운 것을 추구합니다.",
     low: "전통과 익숙한 것을 선호하며 현실적이고 실용적입니다.",
+    color: "var(--trait-o)",
   },
   C: {
     name: "성실성",
     desc: "목표를 위해 자신을 통제하고 계획하는 성향",
     high: "체계적이고 책임감이 강하며 목표 지향적입니다.",
     low: "유연하고 즉흥적이며 자유로운 방식을 선호합니다.",
+    color: "var(--trait-c)",
   },
   E: {
     name: "외향성",
     desc: "사회적 상호작용과 활동에서 에너지를 얻는 정도",
     high: "사교적이고 활동적이며 사람들과의 교류에서 에너지를 얻습니다.",
     low: "조용하고 내성적이며 혼자만의 시간을 통해 에너지를 얻습니다.",
+    color: "var(--trait-e)",
   },
   A: {
     name: "친화성",
     desc: "타인에 대한 공감과 협력의 정도",
     high: "타인에게 따뜻하고 협조적이며 신뢰를 잘 형성합니다.",
     low: "독립적이고 비판적이며 자신의 입장을 분명히 합니다.",
+    color: "var(--trait-a)",
   },
   N: {
     name: "신경성",
     desc: "스트레스와 부정적 감정에 대한 민감도",
     high: "감정의 기복이 있고 스트레스에 민감하게 반응할 수 있습니다.",
     low: "정서적으로 안정적이며 스트레스 상황에서도 침착함을 유지합니다.",
+    color: "var(--trait-n)",
   },
 };
 

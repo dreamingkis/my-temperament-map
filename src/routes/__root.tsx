@@ -10,6 +10,7 @@ import {
 
 import { Toaster } from "@/components/ui/sonner";
 import appCss from "../styles.css?url";
+import pretendardCss from "pretendard/dist/web/static/pretendard.css?url";
 
 function NotFoundComponent() {
   return (
@@ -86,6 +87,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         rel: "stylesheet",
         href: appCss,
+      },
+      {
+        rel: "stylesheet",
+        href: pretendardCss,
       },
     ],
   }),
