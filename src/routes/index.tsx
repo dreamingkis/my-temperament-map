@@ -115,11 +115,18 @@ function Landing() {
             </div>
 
             <h3 className="mb-2 text-2xl font-bold">BIG5 기본진단</h3>
-            <p className="mb-6 leading-relaxed text-muted-foreground">
+            <p className="mb-5 leading-relaxed text-muted-foreground">
               5가지 핵심 성격 요인(개방성·성실성·외향성·친화성·신경성)의
               전체적인 성향을 빠르게 파악합니다. 각 요인을 0~100점 스펙트럼으로
               확인하며, 자신의 대략적인 성격 지도를 그리기에 적합합니다.
             </p>
+
+            <div className="mb-5">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                결과 화면 미리보기
+              </p>
+              <BasicResultPreview />
+            </div>
 
             <div className="mb-8 space-y-3">
               <div className="flex items-center text-sm text-muted-foreground">
