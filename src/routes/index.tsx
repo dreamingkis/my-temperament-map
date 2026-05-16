@@ -110,11 +110,11 @@ function Landing() {
                   color: "var(--primary)",
                 }}
               >
-                기본 · Standard
-              </span>
+              기본 · Standard
+            </span>
             </div>
 
-            <h3 className="mb-2 text-2xl font-bold">Big5 기본 진단</h3>
+            <h3 className="mb-2 text-2xl font-bold">BIG5 기본진단</h3>
             <p className="mb-6 leading-relaxed text-muted-foreground">
               5요인(개방성·성실성·외향성·친화성·신경성) 점수를 빠르게 확인합니다.
               처음이라면 여기서 시작하세요.
