@@ -140,7 +140,7 @@ export const NEO_FACETS: Record<NeoTrait, Record<number, { en: string; ko: strin
 export const NEO_QUESTIONS: NeoItem[] = [
   {
     "id": 1,
-    "ko": "나는 걱정이 많은 편이다.",
+    "ko": "나는 사소한 일에도 걱정이 많다.",
     "en": "Worry about things",
     "trait": "N",
     "facet": 1,
@@ -148,7 +148,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 2,
-    "ko": "나는 쉽게 친구를 사귀는 편이다.",
+    "ko": "나는 친구를 쉽게 사귄다.",
     "en": "Make friends easily",
     "trait": "E",
     "facet": 1,
@@ -156,7 +156,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 3,
-    "ko": "나는 상상력이 풍부한 편이다.",
+    "ko": "나는 상상력이 풍부하다.",
     "en": "Have a vivid imagination",
     "trait": "O",
     "facet": 1,
@@ -164,7 +164,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 4,
-    "ko": "나는 다른 사람들을 신뢰하는 편이다.",
+    "ko": "나는 사람들을 잘 믿는 편이다.",
     "en": "Trust others",
     "trait": "A",
     "facet": 1,
@@ -172,7 +172,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 5,
-    "ko": "나는 일을 제대로 끝 마치는 편이다.",
+    "ko": "나는 맡은 일을 끝까지 잘 해낸다.",
     "en": "Complete tasks successfully",
     "trait": "C",
     "facet": 1,
@@ -180,7 +180,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 6,
-    "ko": "나는 쉽게 화를 내는 편이다.",
+    "ko": "나는 쉽게 화를 낸다.",
     "en": "Get angry easily",
     "trait": "N",
     "facet": 2,
@@ -188,7 +188,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 7,
-    "ko": "나는 다른 사람들이 많은 파티를 좋아하는 편이다.",
+    "ko": "나는 사람이 많은 큰 모임을 좋아한다.",
     "en": "Love large parties",
     "trait": "E",
     "facet": 2,
@@ -196,7 +196,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 8,
-    "ko": "나는 예술이 중요하다고 믿는 편이다.",
+    "ko": "나는 예술이 중요하다고 생각한다.",
     "en": "Believe in the importance of art",
     "trait": "O",
     "facet": 2,
@@ -204,7 +204,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 9,
-    "ko": "나는 내 목적을 위해 다른 사람들을 이용하는 편이다.",
+    "ko": "나는 내 이익을 위해 다른 사람을 이용할 때가 있다.",
     "en": "Use others for my own ends",
     "trait": "A",
     "facet": 2,
@@ -212,7 +212,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 10,
-    "ko": "나는 정리하는 것을 좋아하는 편이다.",
+    "ko": "나는 주변을 깔끔하게 정리하는 것을 좋아한다.",
     "en": "Like to tidy up",
     "trait": "C",
     "facet": 2,
@@ -220,7 +220,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 11,
-    "ko": "나는 종종 우울함을 느끼는 편이다.",
+    "ko": "나는 자주 우울한 기분을 느낀다.",
     "en": "Often feel blue",
     "trait": "N",
     "facet": 3,
@@ -228,7 +228,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 12,
-    "ko": "나는 리더로서 자질을 가졌다고 생각하는 편이다.",
+    "ko": "나는 모임에서 주도적으로 나서는 편이다.",
     "en": "Take charge",
     "trait": "E",
     "facet": 3,
@@ -236,7 +236,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 13,
-    "ko": "나는 종종 감정에 지배당하는 편이다.",
+    "ko": "나는 감정을 강하고 깊게 느낀다.",
     "en": "Experience my emotions intensely",
     "trait": "O",
     "facet": 3,
@@ -244,7 +244,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 14,
-    "ko": "나는 남을 돕는 것을 좋아하는 편이다.",
+    "ko": "나는 남을 돕는 일이 즐겁다.",
     "en": "Love to help others",
     "trait": "A",
     "facet": 3,
@@ -252,7 +252,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 15,
-    "ko": "나는 약속을 잘 지키는 편이다.",
+    "ko": "나는 약속을 잘 지킨다.",
     "en": "Keep my promises",
     "trait": "C",
     "facet": 3,
@@ -260,7 +260,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 16,
-    "ko": "나는 다른 사람에게 다가가는 것을 어려워하는 편이다.",
+    "ko": "나는 처음 보는 사람에게 다가가는 것이 어렵다.",
     "en": "Find it difficult to approach others",
     "trait": "N",
     "facet": 4,
@@ -268,7 +268,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 17,
-    "ko": "나는 항상 바쁜 편이다.",
+    "ko": "나는 늘 바쁘게 지낸다.",
     "en": "Am always busy",
     "trait": "E",
     "facet": 4,
@@ -276,7 +276,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 18,
-    "ko": "나는 틀에 박히지 않은 것을 좋아하는 편이다.",
+    "ko": "나는 반복되는 일보다 새로운 일을 더 좋아한다.",
     "en": "Prefer variety to routine",
     "trait": "O",
     "facet": 4,
@@ -284,7 +284,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 19,
-    "ko": "나는 건강한 논쟁을 즐기는 편이다.",
+    "ko": "나는 토론이나 말다툼을 마다하지 않는다.",
     "en": "Love a good fight",
     "trait": "A",
     "facet": 4,
@@ -292,7 +292,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 20,
-    "ko": "나는 열심히 일하는 편이다.",
+    "ko": "나는 열심히 일한다.",
     "en": "Work hard",
     "trait": "C",
     "facet": 4,
@@ -300,7 +300,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 21,
-    "ko": "나는 폭식을 하는 편이다.",
+    "ko": "나는 가끔 폭식을 한다.",
     "en": "Go on binges",
     "trait": "N",
     "facet": 5,
@@ -308,7 +308,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 22,
-    "ko": "나는 신나는 걸 좋아하는 편이다.",
+    "ko": "나는 짜릿한 자극을 즐긴다.",
     "en": "Love excitement",
     "trait": "E",
     "facet": 5,
@@ -316,7 +316,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 23,
-    "ko": "나는 도전적인 자료를 읽는 것을 좋아하는 편이다.",
+    "ko": "나는 어려운 글을 읽는 것을 좋아한다.",
     "en": "Love to read challenging material",
     "trait": "O",
     "facet": 5,
@@ -324,7 +324,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 24,
-    "ko": "나는 내가 다른 사람보다 낫다고 믿는 편이다.",
+    "ko": "나는 내가 다른 사람보다 낫다고 생각한다.",
     "en": "Believe that I am better than others",
     "trait": "A",
     "facet": 5,
@@ -332,7 +332,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 25,
-    "ko": "나는 항상 준비되어있는 편이다.",
+    "ko": "나는 늘 미리 준비해 둔다.",
     "en": "Am always prepared",
     "trait": "C",
     "facet": 5,
@@ -340,7 +340,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 26,
-    "ko": "나는 공황 상태에 쉽게 빠지는 편이다.",
+    "ko": "나는 쉽게 당황하고 안절부절못한다.",
     "en": "Panic easily",
     "trait": "N",
     "facet": 6,
@@ -348,7 +348,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 27,
-    "ko": "나는 기쁠 때, 티내는 편이다.",
+    "ko": "나는 기쁘면 그 감정이 겉으로 드러난다.",
     "en": "Radiate joy",
     "trait": "E",
     "facet": 6,
@@ -356,7 +356,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 28,
-    "ko": "나는 진보적인 정치가에게 투표하는 경향이 있는 편이다.",
+    "ko": "나는 진보적인 후보에게 표를 주는 편이다.",
     "en": "Tend to vote for liberal political candidates",
     "trait": "O",
     "facet": 6,
@@ -364,7 +364,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 29,
-    "ko": "나는 노숙자들에게 동정을 느끼는 편이다.",
+    "ko": "나는 노숙인을 보면 안타까운 마음이 든다.",
     "en": "Sympathize with the homeless",
     "trait": "A",
     "facet": 6,
@@ -372,7 +372,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 30,
-    "ko": "나는 앞뒤 생각 없이 뛰어드는 경향이 있는 편이다.",
+    "ko": "나는 깊이 생각하지 않고 일에 뛰어들곤 한다.",
     "en": "Jump into things without thinking",
     "trait": "C",
     "facet": 6,
@@ -380,7 +380,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 31,
-    "ko": "나는 안 좋은 일에 대해 두려워하는 편이다.",
+    "ko": "나는 최악의 상황을 자주 떠올린다.",
     "en": "Fear for the worst",
     "trait": "N",
     "facet": 1,
@@ -388,7 +388,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 32,
-    "ko": "나는 다른 사람들 주변에 있을 때, 편안함을 느끼는 편이다.",
+    "ko": "나는 사람들 사이에 있어도 마음이 편하다.",
     "en": "Feel comfortable around people",
     "trait": "E",
     "facet": 1,
@@ -396,7 +396,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 33,
-    "ko": "나는 공상의 나래를 즐기는 편이다.",
+    "ko": "나는 자유로운 공상을 즐긴다.",
     "en": "Enjoy wild flights of fantasy",
     "trait": "O",
     "facet": 1,
@@ -404,7 +404,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 34,
-    "ko": "나는 다른 사람들이 좋은 의도를 가지고 있다고 믿는 편이다.",
+    "ko": "나는 사람들이 대체로 선한 의도를 갖고 있다고 믿는다.",
     "en": "Believe that others have good intentions",
     "trait": "A",
     "facet": 1,
@@ -412,7 +412,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 35,
-    "ko": "나는 내가 하는 일에 대해 남들보다 뛰어난 편이다.",
+    "ko": "나는 내가 하는 일에서 두각을 나타낸다.",
     "en": "Excel in what I do",
     "trait": "C",
     "facet": 1,
@@ -420,7 +420,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 36,
-    "ko": "나는 쉽게 짜증을 내는 편이다.",
+    "ko": "나는 사소한 일에도 쉽게 짜증이 난다.",
     "en": "Get irritated easily",
     "trait": "N",
     "facet": 2,
@@ -428,7 +428,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 37,
-    "ko": "나는 파티에서 많은 다른 사람들과 이야기를 하는 편이다.",
+    "ko": "나는 모임에서 여러 사람과 두루 이야기한다.",
     "en": "Talk to a lot of different people at parties",
     "trait": "E",
     "facet": 2,
@@ -436,7 +436,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 38,
-    "ko": "나는 다른 사람들이 알아차리지 못하는 것에서 아름다움을 보는 편이다.",
+    "ko": "나는 남들이 지나치는 것에서 아름다움을 발견한다.",
     "en": "See beauty in things that others might not notice",
     "trait": "O",
     "facet": 2,
@@ -444,7 +444,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 39,
-    "ko": "나는 원하는 것을 얻기 위해 부정 행위를 하는 편이다.",
+    "ko": "나는 원하는 것을 얻기 위해 규칙을 어길 때가 있다.",
     "en": "Cheat to get ahead",
     "trait": "A",
     "facet": 2,
@@ -452,7 +452,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 40,
-    "ko": "나는 물건을 제자리에 놓는 것을 종종 잊어버리는 편이다.",
+    "ko": "나는 물건을 제자리에 두는 것을 자주 잊는다.",
     "en": "Often forget to put things back in their proper place",
     "trait": "C",
     "facet": 2,
@@ -460,7 +460,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 41,
-    "ko": "나는 내 자신을 싫어하는 편이다.",
+    "ko": "나는 내 자신이 마음에 들지 않을 때가 많다.",
     "en": "Dislike myself",
     "trait": "N",
     "facet": 3,
@@ -468,7 +468,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 42,
-    "ko": "나는 다른 사람들을 이끄려고 노력하는 편이다.",
+    "ko": "나는 사람들을 이끌고 싶어 한다.",
     "en": "Try to lead others",
     "trait": "E",
     "facet": 3,
@@ -476,7 +476,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 43,
-    "ko": "나는 다른 사람들의 감정에 공감하는 편이다.",
+    "ko": "나는 다른 사람의 감정을 잘 느낀다.",
     "en": "Feel others' emotions",
     "trait": "O",
     "facet": 3,
@@ -484,7 +484,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 44,
-    "ko": "나는 다른 사람들을 걱정하는 편이다.",
+    "ko": "나는 다른 사람의 일에 마음을 쓴다.",
     "en": "Am concerned about others",
     "trait": "A",
     "facet": 3,
@@ -492,7 +492,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 45,
-    "ko": "나는 진실대로 말하는 편이다.",
+    "ko": "나는 늘 사실대로 말한다.",
     "en": "Tell the truth",
     "trait": "C",
     "facet": 3,
@@ -500,7 +500,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 46,
-    "ko": "나는 나에 대해 관심을 가지는 것을 두려워하는 편이다.",
+    "ko": "나는 사람들의 시선을 받는 게 부담스럽다.",
     "en": "Am afraid to draw attention to myself",
     "trait": "N",
     "facet": 4,
@@ -508,7 +508,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 47,
-    "ko": "나는 언제나 바쁘게 움직이는 편이다.",
+    "ko": "나는 가만히 있지 못하고 늘 움직인다.",
     "en": "Am always on the go",
     "trait": "E",
     "facet": 4,
@@ -516,7 +516,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 48,
-    "ko": "나는 내가 아는 것에 생각하는 것을 선호하는 편이다.",
+    "ko": "나는 익숙한 방식을 고수하는 편이다.",
     "en": "Prefer to stick with things that I know",
     "trait": "O",
     "facet": 4,
@@ -524,7 +524,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 49,
-    "ko": "나는 다른 사람들에게 호통치는 편이다.",
+    "ko": "나는 화가 나면 소리를 지르곤 한다.",
     "en": "Yell at people",
     "trait": "A",
     "facet": 4,
@@ -532,7 +532,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 50,
-    "ko": "나는 내게 기대했던 것 보다 더 많은 일을 하는 편이다.",
+    "ko": "나는 기대 이상으로 일을 해낸다.",
     "en": "Do more than what's expected of me",
     "trait": "C",
     "facet": 4,
@@ -540,7 +540,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 51,
-    "ko": "나는 과식을 하지 않는 편이다.",
+    "ko": "나는 무엇이든 지나치게 하지 않는다.",
     "en": "Rarely overindulge",
     "trait": "N",
     "facet": 5,
@@ -548,7 +548,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 52,
-    "ko": "나는 무언가 색다른 일을 찾아 다니는 편이다.",
+    "ko": "나는 모험을 즐긴다.",
     "en": "Seek adventure",
     "trait": "E",
     "facet": 5,
@@ -556,7 +556,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 53,
-    "ko": "나는 철학적인 논쟁을 피하는 편이다.",
+    "ko": "나는 철학적인 이야기는 피하는 편이다.",
     "en": "Avoid philosophical discussions",
     "trait": "O",
     "facet": 5,
@@ -564,7 +564,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 54,
-    "ko": "나는 내 자신을 높게 평가하는 편이다.",
+    "ko": "나는 내 자신을 높이 평가한다.",
     "en": "Think highly of myself",
     "trait": "A",
     "facet": 5,
@@ -572,7 +572,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 55,
-    "ko": "나는 내 계획들을 잘 실행하는 편이다.",
+    "ko": "나는 세운 계획을 끝까지 실행한다.",
     "en": "Carry out my plans",
     "trait": "C",
     "facet": 5,
@@ -580,7 +580,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 56,
-    "ko": "나는 어떤 일 때문에 어쩔 줄 모르게 되는 편이다.",
+    "ko": "나는 일이 많아지면 쉽게 압도된다.",
     "en": "Become overwhelmed by events",
     "trait": "N",
     "facet": 6,
@@ -588,7 +588,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 57,
-    "ko": "나는 재미있는 사람인 편이다.",
+    "ko": "나는 즐거움이 많은 사람이다.",
     "en": "Have a lot of fun",
     "trait": "E",
     "facet": 6,
@@ -596,7 +596,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 58,
-    "ko": "나는 절대적으로 옮고 그름은 없다고 믿는 편이다.",
+    "ko": "나는 절대적인 옳고 그름은 없다고 생각한다.",
     "en": "Believe that there is no absolute right and wrong",
     "trait": "O",
     "facet": 6,
@@ -604,7 +604,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 59,
-    "ko": "나는 나보다 가난한 사람에게 동정을 느끼는 편이다.",
+    "ko": "나는 나보다 형편이 어려운 사람을 보면 마음이 쓰인다.",
     "en": "Feel sympathy for those who are worse off than myself",
     "trait": "A",
     "facet": 6,
@@ -612,7 +612,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 60,
-    "ko": "나는 성급하게 결정을 내리는 편이다.",
+    "ko": "나는 충동적으로 결정을 내릴 때가 있다.",
     "en": "Make rash decisions",
     "trait": "C",
     "facet": 6,
@@ -620,7 +620,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 61,
-    "ko": "나는 많은 것들을 두려워하는 편이다.",
+    "ko": "나는 두려워하는 것이 많다.",
     "en": "Am afraid of many things",
     "trait": "N",
     "facet": 1,
@@ -628,7 +628,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 62,
-    "ko": "나는 다른 사람들과 접촉을 피하는 편이다.",
+    "ko": "나는 사람들과의 접촉을 피하려 한다.",
     "en": "Avoid contacts with others",
     "trait": "E",
     "facet": 1,
@@ -636,7 +636,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 63,
-    "ko": "나는 몽상을 좋아하는 편이다.",
+    "ko": "나는 자주 몽상에 빠진다.",
     "en": "Love to daydream",
     "trait": "O",
     "facet": 1,
@@ -644,7 +644,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 64,
-    "ko": "나는 다른 사람들이 말하는 것을 믿는 편이다.",
+    "ko": "나는 사람들이 하는 말을 그대로 믿는 편이다.",
     "en": "Trust what people say",
     "trait": "A",
     "facet": 1,
@@ -652,7 +652,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 65,
-    "ko": "나는 일을 매끄럽게 처리하는 편이다.",
+    "ko": "나는 일을 매끄럽게 처리한다.",
     "en": "Handle tasks smoothly",
     "trait": "C",
     "facet": 1,
@@ -660,7 +660,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 66,
-    "ko": "나는 화가날 때 평정을 유지하기 어려운 편이다.",
+    "ko": "나는 화가 나면 평정을 잃기 쉽다.",
     "en": "Lose my temper",
     "trait": "N",
     "facet": 2,
@@ -668,7 +668,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 67,
-    "ko": "나는 혼자 있는게 더 좋은 편이다.",
+    "ko": "나는 혼자 있는 시간이 더 편하다.",
     "en": "Prefer to be alone",
     "trait": "E",
     "facet": 2,
@@ -676,7 +676,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 68,
-    "ko": "나는 시를 좋아하지 않는 편이다.",
+    "ko": "나는 시(詩)에 큰 흥미가 없다.",
     "en": "Do not like poetry",
     "trait": "O",
     "facet": 2,
@@ -684,7 +684,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 69,
-    "ko": "나는 다른 사람들을 이용하는 편이다.",
+    "ko": "나는 다른 사람을 이용할 때가 있다.",
     "en": "Take advantage of others",
     "trait": "A",
     "facet": 2,
@@ -692,7 +692,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 70,
-    "ko": "나는 내 방을 어지르는 편이다.",
+    "ko": "나는 내 방을 자주 어지른다.",
     "en": "Leave a mess in my room",
     "trait": "C",
     "facet": 2,
@@ -700,7 +700,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 71,
-    "ko": "나는 자주 의기소침하는 편이다.",
+    "ko": "나는 자주 기운이 빠지고 가라앉는다.",
     "en": "Am often down in the dumps",
     "trait": "N",
     "facet": 3,
@@ -708,7 +708,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 72,
-    "ko": "나는 일을 내가 원하는대로 추진하려고 하는 편이다.",
+    "ko": "나는 상황을 주도하려 한다.",
     "en": "Take control of things",
     "trait": "E",
     "facet": 3,
@@ -716,7 +716,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 73,
-    "ko": "나는 내 감정에 대해 둔한 편이다.",
+    "ko": "나는 내 감정의 변화를 잘 알아차리지 못한다.",
     "en": "Rarely notice my emotional reactions",
     "trait": "O",
     "facet": 3,
@@ -724,7 +724,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 74,
-    "ko": "나는 다른 사람들의 감정에 대해 무관심한 편이다.",
+    "ko": "나는 다른 사람의 감정에 무덤덤하다.",
     "en": "Am indifferent to the feelings of others",
     "trait": "A",
     "facet": 3,
@@ -732,7 +732,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 75,
-    "ko": "나는 규칙을 어기는 편이다.",
+    "ko": "나는 규칙을 어길 때가 있다.",
     "en": "Break rules",
     "trait": "C",
     "facet": 3,
@@ -740,7 +740,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 76,
-    "ko": "나는 친구들과 함께 있을 때 편안함을 느끼는 편이다.",
+    "ko": "나는 친한 사람들과 있을 때만 마음이 편하다.",
     "en": "Only feel comfortable with friends",
     "trait": "N",
     "facet": 4,
@@ -748,7 +748,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 77,
-    "ko": "나는 여가 시간에 많은 것을 하는 편이다.",
+    "ko": "나는 여가 시간에도 많은 일을 한다.",
     "en": "Do a lot in my spare time",
     "trait": "E",
     "facet": 4,
@@ -756,7 +756,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 78,
-    "ko": "나는 변화가 싫은 편이다.",
+    "ko": "나는 변화가 부담스럽다.",
     "en": "Dislike changes",
     "trait": "O",
     "facet": 4,
@@ -764,7 +764,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 79,
-    "ko": "나는 다른 사람들을 욕하는 편이다.",
+    "ko": "나는 사람들에게 모진 말을 할 때가 있다.",
     "en": "Insult people",
     "trait": "A",
     "facet": 4,
@@ -772,7 +772,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 80,
-    "ko": "나는 그럭 저럭 살아갈 만큼 일하는 편이다.",
+    "ko": "나는 딱 필요한 만큼만 일한다.",
     "en": "Do just enough work to get by",
     "trait": "C",
     "facet": 4,
@@ -780,7 +780,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 81,
-    "ko": "나는 유혹에 잘 빠져들지 않는 편이다.",
+    "ko": "나는 유혹을 잘 이겨낸다.",
     "en": "Easily resist temptations",
     "trait": "N",
     "facet": 5,
@@ -788,7 +788,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 82,
-    "ko": "나는 앞 뒤 재지 않고 행동하는 편이다.",
+    "ko": "나는 무모하게 행동하는 것을 즐긴다.",
     "en": "Enjoy being reckless",
     "trait": "E",
     "facet": 5,
@@ -796,7 +796,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 83,
-    "ko": "나는 추상적인 개념을 이해하는 것이 어려운 편이다.",
+    "ko": "나는 추상적인 개념을 이해하는 데 어려움을 느낀다.",
     "en": "Have difficulty understanding abstract ideas",
     "trait": "O",
     "facet": 5,
@@ -804,7 +804,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 84,
-    "ko": "나는 나 자신이 괜찮은 사람이라 생각하는 편이다.",
+    "ko": "나는 내 자신에 대해 좋은 평가를 내린다.",
     "en": "Have a high opinion of myself",
     "trait": "A",
     "facet": 5,
@@ -812,7 +812,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 85,
-    "ko": "나는 내 시간을 낭비하는 편이다.",
+    "ko": "나는 시간을 자주 허비한다.",
     "en": "Waste my time",
     "trait": "C",
     "facet": 5,
@@ -820,7 +820,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 86,
-    "ko": "나는 내가 일을 감당할 수 없다고 느끼는 편이다.",
+    "ko": "나는 일에 휘둘려 어쩔 줄 모를 때가 있다.",
     "en": "Feel that I'm unable to deal with things",
     "trait": "N",
     "facet": 6,
@@ -828,7 +828,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 87,
-    "ko": "나는 살아있는게 좋은 편이다.",
+    "ko": "나는 살아 있다는 것이 좋다.",
     "en": "Love life",
     "trait": "E",
     "facet": 6,
@@ -836,7 +836,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 88,
-    "ko": "나는 보수적인 정치인에게 투표하는 경향이 있는 편이다.",
+    "ko": "나는 보수적인 후보에게 표를 주는 편이다.",
     "en": "Tend to vote for conservative political candidates",
     "trait": "O",
     "facet": 6,
@@ -844,7 +844,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 89,
-    "ko": "나는 남들의 문제에 관심이 없는 편이다.",
+    "ko": "나는 다른 사람의 문제에는 별 관심이 없다.",
     "en": "Am not interested in other people's problems",
     "trait": "A",
     "facet": 6,
@@ -852,7 +852,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 90,
-    "ko": "나는 서둘러 일을 처리하는 편이다.",
+    "ko": "나는 일을 서둘러 시작한다.",
     "en": "Rush into things",
     "trait": "C",
     "facet": 6,
@@ -860,7 +860,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 91,
-    "ko": "나는 쉽게 스트레스를 받는 편이다.",
+    "ko": "나는 쉽게 스트레스를 받는다.",
     "en": "Get stressed out easily",
     "trait": "N",
     "facet": 1,
@@ -868,7 +868,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 92,
-    "ko": "나는 남과 거리를 두는 편이다.",
+    "ko": "나는 사람들과 거리를 두는 편이다.",
     "en": "Keep others at a distance",
     "trait": "E",
     "facet": 1,
@@ -876,7 +876,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 93,
-    "ko": "나는 사색에 잠기는 것을 즐기는 편이다.",
+    "ko": "나는 깊은 생각에 잠기는 것을 좋아한다.",
     "en": "Like to get lost in thought",
     "trait": "O",
     "facet": 1,
@@ -884,7 +884,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 94,
-    "ko": "나는 다른 사람들을 잘 믿지 않는 편이다.",
+    "ko": "나는 사람들을 잘 믿지 않는다.",
     "en": "Distrust people",
     "trait": "A",
     "facet": 1,
@@ -892,7 +892,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 95,
-    "ko": "나는 일을 어떻게 해나가야하는지 잘 아는 편이다.",
+    "ko": "나는 일을 어떻게 풀어가야 할지 잘 안다.",
     "en": "Know how to get things done",
     "trait": "C",
     "facet": 1,
@@ -900,7 +900,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 96,
-    "ko": "나는 쉽게 짜증 내지 않는 편이다.",
+    "ko": "나는 웬만해서는 짜증을 내지 않는다.",
     "en": "Am not easily annoyed",
     "trait": "N",
     "facet": 2,
@@ -908,7 +908,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 97,
-    "ko": "나는 다른 사람들이 많은 곳을 피하는 편이다.",
+    "ko": "나는 사람이 붐비는 곳을 피한다.",
     "en": "Avoid crowds",
     "trait": "E",
     "facet": 2,
@@ -916,7 +916,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 98,
-    "ko": "나는 미술관에 가는 것을 좋아하지 않는 편이다.",
+    "ko": "나는 미술관에 가는 것을 별로 좋아하지 않는다.",
     "en": "Do not enjoy going to art museums",
     "trait": "O",
     "facet": 2,
@@ -924,7 +924,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 99,
-    "ko": "나는 다른 사람들의 계획을 방해하는 편이다.",
+    "ko": "나는 다른 사람의 일을 방해할 때가 있다.",
     "en": "Obstruct others' plans",
     "trait": "A",
     "facet": 2,
@@ -932,7 +932,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 100,
-    "ko": "나는 내 물건을 잘 잃어버리는 편이다.",
+    "ko": "나는 내 물건을 여기저기 흘리고 다닌다.",
     "en": "Leave my belongings around",
     "trait": "C",
     "facet": 2,
@@ -940,7 +940,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 101,
-    "ko": "나는 내 자신에 대해 편안함을 느끼는 편이다.",
+    "ko": "나는 내 자신과 함께 있는 시간이 편안하다.",
     "en": "Feel comfortable with myself",
     "trait": "N",
     "facet": 3,
@@ -948,7 +948,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 102,
-    "ko": "나는 남들이 앞서길 기다리는 편이다.",
+    "ko": "나는 다른 사람이 먼저 나서기를 기다린다.",
     "en": "Wait for others to lead the way",
     "trait": "E",
     "facet": 3,
@@ -956,7 +956,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 103,
-    "ko": "나는 감정적인 사람들이 이해 못 하는 편이다.",
+    "ko": "나는 감정적으로 행동하는 사람을 잘 이해하지 못한다.",
     "en": "Don't understand people who get emotional",
     "trait": "O",
     "facet": 3,
@@ -964,7 +964,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 104,
-    "ko": "나는 남을 위해 시간을 들이지 않는 편이다.",
+    "ko": "나는 다른 사람에게 시간을 잘 내지 않는다.",
     "en": "Take no time for others",
     "trait": "A",
     "facet": 3,
@@ -972,7 +972,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 105,
-    "ko": "나는 약속을 어기는 편이다.",
+    "ko": "나는 약속을 어길 때가 있다.",
     "en": "Break my promises",
     "trait": "C",
     "facet": 3,
@@ -980,7 +980,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 106,
-    "ko": "나는 어려운 사회 상황에 개의치 않는 편이다.",
+    "ko": "나는 어색한 자리에서도 크게 개의치 않는다.",
     "en": "Am not bothered by difficult social situations",
     "trait": "N",
     "facet": 4,
@@ -988,7 +988,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 107,
-    "ko": "나는 느긋하게 지내는 것을 좋아하는 편이다.",
+    "ko": "나는 편안하고 여유롭게 지내는 것을 좋아한다.",
     "en": "Like to take it easy",
     "trait": "E",
     "facet": 4,
@@ -996,7 +996,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 108,
-    "ko": "나는 전통적인 방식에 대해 애착을 가지고 있는 편이다.",
+    "ko": "나는 전통적인 방식을 소중히 여긴다.",
     "en": "Am attached to conventional ways",
     "trait": "O",
     "facet": 4,
@@ -1004,7 +1004,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 109,
-    "ko": "나는 당한 것에 대해 남들에게 (앙)갚는 편이다.",
+    "ko": "나는 당한 일에 대해 되갚아 주려 한다.",
     "en": "Get back at others",
     "trait": "A",
     "facet": 4,
@@ -1012,7 +1012,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 110,
-    "ko": "나는 내 일에 시간과 노력을 들이지 않는 편이다.",
+    "ko": "나는 일에 시간과 노력을 별로 들이지 않는다.",
     "en": "Put little time and effort into my work",
     "trait": "C",
     "facet": 4,
@@ -1020,7 +1020,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 111,
-    "ko": "나는 내 갈망을 조절 할 수 있는 편이다.",
+    "ko": "나는 내 욕구를 잘 절제한다.",
     "en": "Am able to control my cravings",
     "trait": "N",
     "facet": 5,
@@ -1028,7 +1028,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 112,
-    "ko": "나는 미친 듯이 행동하는 편이다.",
+    "ko": "나는 가끔 거칠고 엉뚱하게 행동한다.",
     "en": "Act wild and crazy",
     "trait": "E",
     "facet": 5,
@@ -1036,7 +1036,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 113,
-    "ko": "나는 이론적인 토론에 대해 관심이 없는 편이다.",
+    "ko": "나는 이론적인 토론에는 흥미가 없다.",
     "en": "Am not interested in theoretical discussions",
     "trait": "O",
     "facet": 5,
@@ -1044,7 +1044,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 114,
-    "ko": "나는 내 선행에 대해 자랑하는 편이다.",
+    "ko": "나는 내가 잘한 일을 자랑하곤 한다.",
     "en": "Boast about my virtues",
     "trait": "A",
     "facet": 5,
@@ -1052,7 +1052,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 115,
-    "ko": "나는 작업을 시작하는데 어려움이 있는 편이다.",
+    "ko": "나는 일을 시작하는 것이 어렵다.",
     "en": "Have difficulty starting tasks",
     "trait": "C",
     "facet": 5,
@@ -1060,7 +1060,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 116,
-    "ko": "나는 중압감 속에서 침착함을 유지하는 편이다.",
+    "ko": "나는 압박이 심해도 침착함을 유지한다.",
     "en": "Remain calm under pressure",
     "trait": "N",
     "facet": 6,
@@ -1068,7 +1068,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 117,
-    "ko": "나는 인생을 긍정적으로 바라보는 편이다.",
+    "ko": "나는 인생의 밝은 면을 보려 한다.",
     "en": "Look at the bright side of life",
     "trait": "E",
     "facet": 6,
@@ -1076,7 +1076,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 118,
-    "ko": "나는 우리가 범죄에 엄격해야한다고 믿는 편이다.",
+    "ko": "나는 범죄에는 엄격하게 대응해야 한다고 생각한다.",
     "en": "Believe that we should be tough on crime",
     "trait": "O",
     "facet": 6,
@@ -1084,7 +1084,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 119,
-    "ko": "나는 가난한 사람에 대해 별로 생각하고 싶지 않아하는 편이다.",
+    "ko": "나는 어려운 사람들을 떠올리는 것을 피한다.",
     "en": "Try not to think about the needy",
     "trait": "A",
     "facet": 6,
@@ -1092,7 +1092,7 @@ export const NEO_QUESTIONS: NeoItem[] = [
   },
   {
     "id": 120,
-    "ko": "나는 별 생각 없이 행동하는 편이다.",
+    "ko": "나는 깊이 생각하지 않고 행동할 때가 있다.",
     "en": "Act without thinking",
     "trait": "C",
     "facet": 6,
