@@ -302,6 +302,27 @@ function Landing() {
           </Card>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="border-t border-border bg-muted/30">
+        <div className="mx-auto max-w-4xl px-4 py-10 text-center">
+          <p className="text-sm text-muted-foreground">
+            본 진단은{" "}
+            <a
+              href="https://www.bestar.kr/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-foreground underline underline-offset-4 hover:text-primary"
+            >
+              심리 기반 강점브랜딩 스튜디오 비스타
+            </a>
+            에서 제공합니다.
+          </p>
+          <p className="mt-2 text-xs text-muted-foreground/60">
+            © {new Date().getFullYear()} Bestar. All rights reserved.
+          </p>
+        </div>
+      </footer>
     </main>
   );
 }
