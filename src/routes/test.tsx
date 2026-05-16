@@ -121,9 +121,29 @@ function Index() {
       const traits: Trait[] = ["O", "C", "E", "A", "N"];
       const top = traits.reduce((a, b) => (finalScores[b] > finalScores[a] ? b : a));
       setExpandedTrait(top);
-      setStage("result");
       setHasSavedProgress(false);
+      setStage(personalized ? "intake" : "result");
     }
+  };
+
+  const handleIntakeSubmit = async (data: IntakeInput) => {
+    setSubmittingIntake(true);
+    try {
+      await submitIntake({ ...data, test_type: "basic", scores: computedScores });
+      setIntakeData(data);
+      setStage("result");
+      sonnerToast.success("맞춤 해석을 준비했어요");
+    } catch (e) {
+      console.error(e);
+      sonnerToast.error("저장 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.");
+    } finally {
+      setSubmittingIntake(false);
+    }
+  };
+
+  const handleIntakeSkip = () => {
+    setIntakeData(null);
+    setStage("result");
   };
 
   const reset = () => {
