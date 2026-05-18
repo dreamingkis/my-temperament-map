@@ -32,6 +32,7 @@ function AdminPage() {
   const [password, setPassword] = useState("");
   const [rows, setRows] = useState<Row[] | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [authBusy, setAuthBusy] = useState(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
@@ -57,18 +58,36 @@ function AdminPage() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setAuthBusy(true);
     const { error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) toast.error(error.message);
+    if (error) {
+      const message = error.message.includes("Invalid login credentials")
+        ? "이메일 인증을 완료했는지 확인해 주세요. 가입 직후에는 인증 메일 확인 후 로그인할 수 있습니다."
+        : error.message;
+      toast.error(message);
+    }
+    setAuthBusy(false);
   };
 
   const handleSignup = async () => {
     if (!email || !password) { toast.error("이메일/비밀번호를 입력하세요"); return; }
+    if (password.length < 6) { toast.error("비밀번호는 6자 이상으로 입력하세요"); return; }
+    setAuthBusy(true);
     const { error } = await supabase.auth.signUp({
       email, password,
       options: { emailRedirectTo: `${window.location.origin}/admin` },
     });
-    if (error) toast.error(error.message);
-    else toast.success("가입 완료. 관리자 권한 부여 후 로그인하세요.");
+    if (error) {
+      const message = error.message.includes("only request this after")
+        ? "인증 메일 요청이 너무 잦습니다. 잠시 후 다시 시도하거나, 이미 받은 인증 메일을 확인해 주세요."
+        : error.message.includes("Password should be")
+          ? "비밀번호가 너무 약합니다. 6자 이상이면서 쉽게 추측하기 어려운 비밀번호를 사용해 주세요."
+          : error.message;
+      toast.error(message);
+    } else {
+      toast.success("가입 신청 완료. 이메일 인증 후 로그인하세요.");
+    }
+    setAuthBusy(false);
   };
 
   const handleLogout = async () => { await supabase.auth.signOut(); };
@@ -100,7 +119,7 @@ function AdminPage() {
         <div className="mx-auto max-w-md px-4 py-20">
           <h1 className="text-2xl font-bold">관리자 로그인</h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            비스타 운영자만 사용 가능합니다. 가입 후 admin 권한 부여가 필요합니다.
+            비스타 운영자만 사용 가능합니다. 처음 가입했다면 이메일 인증을 완료한 뒤 로그인해 주세요.
           </p>
           <Card className="mt-6 p-6">
             <form onSubmit={handleLogin} className="space-y-4">
@@ -112,12 +131,15 @@ function AdminPage() {
                 <Label htmlFor="password">비밀번호</Label>
                 <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} />
               </div>
-              <Button type="submit" className="w-full">로그인</Button>
-              <Button type="button" variant="ghost" className="w-full" onClick={handleSignup}>
+              <Button type="submit" className="w-full" disabled={authBusy}>로그인</Button>
+              <Button type="button" variant="ghost" className="w-full" onClick={handleSignup} disabled={authBusy}>
                 처음 사용 — 가입하기
               </Button>
             </form>
           </Card>
+          <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
+            insuk@bestar.kr 계정은 생성되어 관리자 권한이 부여되었습니다. 메일함에서 인증 링크를 누른 후 같은 비밀번호로 로그인하세요.
+          </p>
         </div>
       </main>
     );
