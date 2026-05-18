@@ -119,7 +119,7 @@ function AdminPage() {
         <div className="mx-auto max-w-md px-4 py-20">
           <h1 className="text-2xl font-bold">관리자 로그인</h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            비스타 운영자만 사용 가능합니다. 가입 후 admin 권한 부여가 필요합니다.
+            비스타 운영자만 사용 가능합니다. 처음 가입했다면 이메일 인증을 완료한 뒤 로그인해 주세요.
           </p>
           <Card className="mt-6 p-6">
             <form onSubmit={handleLogin} className="space-y-4">
@@ -131,12 +131,15 @@ function AdminPage() {
                 <Label htmlFor="password">비밀번호</Label>
                 <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} />
               </div>
-              <Button type="submit" className="w-full">로그인</Button>
-              <Button type="button" variant="ghost" className="w-full" onClick={handleSignup}>
+              <Button type="submit" className="w-full" disabled={authBusy}>로그인</Button>
+              <Button type="button" variant="ghost" className="w-full" onClick={handleSignup} disabled={authBusy}>
                 처음 사용 — 가입하기
               </Button>
             </form>
           </Card>
+          <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
+            insuk@bestar.kr 계정은 생성되어 관리자 권한이 부여되었습니다. 메일함에서 인증 링크를 누른 후 같은 비밀번호로 로그인하세요.
+          </p>
         </div>
       </main>
     );
