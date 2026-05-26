@@ -25,12 +25,6 @@ function roundRect(
   ctx.closePath();
 }
 
-function levelLabel(score: number) {
-  if (score < 35) return "낮음";
-  if (score < 65) return "보통";
-  return "높음";
-}
-
 export async function generateNeoResultImage(scores: NeoScores): Promise<Blob | null> {
   const width = 1080;
   const height = 1920;
@@ -179,9 +173,6 @@ export async function generateNeoResultImage(scores: NeoScores): Promise<Blob | 
     ctx.textAlign = "right";
     ctx.fillText(String(score), width - 80, y);
 
-    ctx.fillStyle = "rgba(255,255,255,0.55)";
-    ctx.font = "500 18px Pretendard, system-ui, sans-serif";
-    ctx.fillText(levelLabel(score), width - 80, y + 24);
     ctx.textAlign = "left";
 
     // Bar
@@ -221,9 +212,6 @@ export async function generateNeoResultImage(scores: NeoScores): Promise<Blob | 
       ctx.textAlign = "left";
       ctx.fillText(facetLabel, fx + 18, facetY + 24);
 
-      ctx.fillStyle = "rgba(255,255,255,0.55)";
-      ctx.font = "500 16px Pretendard, system-ui, sans-serif";
-      ctx.fillText(levelLabel(f.value), fx + 18, facetY + 45);
 
       ctx.fillStyle = color;
       ctx.font = "700 26px Pretendard, system-ui, sans-serif";

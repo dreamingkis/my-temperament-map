@@ -16,7 +16,6 @@ import {
   TRAIT_INFO,
   TRAIT_DETAIL,
   computeScores,
-  scoreLevel,
   type Trait,
 } from "@/lib/big5";
 import { decodeScores, encodeScores, generateResultImage } from "@/lib/big5-share";
@@ -24,10 +23,6 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
-import { IntakeForm } from "@/components/IntakeForm";
-import { PersonalizedInsight } from "@/components/PersonalizedInsight";
-import { submitIntake, type IntakeInput } from "@/lib/intake";
-import { toast as sonnerToast } from "sonner";
 
 export const Route = createFileRoute("/test")({
   head: () => ({
@@ -48,7 +43,7 @@ export const Route = createFileRoute("/test")({
   component: Index,
 });
 
-type Stage = "intro" | "quiz" | "intake" | "result";
+type Stage = "intro" | "quiz" | "result";
 
 function Index() {
   const STORAGE_KEY = "big5-test-progress";
@@ -59,9 +54,6 @@ function Index() {
   const [sharedScores, setSharedScores] = useState<Record<Trait, number> | null>(null);
   const [expandedTrait, setExpandedTrait] = useState<Trait | null>(null);
   const [hasSavedProgress, setHasSavedProgress] = useState(false);
-  const [personalized, setPersonalized] = useState(false);
-  const [intakeData, setIntakeData] = useState<IntakeInput | null>(null);
-  const [submittingIntake, setSubmittingIntake] = useState(false);
 
   const current = QUESTIONS[index];
   const progress = (index / QUESTIONS.length) * 100;
@@ -126,33 +118,11 @@ function Index() {
     }
   };
 
-  const handleIntakeSubmit = async (data: IntakeInput) => {
-    setSubmittingIntake(true);
-    try {
-      await submitIntake({ ...data, test_type: "basic", scores: computedScores });
-      setIntakeData(data);
-      setStage("result");
-      sonnerToast.success("맞춤 해석을 준비했어요");
-    } catch (e) {
-      console.error(e);
-      sonnerToast.error("저장 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.");
-    } finally {
-      setSubmittingIntake(false);
-    }
-  };
-
-  const handleIntakeSkip = () => {
-    setIntakeData(null);
-    setStage("result");
-  };
-
   const reset = () => {
     setAnswers({});
     setIndex(0);
     setSharedScores(null);
     setHasSavedProgress(false);
-    setIntakeData(null);
-    setPersonalized(false);
     if (typeof window !== "undefined") {
       localStorage.removeItem(STORAGE_KEY);
       if (window.location.hash) {
@@ -161,13 +131,6 @@ function Index() {
     }
     setStage("intro");
   };
-
-  const startQuiz = (withPersonalized: boolean) => {
-    setPersonalized(withPersonalized);
-    setStage("quiz");
-  };
-
-
 
   const handleResume = () => {
     setHasSavedProgress(false);
@@ -205,7 +168,6 @@ function Index() {
     const url = `${window.location.origin}${window.location.pathname}#r=${encodeScores(scores)}`;
     const text = `Big5 성격유형 진단 결과를 확인해보세요!\n개방성 ${scores.O} · 성실성 ${scores.C} · 외향성 ${scores.E} · 친화성 ${scores.A} · 신경성 ${scores.N}`;
 
-    // 모바일: Web Share API로 카카오톡 선택 가능
     if (typeof navigator !== "undefined" && navigator.share) {
       try {
         await navigator.share({ title: "Big5 성격유형 진단 결과", text, url });
@@ -215,7 +177,6 @@ function Index() {
       }
     }
 
-    // 데스크탑 폴백: 링크 복사 + 카카오톡 웹 열기 안내
     try {
       await navigator.clipboard.writeText(`${text}\n${url}`);
       toast.success("결과 링크가 복사되었습니다", {
@@ -226,6 +187,7 @@ function Index() {
       toast.error("공유에 실패했습니다");
     }
   };
+
   return (
     <main className="min-h-screen bg-background text-foreground">
       <div className="mx-auto max-w-2xl px-4 py-12 sm:py-20">
@@ -279,21 +241,11 @@ function Index() {
               </div>
             ) : (
               <div className="mt-8 flex justify-center">
-                <Button size="lg" onClick={() => startQuiz(false)}>
+                <Button size="lg" onClick={() => setStage("quiz")}>
                   진단 시작하기
                 </Button>
               </div>
             )}
-          </section>
-        )}
-
-        {stage === "intake" && (
-          <section>
-            <IntakeForm
-              onSubmit={handleIntakeSubmit}
-              onSkip={handleIntakeSkip}
-              submitting={submittingIntake}
-            />
           </section>
         )}
 
@@ -360,8 +312,6 @@ function Index() {
               각 요인별 점수는 0~100점으로 표시됩니다.
             </p>
 
-            
-
             <Card className="mt-6 p-4">
               <div className="h-80 w-full sm:h-96">
                 <ResponsiveContainer width="100%" height="100%">
@@ -426,7 +376,6 @@ function Index() {
                         const { x, y, index, value, cx, cy } = props;
                         const traits: Trait[] = ["O", "C", "E", "A", "N"];
                         const color = TRAIT_INFO[traits[index]].color;
-                        // push label outward from center
                         const dx = x - cx;
                         const dy = y - cy;
                         const len = Math.sqrt(dx * dx + dy * dy) || 1;
@@ -468,7 +417,6 @@ function Index() {
                 const info = TRAIT_INFO[t];
                 const detail = TRAIT_DETAIL[t];
                 const score = scores[t];
-                const level = scoreLevel(score);
                 const isOpen = expandedTrait === t;
                 const isHigh = score >= 50;
                 return (
@@ -486,7 +434,6 @@ function Index() {
                         </div>
                         <div className="text-right">
                           <div className="text-3xl font-bold tabular-nums" style={{ color: info.color }}>{score}</div>
-                          <div className="text-xs text-muted-foreground">{level}</div>
                         </div>
                       </div>
                       <Progress value={score} className="mt-3" indicatorClassName={`bg-trait-${t.toLowerCase()}`} />
@@ -580,7 +527,7 @@ function Index() {
                 <p>
                   성격 특질은 비교적 안정적이지만 고정된 것은 아닙니다. 연구에 따르면 성인기 동안에도 환경, 역할, 인생 경험에 따라
                   <span className="font-medium text-foreground"> 점진적으로 변화</span>합니다(Roberts &amp; Mroczek, 2008).
-                  오늘의 점수는 ‘지금의 나’를 비추는 스냅샷에 가깝습니다.
+                  오늘의 점수는 '지금의 나'를 비추는 스냅샷에 가깝습니다.
                 </p>
                 <p>
                   또한 성격은 상황에 따라 다르게 표현됩니다(person-situation interaction).
@@ -600,7 +547,7 @@ function Index() {
                   외향성 × 친화성, 성실성 × 개방성처럼 조합으로 볼 때 협업 스타일과 의사결정 패턴이 더 분명히 보입니다.
                 </li>
                 <li>
-                  <span className="font-medium text-foreground">신경성은 ‘민감도’로 읽기.</span>{" "}
+                  <span className="font-medium text-foreground">신경성은 '민감도'로 읽기.</span>{" "}
                   점수가 높다면 약점이 아니라 스트레스 신호를 빠르게 감지하는 신호 시스템이라고 보고, 회복 루틴을 함께 설계해보세요.
                 </li>
                 <li>

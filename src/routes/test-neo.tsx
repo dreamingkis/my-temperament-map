@@ -23,9 +23,6 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
-import { IntakeForm } from "@/components/IntakeForm";
-import { PersonalizedInsight } from "@/components/PersonalizedInsight";
-import { submitIntake, type IntakeInput } from "@/lib/intake";
 
 export const Route = createFileRoute("/test-neo")({
   head: () => ({
@@ -41,15 +38,9 @@ export const Route = createFileRoute("/test-neo")({
   component: NeoTest,
 });
 
-type Stage = "intro" | "quiz" | "intake" | "result";
+type Stage = "intro" | "quiz" | "result";
 
 const TRAITS: NeoTrait[] = ["O", "C", "E", "A", "N"];
-
-function levelLabel(score: number) {
-  if (score < 35) return "낮음";
-  if (score < 65) return "보통";
-  return "높음";
-}
 
 function renderAxisTick(props: any) {
   const { payload, x, y, textAnchor } = props;
@@ -76,10 +67,6 @@ function NeoTest() {
   const [index, setIndex] = useState(0);
   const [expandedTrait, setExpandedTrait] = useState<NeoTrait | null>(null);
   const [hasSavedProgress, setHasSavedProgress] = useState(false);
-  const [personalized, setPersonalized] = useState(false);
-  const [intakeData, setIntakeData] = useState<IntakeInput | null>(null);
-  const [submittingIntake, setSubmittingIntake] = useState(false);
-
   const current = NEO_QUESTIONS[index];
   const progress = (index / NEO_QUESTIONS.length) * 100;
   const scores = useMemo(() => computeNeoScores(answers), [answers]);
@@ -129,47 +116,14 @@ function NeoTest() {
     }
   };
 
-  const handleIntakeSubmit = async (data: IntakeInput) => {
-    setSubmittingIntake(true);
-    try {
-      const s = computeNeoScores(answers);
-      await submitIntake({
-        ...data,
-        test_type: "deep",
-        scores: s.domain,
-        facet_scores: s.facet,
-      });
-      setIntakeData(data);
-      setStage("result");
-      toast.success("맞춤 해석을 준비했어요");
-    } catch (e) {
-      console.error(e);
-      toast.error("저장 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.");
-    } finally {
-      setSubmittingIntake(false);
-    }
-  };
-
-  const handleIntakeSkip = () => {
-    setIntakeData(null);
-    setStage("result");
-  };
-
   const reset = () => {
     setAnswers({});
     setIndex(0);
     setHasSavedProgress(false);
-    setIntakeData(null);
-    setPersonalized(false);
     if (typeof window !== "undefined") {
       localStorage.removeItem(STORAGE_KEY);
     }
     setStage("intro");
-  };
-
-  const startQuiz = (withPersonalized: boolean) => {
-    setPersonalized(withPersonalized);
-    setStage("quiz");
   };
 
   const handleResume = () => {
@@ -252,9 +206,9 @@ function NeoTest() {
                 </Button>
               </div>
             ) : (
-              <div className="mt-8 flex justify-center">
-                <Button size="lg" onClick={() => startQuiz(false)}>
-                  심층 진단 시작하기
+              <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+                <Button size="lg" onClick={() => setStage("quiz")}>
+                  진단 시작하기
                 </Button>
               </div>
             )}
@@ -263,16 +217,6 @@ function NeoTest() {
                 <Link to="/">← 다른 진단 보기</Link>
               </Button>
             </div>
-          </section>
-        )}
-
-        {stage === "intake" && (
-          <section>
-            <IntakeForm
-              onSubmit={handleIntakeSubmit}
-              onSkip={handleIntakeSkip}
-              submitting={submittingIntake}
-            />
           </section>
         )}
 
@@ -339,8 +283,6 @@ function NeoTest() {
               5개 요인 + 30개 하위 facet 점수 (0~100). 각 요인을 눌러 facet 세부 결과를 확인하세요.
             </p>
 
-            
-
             <Card className="mt-6 p-4">
               <div className="h-80 w-full sm:h-96">
                 <ResponsiveContainer width="100%" height="100%">
@@ -401,7 +343,6 @@ function NeoTest() {
                           <div className="text-3xl font-bold tabular-nums" style={{ color: info.color }}>
                             {score}
                           </div>
-                          <div className="text-xs text-muted-foreground">{levelLabel(score)}</div>
                         </div>
                       </div>
                       <Progress
@@ -452,9 +393,6 @@ function NeoTest() {
                                         style={{ color: info.color }}
                                       >
                                         {fScore}
-                                      </span>
-                                      <span className="text-xs text-muted-foreground">
-                                        {levelLabel(fScore)}
                                       </span>
                                     </div>
                                   </div>

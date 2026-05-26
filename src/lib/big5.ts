@@ -243,8 +243,3 @@ export function computeScores(answers: Record<number, number>): Record<Trait, nu
   return scores;
 }
 
-export function scoreLevel(score: number): "낮음" | "보통" | "높음" {
-  if (score < 40) return "낮음";
-  if (score < 70) return "보통";
-  return "높음";
-}

@@ -1,5 +1,5 @@
 import type { Trait } from "./big5";
-import { TRAIT_INFO, scoreLevel } from "./big5";
+import { TRAIT_INFO } from "./big5";
 
 // Encode scores to a compact hash like #r=O45-C72-E60-A55-N30
 export function encodeScores(scores: Record<Trait, number>): string {
@@ -221,11 +221,6 @@ export async function generateResultImage(
     ctx.font = "700 44px Pretendard, system-ui, sans-serif";
     ctx.textAlign = "right";
     ctx.fillText(String(score), width - 80, y);
-
-    // Level
-    ctx.fillStyle = "rgba(255,255,255,0.55)";
-    ctx.font = "500 20px Pretendard, system-ui, sans-serif";
-    ctx.fillText(scoreLevel(score), width - 80, y + 28);
     ctx.textAlign = "left";
 
     // Bar bg

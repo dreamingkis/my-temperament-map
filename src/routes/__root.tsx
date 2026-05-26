@@ -76,16 +76,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "BIG5 성격 테스트" },
       { name: "description", content: "심리학에서 가장 보편적으로 많이 사용되는 5가지 성격 요인을 알아보세요. 기본 진단과 심층 진단이 있습니다." },
-      { name: "author", content: "Lovable" },
+      { name: "author", content: "비스타 BESTAR" },
       { property: "og:title", content: "BIG5 성격 테스트" },
       { property: "og:description", content: "심리학에서 가장 보편적으로 많이 사용되는 5가지 성격 요인을 알아보세요. 기본 진단과 심층 진단이 있습니다." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
       { name: "twitter:title", content: "BIG5 성격 테스트" },
       { name: "twitter:description", content: "심리학에서 가장 보편적으로 많이 사용되는 5가지 성격 요인을 알아보세요. 기본 진단과 심층 진단이 있습니다." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/3bf06ba4-b658-483a-a9ed-4b16566bbf5b" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/3bf06ba4-b658-483a-a9ed-4b16566bbf5b" },
     ],
     links: [
       {
@@ -106,7 +103,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="ko">
       <head>
         <HeadContent />
       </head>
