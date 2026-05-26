@@ -278,31 +278,10 @@ function Index() {
                 </Button>
               </div>
             ) : (
-              <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                <Card className="p-5 text-left">
-                  <h3 className="text-base font-semibold">기본 진단만 받기</h3>
-                  <p className="mt-1.5 text-xs text-muted-foreground">
-                    50문항을 풀고 5요인 점수와 일반 해석을 바로 봅니다. 정보 입력 없음.
-                  </p>
-                  <Button className="mt-4 w-full" variant="outline" onClick={() => startQuiz(false)}>
-                    바로 시작
-                  </Button>
-                </Card>
-                <Card className="border-primary/40 bg-primary/5 p-5 text-left">
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-base font-semibold">맞춤 해석까지 받기</h3>
-                    <span className="rounded-full bg-primary px-2 py-0.5 text-[10px] font-bold text-primary-foreground">
-                      추천
-                    </span>
-                  </div>
-                  <p className="mt-1.5 text-xs text-muted-foreground">
-                    진단 후 직업·연령·고민 한 줄을 입력하면, 당신의 점수를 그 맥락에서 해석해 드립니다.
-                    응답은 비스타가 콘텐츠 개선과 후속 가이드에 활용합니다.
-                  </p>
-                  <Button className="mt-4 w-full" onClick={() => startQuiz(true)}>
-                    맞춤 해석으로 시작
-                  </Button>
-                </Card>
+              <div className="mt-8 flex justify-center">
+                <Button size="lg" onClick={() => startQuiz(false)}>
+                  진단 시작하기
+                </Button>
               </div>
             )}
           </section>
