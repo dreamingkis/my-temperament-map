@@ -66,7 +66,7 @@ function Landing() {
             <span className="text-primary">5가지 성격 지도</span>
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-base text-muted-foreground sm:text-lg">
-            국제 표준 공개 문항으로 알아보는 무료 성격 진단.
+            심리학계에서 가장 많이 사용되는 성격모델로, 나를 좀 더 살펴봅니다.
             <br className="hidden sm:block" />
             점수가 아니라, 나를 이해하는 대화의 출발점입니다.
           </p>
