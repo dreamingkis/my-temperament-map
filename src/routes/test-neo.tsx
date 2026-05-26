@@ -125,7 +125,7 @@ function NeoTest() {
       const top = TRAITS.reduce((a, b) => (finalDomain[b] > finalDomain[a] ? b : a));
       setExpandedTrait(top);
       setHasSavedProgress(false);
-      setStage(personalized ? "intake" : "result");
+      setStage("result");
     }
   };
 
