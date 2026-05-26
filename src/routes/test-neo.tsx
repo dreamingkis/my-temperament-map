@@ -125,7 +125,7 @@ function NeoTest() {
       const top = TRAITS.reduce((a, b) => (finalDomain[b] > finalDomain[a] ? b : a));
       setExpandedTrait(top);
       setHasSavedProgress(false);
-      setStage(personalized ? "intake" : "result");
+      setStage("result");
     }
   };
 
@@ -252,28 +252,10 @@ function NeoTest() {
                 </Button>
               </div>
             ) : (
-              <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                <Card className="p-5 text-left">
-                  <h3 className="text-base font-semibold">기본 진단만 받기</h3>
-                  <p className="mt-1.5 text-xs text-muted-foreground">
-                    120문항을 풀고 5요인 + 30 facet 점수만 확인합니다.
-                  </p>
-                  <Button className="mt-4 w-full" variant="outline" onClick={() => startQuiz(false)}>
-                    바로 시작
-                  </Button>
-                </Card>
-                <Card className="border-primary/40 bg-primary/5 p-5 text-left">
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-base font-semibold">맞춤 해석까지 받기</h3>
-                    <span className="rounded-full bg-primary px-2 py-0.5 text-[10px] font-bold text-primary-foreground">추천</span>
-                  </div>
-                  <p className="mt-1.5 text-xs text-muted-foreground">
-                    직업·연령·고민을 입력하면 당신의 점수를 그 맥락에서 해석합니다. 비스타가 후속 가이드에 활용합니다.
-                  </p>
-                  <Button className="mt-4 w-full" onClick={() => startQuiz(true)}>
-                    맞춤 해석으로 시작
-                  </Button>
-                </Card>
+              <div className="mt-8 flex justify-center">
+                <Button size="lg" onClick={() => startQuiz(false)}>
+                  심층 진단 시작하기
+                </Button>
               </div>
             )}
             <div className="mt-4 text-center">
@@ -357,7 +339,7 @@ function NeoTest() {
               5개 요인 + 30개 하위 facet 점수 (0~100). 각 요인을 눌러 facet 세부 결과를 확인하세요.
             </p>
 
-            {intakeData && <PersonalizedInsight intake={intakeData} scores={scores.domain} />}
+            
 
             <Card className="mt-6 p-4">
               <div className="h-80 w-full sm:h-96">
