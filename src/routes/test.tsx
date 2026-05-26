@@ -122,7 +122,7 @@ function Index() {
       const top = traits.reduce((a, b) => (finalScores[b] > finalScores[a] ? b : a));
       setExpandedTrait(top);
       setHasSavedProgress(false);
-      setStage(personalized ? "intake" : "result");
+      setStage("result");
     }
   };
 
