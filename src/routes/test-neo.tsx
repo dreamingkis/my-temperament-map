@@ -108,6 +108,7 @@ function NeoTest() {
     }
     if (stage === "result") {
       localStorage.removeItem(STORAGE_KEY);
+      setSaveDialogOpen(true);
     }
   }, [answers, index, stage]);
 
