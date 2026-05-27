@@ -159,20 +159,27 @@ function Index() {
   };
 
   const handleDownloadImage = async () => {
-    const blob = await generateResultImage(scores);
-    if (!blob) {
-      toast.error("이미지 생성에 실패했습니다");
-      return;
+    if (isSaving) return;
+    setIsSaving(true);
+    try {
+      const blob = await generateResultImage(scores);
+      if (!blob) {
+        toast.error("이미지 생성에 실패했습니다");
+        return;
+      }
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "big5-result.png";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      toast.success("결과 이미지를 저장했습니다");
+      setSaveDialogOpen(false);
+    } finally {
+      setIsSaving(false);
     }
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "big5-result.png";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    toast.success("결과 이미지를 저장했습니다");
   };
 
   const handleKakaoShare = async () => {
