@@ -75,6 +75,7 @@ function NeoTest() {
   const [index, setIndex] = useState(0);
   const [expandedTrait, setExpandedTrait] = useState<NeoTrait | null>(null);
   const [hasSavedProgress, setHasSavedProgress] = useState(false);
+  const [saveDialogOpen, setSaveDialogOpen] = useState(false);
   const current = NEO_QUESTIONS[index];
   const progress = (index / NEO_QUESTIONS.length) * 100;
   const scores = useMemo(() => computeNeoScores(answers), [answers]);
