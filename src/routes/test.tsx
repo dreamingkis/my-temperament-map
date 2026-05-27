@@ -160,7 +160,7 @@ function Index() {
     }
   };
 
-  const handleDownloadImage = async () => {
+  const handleOpenImagePopup = async () => {
     if (isSaving) return;
     setIsSaving(true);
     try {
@@ -170,15 +170,20 @@ function Index() {
         return;
       }
       const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "big5-result.png";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      toast.success("결과 이미지를 저장했습니다");
-      setSaveDialogOpen(false);
+      const popup = window.open(url, "_blank", "width=720,height=900,scrollbars=yes,resizable=yes");
+      if (!popup) {
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "big5-result.png";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        toast.success("이미지를 다운로드했습니다");
+      } else {
+        setSaveDialogOpen(false);
+        toast.success("팝업 창에서 이미지를 저장해주세요");
+      }
     } finally {
       setIsSaving(false);
     }
@@ -595,8 +600,8 @@ function Index() {
               <Button onClick={handleCopyLink} variant="default">
                 <Link2 className="mr-2 h-4 w-4" /> 결과 링크 복사
               </Button>
-              <Button onClick={handleDownloadImage} variant="secondary">
-                <Download className="mr-2 h-4 w-4" /> 이미지로 저장
+              <Button onClick={handleOpenImagePopup} variant="secondary" disabled={isSaving}>
+                <Download className="mr-2 h-4 w-4" /> {isSaving ? "이미지 생성 중..." : "이미지로 저장"}
               </Button>
               <Button onClick={reset} variant="outline">
                 다시 진단하기
@@ -619,9 +624,9 @@ function Index() {
             <Button variant="outline" onClick={() => setSaveDialogOpen(false)}>
               나중에
             </Button>
-            <Button onClick={handleDownloadImage} disabled={isSaving}>
+            <Button onClick={handleOpenImagePopup} disabled={isSaving}>
               <Download className="mr-2 h-4 w-4" />
-              {isSaving ? "저장 중..." : "이미지 저장"}
+              {isSaving ? "이미지 생성 중..." : "이미지 저장"}
             </Button>
           </DialogFooter>
         </DialogContent>

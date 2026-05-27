@@ -152,24 +152,29 @@ function NeoTest() {
   };
 
   const [isSaving, setIsSaving] = useState(false);
-  const handleDownloadImage = async () => {
+  const handleOpenImagePopup = async () => {
     if (isSaving) return;
     setIsSaving(true);
     try {
       const blob = await generateNeoResultImage(scores);
       if (!blob) throw new Error("no blob");
       const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `neo120-result-${Date.now()}.png`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-      toast.success("결과 이미지가 저장되었습니다");
-      setSaveDialogOpen(false);
+      const popup = window.open(url, "_blank", "width=720,height=900,scrollbars=yes,resizable=yes");
+      if (!popup) {
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `neo120-result-${Date.now()}.png`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        toast.success("이미지를 다운로드했습니다");
+      } else {
+        setSaveDialogOpen(false);
+        toast.success("팝업 창에서 이미지를 저장해주세요");
+      }
     } catch {
-      toast.error("이미지 저장에 실패했습니다");
+      toast.error("이미지 생성에 실패했습니다");
     } finally {
       setIsSaving(false);
     }
@@ -425,7 +430,7 @@ function NeoTest() {
             </div>
 
             <div className="mt-8 flex flex-col gap-2 sm:flex-row sm:justify-center">
-              <Button onClick={handleDownloadImage} disabled={isSaving}>
+              <Button onClick={handleOpenImagePopup} disabled={isSaving}>
                 <Download className="mr-2 h-4 w-4" />
                 {isSaving ? "이미지 생성 중..." : "결과 이미지 저장 (PNG)"}
               </Button>
@@ -462,9 +467,9 @@ function NeoTest() {
             <Button variant="outline" onClick={() => setSaveDialogOpen(false)}>
               나중에
             </Button>
-            <Button onClick={handleDownloadImage} disabled={isSaving}>
+            <Button onClick={handleOpenImagePopup} disabled={isSaving}>
               <Download className="mr-2 h-4 w-4" />
-              {isSaving ? "저장 중..." : "이미지 저장"}
+              {isSaving ? "이미지 생성 중..." : "이미지 저장"}
             </Button>
           </DialogFooter>
         </DialogContent>
