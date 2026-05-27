@@ -122,6 +122,7 @@ function NeoTest() {
       setExpandedTrait(top);
       setHasSavedProgress(false);
       setStage("result");
+      setSaveDialogOpen(true);
     }
   };
 
