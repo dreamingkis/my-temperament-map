@@ -67,6 +67,8 @@ function Index() {
   const progress = (index / QUESTIONS.length) * 100;
   const computedScores = useMemo(() => computeScores(answers), [answers]);
   const scores = sharedScores ?? computedScores;
+  const [saveDialogOpen, setSaveDialogOpen] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
