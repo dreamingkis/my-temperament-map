@@ -447,6 +447,27 @@ function NeoTest() {
           </section>
         )}
       </div>
+
+      <Dialog open={saveDialogOpen} onOpenChange={setSaveDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>결과 이미지를 저장하시겠어요?</DialogTitle>
+            <DialogDescription>
+              심층 진단 결과를 한 장의 이미지로 저장해 두면, 나중에 다시 보거나
+              친구와 공유하기 좋아요.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="gap-2 sm:gap-2">
+            <Button variant="outline" onClick={() => setSaveDialogOpen(false)}>
+              나중에
+            </Button>
+            <Button onClick={handleDownloadImage} disabled={isSaving}>
+              <Download className="mr-2 h-4 w-4" />
+              {isSaving ? "저장 중..." : "이미지 저장"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </main>
   );
 }
