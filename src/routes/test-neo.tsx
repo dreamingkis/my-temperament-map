@@ -22,6 +22,14 @@ import { TRAIT_INFO } from "@/lib/big5";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/test-neo")({
@@ -67,6 +75,7 @@ function NeoTest() {
   const [index, setIndex] = useState(0);
   const [expandedTrait, setExpandedTrait] = useState<NeoTrait | null>(null);
   const [hasSavedProgress, setHasSavedProgress] = useState(false);
+  const [saveDialogOpen, setSaveDialogOpen] = useState(false);
   const current = NEO_QUESTIONS[index];
   const progress = (index / NEO_QUESTIONS.length) * 100;
   const scores = useMemo(() => computeNeoScores(answers), [answers]);
@@ -113,6 +122,7 @@ function NeoTest() {
       setExpandedTrait(top);
       setHasSavedProgress(false);
       setStage("result");
+      setSaveDialogOpen(true);
     }
   };
 
@@ -156,6 +166,7 @@ function NeoTest() {
       a.remove();
       URL.revokeObjectURL(url);
       toast.success("결과 이미지가 저장되었습니다");
+      setSaveDialogOpen(false);
     } catch {
       toast.error("이미지 저장에 실패했습니다");
     } finally {
@@ -436,6 +447,27 @@ function NeoTest() {
           </section>
         )}
       </div>
+
+      <Dialog open={saveDialogOpen} onOpenChange={setSaveDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>결과 이미지를 저장하시겠어요?</DialogTitle>
+            <DialogDescription>
+              심층 진단 결과를 한 장의 이미지로 저장해 두면, 나중에 다시 보거나
+              친구와 공유하기 좋아요.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="gap-2 sm:gap-2">
+            <Button variant="outline" onClick={() => setSaveDialogOpen(false)}>
+              나중에
+            </Button>
+            <Button onClick={handleDownloadImage} disabled={isSaving}>
+              <Download className="mr-2 h-4 w-4" />
+              {isSaving ? "저장 중..." : "이미지 저장"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </main>
   );
 }

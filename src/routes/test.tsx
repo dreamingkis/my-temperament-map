@@ -22,6 +22,14 @@ import { decodeScores, encodeScores, generateResultImage } from "@/lib/big5-shar
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/test")({
@@ -59,6 +67,8 @@ function Index() {
   const progress = (index / QUESTIONS.length) * 100;
   const computedScores = useMemo(() => computeScores(answers), [answers]);
   const scores = sharedScores ?? computedScores;
+  const [saveDialogOpen, setSaveDialogOpen] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -71,6 +81,7 @@ function Index() {
         const top = traits.reduce((a, b) => (decoded[b] > decoded[a] ? b : a));
         setExpandedTrait(top);
         setStage("result");
+        setSaveDialogOpen(true);
       }
     } else {
       try {
@@ -115,6 +126,7 @@ function Index() {
       setExpandedTrait(top);
       setHasSavedProgress(false);
       setStage("result");
+      setSaveDialogOpen(true);
     }
   };
 
@@ -148,20 +160,27 @@ function Index() {
   };
 
   const handleDownloadImage = async () => {
-    const blob = await generateResultImage(scores);
-    if (!blob) {
-      toast.error("이미지 생성에 실패했습니다");
-      return;
+    if (isSaving) return;
+    setIsSaving(true);
+    try {
+      const blob = await generateResultImage(scores);
+      if (!blob) {
+        toast.error("이미지 생성에 실패했습니다");
+        return;
+      }
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "big5-result.png";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      toast.success("결과 이미지를 저장했습니다");
+      setSaveDialogOpen(false);
+    } finally {
+      setIsSaving(false);
     }
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "big5-result.png";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    toast.success("결과 이미지를 저장했습니다");
   };
 
   const handleKakaoShare = async () => {
@@ -585,6 +604,27 @@ function Index() {
           </section>
         )}
       </div>
+
+      <Dialog open={saveDialogOpen} onOpenChange={setSaveDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>결과 이미지를 저장하시겠어요?</DialogTitle>
+            <DialogDescription>
+              나중에 다시 보거나 친구와 공유하기 좋도록, 진단 결과를 한 장의
+              이미지로 저장할 수 있어요.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="gap-2 sm:gap-2">
+            <Button variant="outline" onClick={() => setSaveDialogOpen(false)}>
+              나중에
+            </Button>
+            <Button onClick={handleDownloadImage} disabled={isSaving}>
+              <Download className="mr-2 h-4 w-4" />
+              {isSaving ? "저장 중..." : "이미지 저장"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </main>
   );
 }
