@@ -81,6 +81,7 @@ function Index() {
         const top = traits.reduce((a, b) => (decoded[b] > decoded[a] ? b : a));
         setExpandedTrait(top);
         setStage("result");
+        setSaveDialogOpen(true);
       }
     } else {
       try {
