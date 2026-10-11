@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { ChevronDown, Download, Link2, MessageCircle } from "lucide-react";
 import {
@@ -115,6 +116,7 @@ function Index() {
     }
   }, [answers, index, stage]);
 
+  const savedRef = useRef(false);
   const handleAnswer = (value: number) => {
     const newAnswers = { ...answers, [current.id]: value };
     setAnswers(newAnswers);
@@ -127,6 +129,26 @@ function Index() {
       setExpandedTrait(top);
       setHasSavedProgress(false);
       setStage("result");
+      if (!savedRef.current && !sharedScores) {
+        savedRef.current = true;
+        try {
+          void supabase
+            .from("intake_responses")
+            .insert({
+              test_type: "basic",
+              scores: finalScores,
+              facet_scores: null,
+              nickname: null,
+              age_range: null,
+              gender: null,
+              occupation: null,
+              concern: null,
+            })
+            .then(() => {}, () => {});
+        } catch {
+          // ignore
+        }
+      }
       setSaveDialogOpen(true);
     }
   };
@@ -228,6 +250,7 @@ function Index() {
               국제 표준 IPIP-50 문항으로 개방성·성실성·외향성·친화성·신경성을 점수로 확인해 보세요.
               약 7분 정도 소요됩니다.
             </p>
+            <p className="mt-2 text-xs text-muted-foreground">검사 결과는 익명으로 통계 목적으로 저장됩니다.</p>
 
             <Card className="mt-8 p-6 text-left sm:p-7">
               <div className="space-y-4 text-sm leading-relaxed text-muted-foreground sm:text-[15px]">
