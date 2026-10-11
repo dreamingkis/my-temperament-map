@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { ChevronDown, Download, Link2 } from "lucide-react";
 import { generateNeoResultImage } from "@/lib/neo120-share";
@@ -112,17 +113,39 @@ function NeoTest() {
     }
   }, [answers, index, stage]);
 
+  const savedRef = useRef(false);
   const handleAnswer = (value: number) => {
     const next = { ...answers, [current.id]: value };
     setAnswers(next);
     if (index < NEO_QUESTIONS.length - 1) {
       setIndex(index + 1);
     } else {
-      const finalDomain = computeNeoScores(next).domain;
+      const finalScores = computeNeoScores(next);
+      const finalDomain = finalScores.domain;
       const top = TRAITS.reduce((a, b) => (finalDomain[b] > finalDomain[a] ? b : a));
       setExpandedTrait(top);
       setHasSavedProgress(false);
       setStage("result");
+      if (!savedRef.current) {
+        savedRef.current = true;
+        try {
+          void supabase
+            .from("intake_responses")
+            .insert({
+              test_type: "deep",
+              scores: finalDomain,
+              facet_scores: finalScores.facet,
+              nickname: null,
+              age_range: null,
+              gender: null,
+              occupation: null,
+              concern: null,
+            })
+            .then(() => {}, () => {});
+        } catch {
+          // ignore
+        }
+      }
       setSaveDialogOpen(true);
     }
   };
@@ -195,6 +218,7 @@ function NeoTest() {
               Big5 5요인을 각각 6개씩, 총 <strong>30개의 하위 facet</strong>으로 나누어 살펴봅니다.
               약 12~15분이 소요됩니다.
             </p>
+            <p className="mt-2 text-xs text-muted-foreground">검사 결과는 익명으로 통계 목적으로 저장됩니다.</p>
 
             <Card className="mt-8 p-6 text-left sm:p-7">
               <div className="space-y-4 text-sm leading-relaxed text-muted-foreground sm:text-[15px]">
