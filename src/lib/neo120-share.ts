@@ -214,7 +214,7 @@ export async function generateNeoResultImage(scores: NeoScores): Promise<Blob | 
   ctx.textAlign = "center";
   ctx.fillStyle = resolveColor("var(--share-source)");
   ctx.font = "500 20px Pretendard, system-ui, sans-serif";
-  ctx.fillText("IPIP-NEO-120 · Johnson (2014)", width / 2, height - 94);
+  ctx.fillText("IPIP-NEO-120 · Johnson (2014)", width / 2, height - 174);
   try {
     const logo = await new Promise<HTMLImageElement>((resolve, reject) => {
       const image = new Image();

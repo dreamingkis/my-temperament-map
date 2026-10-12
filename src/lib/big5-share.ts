@@ -230,7 +230,7 @@ export async function generateResultImage(
   ctx.textAlign = "center";
   ctx.fillStyle = resolveColor("var(--share-source)");
   ctx.font = "500 20px Pretendard, system-ui, sans-serif";
-  ctx.fillText("IPIP-50 · Big-Five Factor Markers (Goldberg)", width / 2, height - 94);
+  ctx.fillText("IPIP-50 · Big-Five Factor Markers (Goldberg)", width / 2, height - 174);
   try {
     const logo = await new Promise<HTMLImageElement>((resolve, reject) => {
       const image = new Image();
