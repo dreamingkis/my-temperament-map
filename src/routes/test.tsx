@@ -43,6 +43,8 @@ export const Route = createFileRoute("/test")({
           "공인된 IPIP-50 문항(Goldberg, 1992)으로 알아보는 Big5 성격유형 진단. 개방성, 성실성, 외향성, 친화성, 신경성을 점수로 확인하세요.",
       },
       { property: "og:title", content: "Big5 성격유형 진단" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       {
         property: "og:description",
         content: "Big5 성격 5요인을 점수로 확인하는 무료 진단 테스트.",

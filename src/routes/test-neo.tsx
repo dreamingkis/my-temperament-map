@@ -37,6 +37,10 @@ export const Route = createFileRoute("/test-neo")({
   head: () => ({
     meta: [
       { title: "IPIP-NEO-120 심층 성격 진단 — 30가지 하위 facet" },
+      { property: "og:title", content: "BIG5 심층진단 — IPIP-NEO-120" },
+      { property: "og:description", content: "Big5 5요인과 30개 세부 성향 점수를 확인하는 비스타의 심층 성격 진단." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       {
         name: "description",
         content:
