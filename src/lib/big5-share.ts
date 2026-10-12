@@ -240,13 +240,13 @@ export async function generateResultImage(
     });
     const logoWidth = 300;
     const logoHeight = logoWidth * logo.naturalHeight / logo.naturalWidth;
-    ctx.drawImage(logo, (width - logoWidth) / 2, height - 100, logoWidth, logoHeight);
+    ctx.drawImage(logo, (width - logoWidth) / 2, height - 152, logoWidth, logoHeight);
   } catch {
     // Export remains available if the logo cannot be loaded.
   }
   ctx.fillStyle = resolveColor("var(--share-caption)");
   ctx.font = "500 22px Pretendard, system-ui, sans-serif";
-  ctx.fillText("비스타 김인숙 코치", width / 2, height - 14);
+  ctx.fillText("비스타 김인숙 코치", width / 2, height - 22);
 
   return await new Promise((resolve) => canvas.toBlob((b) => resolve(b), "image/png"));
 }
