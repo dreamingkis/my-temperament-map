@@ -23,6 +23,8 @@ export const Route = createFileRoute("/")({
           "국제 표준 IPIP-50 문항으로 진행하는 무료 Big5 성격유형 진단. 5가지 요인 점수와 자기이해 가이드를 제공합니다.",
       },
       { property: "og:title", content: "Big5 성격유형 진단" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       {
         property: "og:description",
         content: "개방성·성실성·외향성·친화성·신경성을 점수로 확인하는 자기이해 도구.",
@@ -306,6 +308,7 @@ function Landing() {
       {/* Footer */}
       <footer className="border-t border-border bg-muted/30">
         <div className="mx-auto max-w-4xl px-4 py-10 text-center">
+          <img src="/logo-basic.png" alt="비스타" width={1000} height={308} className="mx-auto mb-4 h-[30px] w-auto" />
           <p className="text-sm text-muted-foreground">
             본 진단은{" "}
             <a

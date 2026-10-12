@@ -47,19 +47,8 @@ export async function generateResultImage(
   const ctx = canvas.getContext("2d");
   if (!ctx) return null;
 
-  // Gradient background
-  const grad = ctx.createLinearGradient(0, 0, width, height);
-  grad.addColorStop(0, "#1e1b4b");
-  grad.addColorStop(0.5, "#312e81");
-  grad.addColorStop(1, "#4c1d95");
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, width, height);
-
-  // Subtle radial highlight
-  const radial = ctx.createRadialGradient(width / 2, 300, 50, width / 2, 300, 900);
-  radial.addColorStop(0, "rgba(255,255,255,0.15)");
-  radial.addColorStop(1, "rgba(255,255,255,0)");
-  ctx.fillStyle = radial;
+  // Solid brand background
+  ctx.fillStyle = resolveColor("var(--share-background)");
   ctx.fillRect(0, 0, width, height);
 
   // Header
@@ -238,10 +227,26 @@ export async function generateResultImage(
   });
 
   // Footer
-  ctx.fillStyle = "rgba(255,255,255,0.5)";
-  ctx.font = "500 24px Pretendard, system-ui, sans-serif";
   ctx.textAlign = "center";
-  ctx.fillText("Big5 성격유형 진단 · 직접 해보기", width / 2, height - 70);
+  ctx.fillStyle = resolveColor("var(--share-source)");
+  ctx.font = "500 20px Pretendard, system-ui, sans-serif";
+  ctx.fillText("IPIP-50 · Big-Five Factor Markers (Goldberg)", width / 2, height - 94);
+  try {
+    const logo = await new Promise<HTMLImageElement>((resolve, reject) => {
+      const image = new Image();
+      image.onload = () => resolve(image);
+      image.onerror = () => reject(new Error("Logo unavailable"));
+      image.src = "/logo-reversed.png";
+    });
+    const logoWidth = 300;
+    const logoHeight = logoWidth * logo.naturalHeight / logo.naturalWidth;
+    ctx.drawImage(logo, (width - logoWidth) / 2, height - 100, logoWidth, logoHeight);
+  } catch {
+    // Export remains available if the logo cannot be loaded.
+  }
+  ctx.fillStyle = resolveColor("var(--share-caption)");
+  ctx.font = "500 22px Pretendard, system-ui, sans-serif";
+  ctx.fillText("비스타 김인숙 코치", width / 2, height - 14);
 
   return await new Promise((resolve) => canvas.toBlob((b) => resolve(b), "image/png"));
 }
