@@ -7,7 +7,7 @@ export function BrandHeader() {
           alt="비스타"
           width={1000}
           height={308}
-          className="h-[28px] w-auto"
+          className="h-[27px] w-auto"
         />
       </div>
     </header>
