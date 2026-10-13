@@ -32,6 +32,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
+import { BrandHeader } from "@/components/BrandHeader";
 
 export const Route = createFileRoute("/test-neo")({
   head: () => ({
@@ -40,7 +41,11 @@ export const Route = createFileRoute("/test-neo")({
       { property: "og:title", content: "BIG5 심층진단 — IPIP-NEO-120" },
       { property: "og:description", content: "Big5 5요인과 30개 세부 성향 점수를 확인하는 비스타의 심층 성격 진단." },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: "https://big5test.lovable.app/og-image.png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:image", content: "https://big5test.lovable.app/og-image.png" },
       {
         name: "description",
         content:
@@ -209,6 +214,7 @@ function NeoTest() {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
+      <BrandHeader />
       <div className="mx-auto max-w-2xl px-4 py-12 sm:py-20">
         {stage === "intro" && (
           <section className="text-center">

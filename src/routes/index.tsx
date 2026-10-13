@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { BasicResultPreview, DeepResultPreview } from "@/components/ResultPreviews";
+import { BrandHeader } from "@/components/BrandHeader";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -24,7 +25,11 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:title", content: "Big5 성격유형 진단" },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: "https://big5test.lovable.app/og-image.png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:image", content: "https://big5test.lovable.app/og-image.png" },
       {
         property: "og:description",
         content: "개방성·성실성·외향성·친화성·신경성을 점수로 확인하는 자기이해 도구.",
@@ -47,6 +52,7 @@ function Landing() {
   }, [navigate]);
   return (
     <main className="min-h-screen bg-background text-foreground">
+      <BrandHeader />
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div
