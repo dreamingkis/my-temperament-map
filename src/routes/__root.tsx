@@ -83,6 +83,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "BIG5 성격 테스트" },
       { name: "twitter:description", content: "심리학에서 가장 보편적으로 많이 사용되는 5가지 성격 요인을 알아보세요. 기본 진단과 심층 진단이 있습니다." },
+      { property: "og:image", content: "https://big5test.lovable.app/og-image.png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:image", content: "https://big5test.lovable.app/og-image.png" },
     ],
     links: [
       { rel: "icon", type: "image/png", href: "/favicon.png" },
