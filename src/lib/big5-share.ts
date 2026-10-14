@@ -26,13 +26,13 @@ export function decodeScores(str: string): Record<Trait, number> | null {
 
 // Resolve a CSS variable like "var(--trait-o)" to a concrete color string usable in canvas.
 function resolveColor(value: string): string {
-  if (typeof window === "undefined") return "#a78bfa";
+  if (typeof window === "undefined") return "#A9D8FA";
   const match = value.match(/var\((--[\w-]+)\)/);
   if (!match) return value;
   const resolved = getComputedStyle(document.documentElement)
     .getPropertyValue(match[1])
     .trim();
-  return resolved || "#a78bfa";
+  return resolved || "#A9D8FA";
 }
 
 export async function generateResultImage(
@@ -117,7 +117,7 @@ export async function generateResultImage(
     const x = cx;
     const y = cy - r;
     // pill background
-    ctx.fillStyle = "rgba(15, 12, 50, 0.85)";
+    ctx.fillStyle = "rgba(36, 37, 41, 0.85)";
     const pillW = 50;
     const pillH = 26;
     roundRect(ctx, x - pillW / 2, y - pillH / 2, pillW, pillH, 13);
@@ -139,9 +139,9 @@ export async function generateResultImage(
     else ctx.lineTo(p.x, p.y);
   });
   ctx.closePath();
-  ctx.fillStyle = "rgba(167, 139, 250, 0.35)";
+  ctx.fillStyle = "rgba(169, 216, 250, 0.25)";
   ctx.fill();
-  ctx.strokeStyle = "rgba(240, 171, 252, 0.9)";
+  ctx.strokeStyle = "rgba(3, 175, 255, 0.9)";
   ctx.lineWidth = 3;
   ctx.stroke();
 
