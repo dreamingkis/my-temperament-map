@@ -231,22 +231,36 @@ export async function generateResultImage(
   ctx.fillStyle = resolveColor("var(--share-source)");
   ctx.font = "500 20px Pretendard, system-ui, sans-serif";
   ctx.fillText("IPIP-50 · Big-Five Factor Markers (Goldberg)", width / 2, height - 174);
-  try {
-    const logo = await new Promise<HTMLImageElement>((resolve, reject) => {
-      const image = new Image();
-      image.onload = () => resolve(image);
-      image.onerror = () => reject(new Error("Logo unavailable"));
-      image.src = "/logo-reversed.png";
-    });
-    const logoWidth = 300;
-    const logoHeight = logoWidth * logo.naturalHeight / logo.naturalWidth;
-    ctx.drawImage(logo, (width - logoWidth) / 2, height - 152, logoWidth, logoHeight);
-  } catch {
-    // Export remains available if the logo cannot be loaded.
-  }
-  ctx.fillStyle = resolveColor("var(--share-caption)");
-  ctx.font = "500 22px Pretendard, system-ui, sans-serif";
-  ctx.fillText("비스타 김인숙 코치", width / 2, height - 22);
+  // Provider line: favicon badge (drawn) + text, one centered row
+  const providerText = "비스타에서 제공합니다";
+  ctx.font = "500 24px Pretendard, system-ui, sans-serif";
+  const providerWidth = ctx.measureText(providerText).width;
+  const badgeSize = 30;
+  const badgeGap = 10;
+  const rowWidth = badgeSize + badgeGap + providerWidth;
+  const rowX = (width - rowWidth) / 2;
+  const badgeCx = rowX + badgeSize / 2;
+  const badgeCy = height - 103;
+  ctx.beginPath();
+  ctx.arc(badgeCx, badgeCy, badgeSize / 2, 0, Math.PI * 2);
+  ctx.fillStyle = "#A9D8FA";
+  ctx.fill();
+  const starR = 12;
+  const starW = 1.7;
+  ctx.beginPath();
+  ctx.moveTo(badgeCx, badgeCy - starR);
+  ctx.quadraticCurveTo(badgeCx + starW, badgeCy - starW, badgeCx + starR, badgeCy);
+  ctx.quadraticCurveTo(badgeCx + starW, badgeCy + starW, badgeCx, badgeCy + starR);
+  ctx.quadraticCurveTo(badgeCx - starW, badgeCy + starW, badgeCx - starR, badgeCy);
+  ctx.quadraticCurveTo(badgeCx - starW, badgeCy - starW, badgeCx, badgeCy - starR);
+  ctx.closePath();
+  ctx.fillStyle = "#242529";
+  ctx.fill();
+  ctx.textAlign = "left";
+  ctx.textBaseline = "middle";
+  ctx.fillStyle = "rgba(255, 255, 255, 0.65)";
+  ctx.fillText(providerText, rowX + badgeSize + badgeGap, badgeCy);
+  ctx.textBaseline = "alphabetic";
 
   return await new Promise((resolve) => canvas.toBlob((b) => resolve(b), "image/png"));
 }
