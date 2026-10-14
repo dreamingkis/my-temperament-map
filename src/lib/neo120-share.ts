@@ -2,13 +2,13 @@ import { TRAIT_INFO, type Trait } from "./big5";
 import { NEO_FACETS, type NeoScores, type NeoTrait } from "./neo120";
 
 function resolveColor(value: string): string {
-  if (typeof window === "undefined") return "#a78bfa";
+  if (typeof window === "undefined") return "#A9D8FA";
   const match = value.match(/var\((--[\w-]+)\)/);
   if (!match) return value;
   const resolved = getComputedStyle(document.documentElement)
     .getPropertyValue(match[1])
     .trim();
-  return resolved || "#a78bfa";
+  return resolved || "#A9D8FA";
 }
 
 function roundRect(
@@ -98,9 +98,9 @@ export async function generateNeoResultImage(scores: NeoScores): Promise<Blob | 
   ctx.beginPath();
   points.forEach((p, i) => { if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y); });
   ctx.closePath();
-  ctx.fillStyle = "rgba(167, 139, 250, 0.35)";
+  ctx.fillStyle = "rgba(169, 216, 250, 0.25)";
   ctx.fill();
-  ctx.strokeStyle = "rgba(240, 171, 252, 0.9)";
+  ctx.strokeStyle = "rgba(3, 175, 255, 0.9)";
   ctx.lineWidth = 3;
   ctx.stroke();
 
