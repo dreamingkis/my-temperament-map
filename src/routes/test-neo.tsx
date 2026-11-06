@@ -42,10 +42,10 @@ export const Route = createFileRoute("/test-neo")({
       { property: "og:description", content: "Big5 5요인과 30개 세부 성향 점수를 확인하는 비스타의 심층 성격 진단." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { property: "og:image", content: "https://big5test.lovable.app/og-image.png" },
+      { property: "og:image", content: "https://big5test.lovable.app/og-test-neo.png" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { name: "twitter:image", content: "https://big5test.lovable.app/og-image.png" },
+      { name: "twitter:image", content: "https://big5test.lovable.app/og-test-neo.png" },
       {
         name: "description",
         content:

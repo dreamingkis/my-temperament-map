@@ -46,10 +46,10 @@ export const Route = createFileRoute("/test")({
       { property: "og:title", content: "Big5 성격유형 진단" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { property: "og:image", content: "https://big5test.lovable.app/og-image.png" },
+      { property: "og:image", content: "https://big5test.lovable.app/og-test.png" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { name: "twitter:image", content: "https://big5test.lovable.app/og-image.png" },
+      { name: "twitter:image", content: "https://big5test.lovable.app/og-test.png" },
       {
         property: "og:description",
         content: "Big5 성격 5요인을 점수로 확인하는 무료 진단 테스트.",
