@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { ChevronDown, Download, Link2, MessageCircle } from "lucide-react";
+import { ArrowRight, ChevronDown, Download, Link2, MessageCircle } from "lucide-react";
 import {
   RadarChart,
   Radar,
@@ -619,6 +619,48 @@ function Index() {
               <p className="mt-5 text-xs text-muted-foreground">
                 ※ 본 결과는 IPIP-50(Goldberg, 1992) 문항을 기반으로 한 자기이해용 자료이며, 임상적 진단이나 인사 의사결정의 근거가 아닙니다.
               </p>
+            </Card>
+
+            <Card className="mt-8 p-5 sm:p-6">
+              <h3 className="text-sm font-semibold text-foreground">다음 단계</h3>
+              <div className="mt-1 divide-y divide-border">
+                <a
+                  href="https://www.bestar.kr/gallup-strengths-themes/"
+                  className="flex items-center justify-between gap-3 py-3"
+                >
+                  <span className="text-sm text-muted-foreground">
+                    내 강점 테마를 읽고 싶다면
+                  </span>
+                  <span className="flex shrink-0 items-center gap-1 text-sm font-medium text-primary">
+                    강점사전 보기
+                    <ArrowRight className="h-4 w-4" />
+                  </span>
+                </a>
+                <a
+                  href="https://www.bestar.kr/toolkit/strength-work-structure/"
+                  className="flex items-center justify-between gap-3 py-3"
+                >
+                  <span className="text-sm text-muted-foreground">
+                    강점은 찾았는데 일이 아직 막막하다면
+                  </span>
+                  <span className="flex shrink-0 items-center gap-1 text-sm font-medium text-primary">
+                    일의 구조 진단 시작하기
+                    <ArrowRight className="h-4 w-4" />
+                  </span>
+                </a>
+                <a
+                  href="https://www.bestar.kr/strength-coaching/"
+                  className="flex items-center justify-between gap-3 py-3"
+                >
+                  <span className="text-sm text-muted-foreground">
+                    자신의 강점과 맞는 방식을 이해하고 싶다면
+                  </span>
+                  <span className="flex shrink-0 items-center gap-1 text-sm font-medium text-primary">
+                    강점 방향성 코칭 살펴보기
+                    <ArrowRight className="h-4 w-4" />
+                  </span>
+                </a>
+              </div>
             </Card>
 
             <div className="mt-8 flex flex-wrap justify-center gap-3">
