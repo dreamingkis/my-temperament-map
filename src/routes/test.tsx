@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { ChevronDown, Download, Link2, MessageCircle } from "lucide-react";
+import { ArrowRight, ChevronDown, Download, Link2, MessageCircle } from "lucide-react";
 import {
   RadarChart,
   Radar,
