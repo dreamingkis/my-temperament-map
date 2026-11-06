@@ -21,7 +21,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "국제 표준 IPIP-50 문항으로 진행하는 무료 Big5 성격유형 진단. 5가지 요인 점수와 자기이해 가이드를 제공합니다.",
+          "학계에서 공개한 IPIP-50 문항으로 진행하는 무료 Big5 성격유형 진단. 5가지 요인 점수와 자기이해 가이드를 제공합니다.",
       },
       { property: "og:title", content: "Big5 성격유형 진단" },
       { property: "og:type", content: "website" },
@@ -231,7 +231,7 @@ function Landing() {
         </div>
 
         <p className="mt-6 text-center text-xs text-muted-foreground">
-          모든 진단은 로그인 없이 진행되며, 결과는 브라우저에만 남습니다.
+          검사 결과는 익명으로 통계 목적으로 저장됩니다.
         </p>
       </section>
 
