@@ -255,7 +255,7 @@ function Index() {
               나의 성격 5요인 진단
             </h1>
             <p className="mt-5 text-base text-muted-foreground sm:text-lg">
-              국제 표준 IPIP-50 문항으로 개방성·성실성·외향성·친화성·신경성을 점수로 확인해 보세요.
+              학계에서 공개한 IPIP-50 문항으로 개방성·성실성·외향성·친화성·신경성을 점수로 확인해 보세요.
               약 7분 정도 소요됩니다.
             </p>
             <p className="mt-2 text-xs text-muted-foreground">검사 결과는 익명으로 통계 목적으로 저장됩니다.</p>
